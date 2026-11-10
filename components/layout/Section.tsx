@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/cn";
-import { Container } from "./Container";
+import { Container } from "@/components/layout/Container";
 
 type SectionProps = ComponentPropsWithoutRef<"section"> & {
   /** `alt` gives the section the alternate background (#F4F7FB). */
