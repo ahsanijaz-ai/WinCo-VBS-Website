@@ -27,6 +27,10 @@
 
   /* Motion: one easing curve for everything */
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1); /* ease-brand */
+
+  /* A bare "transition" class gets our timing, not Tailwind's 150 ms default */
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
