@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 /**
  * Developer-only reference page that shows every design token in one place.
- * Use it to check colour, type and spacing by eye. It is hidden from search engines
- * and must be deleted before launch.
+ * Use it to check colour, type and spacing by eye. It is hidden from search engines,
+ * returns 404 on the live production site, and still works locally and on previews.
+ * Delete it before the client signs off.
  */
 export const metadata: Metadata = {
   title: "Design tokens",
@@ -55,6 +57,8 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 }
 
 export default function TokensPage() {
+  if (process.env.VERCEL_ENV === "production") notFound();
+
   return (
     <main className="max-w-site mx-auto w-full px-(--gutter) py-12">
       <h1>Design tokens</h1>
