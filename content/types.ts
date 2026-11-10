@@ -3,11 +3,11 @@
  * so a copy change touches one file and TypeScript catches missing fields.
  */
 
-/** A link shown as a button. `primary` uses the secondary colour (30%), `accent` is the one key CTA (10%). */
+/** A link shown as a button. `primary` is solid blue, `secondary` is the blue outline style. */
 export type CtaButton = {
   label: string;
   href: string;
-  variant: "primary" | "secondary" | "accent";
+  variant: "primary" | "secondary";
 };
 
 export type HeroImage = {
