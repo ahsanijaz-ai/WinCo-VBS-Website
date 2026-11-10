@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Logo } from "@/components/brand/Logo";
 import { Section } from "@/components/layout/Section";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 
@@ -27,6 +28,7 @@ export default function LayoutCheckPage() {
   return (
     <>
       <Section aria-labelledby="layout-default">
+        <Logo className="mb-8" />
         <h1 id="layout-default">Layout check</h1>
         <div className="mt-8 grid gap-4">
           <Bar label="Container: full width up to 1280 px, with the side padding on each side" />
@@ -36,10 +38,8 @@ export default function LayoutCheckPage() {
             sideways.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <ButtonLink href="/dev/layout" className="w-full sm:w-auto">
-              Primary button
-            </ButtonLink>
-            <ButtonLink href="/dev/layout" variant="secondary" className="w-full sm:w-auto">
+            <ButtonLink href="/dev/layout">Primary button</ButtonLink>
+            <ButtonLink href="/dev/layout" variant="secondary">
               Secondary button
             </ButtonLink>
           </div>
