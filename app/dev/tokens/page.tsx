@@ -47,7 +47,7 @@ const motion = [
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="py-(--section-y) first:pt-0">
+    <section className="py-(--section-y)">
       <h2 className="mb-8">{title}</h2>
       {children}
     </section>
@@ -57,7 +57,7 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 export default function TokensPage() {
   return (
     <main className="max-w-site mx-auto w-full px-(--gutter) py-12">
-      <h1 className="mb-12">Design tokens</h1>
+      <h1>Design tokens</h1>
 
       <Block title="Colour">
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -93,7 +93,7 @@ export default function TokensPage() {
         <ul className="grid gap-3">
           {spacing.map(({ step, px, bar }) => (
             <li key={step} className="flex items-center gap-4">
-              <span className="w-24 text-sm">
+              <span className="w-36 shrink-0 text-sm">
                 step {step} ({px} px)
               </span>
               <span className={`rounded-card bg-secondary h-4 ${bar}`} />
