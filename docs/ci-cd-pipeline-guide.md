@@ -42,7 +42,7 @@ File: `.github/workflows/ci.yml`. It runs on every pull request and on every pus
 
 The job uses the Node version in `.nvmrc` (24) and the pnpm version in `package.json`, so CI matches our machines. pnpm's store is cached between runs.
 
-The check is named `ci`. Branch protection on main requires it to pass.
+The check is named `ci`. The ruleset on main requires it to pass.
 
 ### Run the same checks locally before pushing
 
@@ -90,17 +90,17 @@ Ahsan owns the Vercel project, connected to the GitHub repo.
 - Environment variables are set in Vercel project settings, separately for Preview and Production. Never put real keys in the repo.
 - Rollback: Vercel dashboard, Deployments, pick the last good deployment, "Promote to Production". It takes seconds. Then fix the bug with a normal PR.
 
-The repo is private and owned by Ahsan's account. On Vercel's free plan, pushes from a collaborator can be blocked from deploying. If a PR from Ammar shows no preview link, tell Ahsan straight away so we can sort it out.
+## Ruleset on main
 
-## Branch protection on main
-
-Set by Ahsan in GitHub, Settings, Branches:
+The repo is public. Main is protected by a ruleset named `main`, set by Ahsan in GitHub, Settings, Rules, Rulesets:
 
 - Pull request required before merging, with 1 approval
 - Status check `ci` must pass
 - No direct pushes, no force pushes
 
 ## Secrets and environment variables
+
+The repo is public, so anyone can read every commit, including old ones.
 
 - Real values go in `.env.local` locally (gitignored) and in Vercel settings for deploys.
 - Every variable name goes in `.env.example` with an empty value, so the other developer knows it exists.
