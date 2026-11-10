@@ -40,9 +40,14 @@ export type Page = {
   hero: Hero;
 };
 
-/** A short block with a heading and body paragraphs. */
-export type TextBlock = {
+/** A section heading with an optional second line, e.g. "Why WinCo VBS?" / "Your Business. Our Focus." */
+export type SectionHeading = {
   title: string;
+  subtitle?: string;
+};
+
+/** A short block with a heading and body paragraphs. */
+export type TextBlock = SectionHeading & {
   paragraphs: string[];
 };
 
@@ -57,6 +62,9 @@ export type CallToAction = {
 export type ValuePoint = {
   title: string;
   description: string;
+  /** What We Do cards link to their group on /services. */
+  href?: string;
+  icon?: ServiceIcon;
 };
 
 /** Used by How We Work (Home). */
@@ -92,6 +100,11 @@ export type SocialLink = {
   href: string;
 };
 
+export type FooterHeadings = {
+  quickLinks: string;
+  social: string;
+};
+
 export type SiteSettings = {
   name: string;
   shortName: string;
@@ -110,6 +123,73 @@ export type SiteSettings = {
   serviceArea: string;
   location: string;
   footerText: string;
+  footerHeadings: FooterHeadings;
   copyright: string;
   socials: SocialLink[];
+};
+
+/* ---------- Page shapes ---------- */
+
+export type HomePage = Page & {
+  intro: TextBlock;
+  whatWeDo: SectionHeading & {
+    cards: ValuePoint[];
+    button: CtaButton;
+  };
+  whyUs: SectionHeading & {
+    points: ValuePoint[];
+  };
+  howWeWork: SectionHeading & {
+    steps: ProcessStep[];
+  };
+  closingCta: CallToAction;
+};
+
+export type AboutPage = Page & {
+  about: TextBlock;
+  mission: TextBlock;
+  vision: TextBlock;
+  approach: TextBlock;
+  /** Closing line at the bottom of the page. */
+  closingTagline: string;
+};
+
+export type ServicesPage = Page & {
+  /** Line under the hero, e.g. "Explore our solutions below." */
+  intro: string;
+  groups: ServiceGroup[];
+  closingCta: CallToAction;
+};
+
+export type ContactDetail = {
+  label: string;
+  value: string;
+  /** mailto:, tel: or wa.me link. Omitted for plain text like the location. */
+  href?: string;
+};
+
+/** Field names match the inquiry schema in lib/. */
+export type InquiryFieldName =
+  "fullName" | "organization" | "email" | "phone" | "country" | "service" | "message";
+
+export type InquiryField = {
+  name: InquiryFieldName;
+  label: string;
+  required: boolean;
+};
+
+export type InquiryForm = {
+  title: string;
+  fields: InquiryField[];
+  /** Options for the "Service Interested In" dropdown. */
+  serviceOptions: string[];
+  submitLabel: string;
+  successMessage: string;
+};
+
+export type ContactPage = Page & {
+  intro: string[];
+  details: ContactDetail[];
+  whatsappButton: CtaButton;
+  form: InquiryForm;
 };
