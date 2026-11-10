@@ -1,8 +1,14 @@
+import { servicesPage } from "./services";
 import { site } from "./site";
-import type { Page } from "./types";
+import type { ContactPage, CtaButton } from "./types";
 
-// Hero only for now. Contact details and form text are added in task 2.4.
-export const contactPage: Page = {
+const whatsappButton: CtaButton = {
+  label: "Chat With Us on WhatsApp",
+  href: site.whatsappUrl,
+  variant: "primary",
+};
+
+export const contactPage: ContactPage = {
   seo: {
     title: "Contact Us | WinCo VBS",
     description:
@@ -10,9 +16,36 @@ export const contactPage: Page = {
   },
   hero: {
     title: "Let's Talk Business.",
-    description:
-      "Tell Us What Your Business Needs. Have a project in mind? Need ongoing business support? Looking for ways to improve your operations? We'd love to hear from you.",
+    description: "Tell Us What Your Business Needs.",
     size: "compact",
-    buttons: [{ label: "Chat With Us on WhatsApp", href: site.whatsappUrl, variant: "primary" }],
+    buttons: [whatsappButton],
+  },
+  intro: [
+    "Have a project in mind? Need ongoing business support? Looking for ways to improve your operations? We'd love to hear from you.",
+    "Contact WinCo VBS to discuss your goals and explore how we can help.",
+  ],
+  details: [
+    { label: "Email", value: site.email, href: `mailto:${site.email}` },
+    { label: "Phone / WhatsApp", value: site.phoneDisplay, href: `tel:${site.phoneE164}` },
+    { label: "Location", value: `${site.address.city}, ${site.address.country}` },
+    { label: "Service Area", value: site.serviceArea },
+  ],
+  whatsappButton,
+  form: {
+    title: "How Can We Help?",
+    fields: [
+      { name: "fullName", label: "Full Name", required: true },
+      { name: "organization", label: "Business / Organization Name", required: false },
+      { name: "email", label: "Email Address", required: true },
+      { name: "phone", label: "Phone / WhatsApp", required: false },
+      { name: "country", label: "Country", required: false },
+      { name: "service", label: "Service Interested In", required: false },
+      { name: "message", label: "Tell Us About Your Business Needs", required: false },
+    ],
+    // Same titles as the service groups, so the two lists can't drift apart.
+    serviceOptions: [...servicesPage.groups.map((group) => group.title), "General Inquiry / Other"],
+    submitLabel: "Send Inquiry",
+    successMessage:
+      "Thank you for contacting WinCo VBS. We've received your inquiry and will be in touch as soon as possible.",
   },
 };
