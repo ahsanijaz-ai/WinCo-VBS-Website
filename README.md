@@ -9,7 +9,7 @@ Built by Ahsan and Ammar. See the Architecture Document and the WBS for the full
 
 | Tool         | Version                        |
 | ------------ | ------------------------------ |
-| Node.js      | 22 LTS (see `.nvmrc`)          |
+| Node.js      | 24 LTS (see `.nvmrc`)          |
 | pnpm         | 10.34.9 (see `packageManager`) |
 | Next.js      | 16.4.6 (App Router)            |
 | React        | 19.3.0                         |

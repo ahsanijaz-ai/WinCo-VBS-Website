@@ -21,7 +21,7 @@
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "@tailwindcss/turbopack": "4.3.3",
-    "@types/node": "22.20.5",
+    "@types/node": "24.19.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
@@ -42,7 +42,7 @@
     "*.{css,json,md,yml,yaml}": "prettier --write"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "packageManager": "pnpm@10.34.9"
 }
