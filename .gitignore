@@ -40,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# source material that must never be pushed
+WhatsApp Image*
+*.docx
+public/brand/*.jpeg
+public/brand/*.jpg
