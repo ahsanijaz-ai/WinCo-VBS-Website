@@ -1,3 +1,115 @@
 @import "tailwindcss";
 
-/* Design tokens (colours, motion, font) are added by Ahsan in feat/design-tokens. */
+/*
+ * Design tokens. This is the only file that defines colours, motion and layout values.
+ * Components use the utilities these tokens create (bg-secondary, max-w-site, ease-brand)
+ * or the CSS variables below. See docs/brand.md for the rules.
+ */
+
+@theme {
+  /* Colour: 60 / 30 / 10 */
+  --color-primary: #ffffff;
+  --color-primary-alt: #f4f7fb;
+  --color-secondary: #0b63ce;
+  --color-secondary-hover: #094fa8;
+  --color-secondary-tint: #eaf2fc;
+  --color-accent: #19bfd0;
+  --color-border: #d9e2ef;
+  --color-ink: #0b2447;
+  --color-text: #3a4a63;
+
+  /* Type */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Shape and width */
+  --radius-card: 0.5rem; /* rounded-card: 8 px */
+  --container-site: 80rem; /* max-w-site: 1280 px outer width */
+
+  /* Motion: one easing curve for everything */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1); /* ease-brand */
+}
+
+:root {
+  /* Motion: every transition uses one of these three durations */
+  --motion-fast: 170ms;
+  --motion-base: 200ms;
+  --motion-slow: 240ms;
+
+  /* Layout values: they change only at breakpoints, never per component */
+  --gutter: 1rem; /* page side padding: 16 px */
+  --section-y: 4rem; /* top and bottom padding of a section: 64 px */
+  --header-h: 4rem; /* header height: 64 px */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 1.5rem;
+    --section-y: 5rem;
+    --header-h: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 2rem;
+    --section-y: 6rem;
+  }
+}
+
+@layer base {
+  html {
+    scroll-padding-top: var(--header-h);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-primary text-text font-sans text-base leading-6;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply text-ink font-semibold;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 1.4rem + 3vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  h3 {
+    @apply text-xl leading-7;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+}
+
+/*
+ * Reduced motion: colour and opacity fades stay at 170 ms, but slides and scaling
+ * stop animating. The final state (open menu, X icon, underline) appears instantly.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 170ms;
+    --motion-base: 170ms;
+    --motion-slow: 170ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-property:
+      color, background-color, border-color, box-shadow, opacity, visibility !important;
+  }
+}
