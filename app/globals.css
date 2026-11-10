@@ -7,6 +7,9 @@
  */
 
 @theme {
+  /* Remove Tailwind's default palette (bg-blue-500 and so on), so only our tokens exist */
+  --color-*: initial;
+
   /* Colour: 60 / 30 / 10 */
   --color-primary: #ffffff;
   --color-primary-alt: #f4f7fb;
