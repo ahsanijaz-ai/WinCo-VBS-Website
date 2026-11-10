@@ -98,11 +98,11 @@ Every animation lasts between 170 and 240 ms. Use the tokens, never a hard-coded
 | `--motion-base` | 200 ms | Nav hover underline, icon lift, hamburger |
 | `--motion-slow` | 240 ms | Mobile menu open, header shrink on scroll |
 
-Easing: one curve for everything, `cubic-bezier(0.22, 1, 0.36, 1)`.
+Easing: one curve for everything, stored as `--ease-brand: cubic-bezier(0.22, 1, 0.36, 1)`. Use the token, never write the curve in a component.
 
-- Animate only `transform` and `opacity`. Never width, height, top or margin.
+- Animate mostly `transform` and `opacity`. Fades of colour, background colour and shadow are allowed too. Never animate width, height, top or margin.
 - Nav and UI animations are plain CSS, no JavaScript.
-- Wrap hover effects in `@media (hover: hover)` so phones don't get stuck hover states.
+- Use Tailwind's `hover:` classes for hover effects. In Tailwind v4 they only apply on devices that can hover, so phones don't get stuck hover states. If you write hover styles in plain CSS, wrap them in `@media (hover: hover)`.
 - Respect `prefers-reduced-motion`: swap slides and scales for a 170 ms fade, or nothing.
 - Text never waits for an animation. The hero shows immediately.
 
