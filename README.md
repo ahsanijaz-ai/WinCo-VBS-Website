@@ -62,6 +62,12 @@ tests/               unit and e2e
 
 Colours and animation times live in `app/globals.css`.
 
+## Team guides
+
+- [Brand guide](docs/brand.md): colours (60-30-10), logo, type, motion, icons
+- [Coding rules](docs/coding-rules.md): ownership, TypeScript, styling, git workflow, definition of done
+- [CI/CD pipeline guide](docs/ci-cd-pipeline-guide.md): checks, previews, deploys, fixing failures
+
 ## How we work
 
 - `main` is protected. No direct pushes; every change is a pull request.
