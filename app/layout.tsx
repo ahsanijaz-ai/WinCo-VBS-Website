@@ -20,7 +20,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={cn(inter.variable, "h-full antialiased")}>
       <body className="flex min-h-full flex-col">
         <SkipLink />
-        <main id="main" className="flex-1">
+        <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
           {children}
         </main>
       </body>
