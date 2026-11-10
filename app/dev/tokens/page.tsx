@@ -60,7 +60,7 @@ export default function TokensPage() {
   if (process.env.VERCEL_ENV === "production") notFound();
 
   return (
-    <main className="max-w-site mx-auto w-full px-(--gutter) py-12">
+    <div className="max-w-site mx-auto w-full px-(--gutter) py-12">
       <h1>Design tokens</h1>
 
       <Block title="Colour">
@@ -155,6 +155,6 @@ export default function TokensPage() {
           ))}
         </ul>
       </Block>
-    </main>
+    </div>
   );
 }
