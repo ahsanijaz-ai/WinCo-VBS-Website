@@ -1,6 +1,7 @@
 import { Logo } from "@/components/brand/Logo";
 import { Container } from "@/components/layout/Container";
 import { HeaderShell } from "@/components/layout/HeaderShell";
+import { MobileMenu } from "@/components/layout/MobileMenu";
 import { NavLink } from "@/components/layout/NavLink";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { homePage } from "@/content";
@@ -9,7 +10,7 @@ import { navItems } from "@/lib/nav-items";
 /**
  * Site header: logo, the four page links with icons, and the consultation button.
  * From 768 px the links show inline; the button joins them from 1280 px, where there is room.
- * Under 768 px the links move into the mobile menu (added in the next branch).
+ * Under 768 px the links move into the mobile menu.
  */
 export function SiteHeader() {
   const consultation = homePage.closingCta.button;
@@ -44,6 +45,8 @@ export function SiteHeader() {
         >
           {consultation.label}
         </ButtonLink>
+
+        <MobileMenu consultation={{ label: consultation.label, href: consultation.href }} />
       </Container>
     </HeaderShell>
   );
