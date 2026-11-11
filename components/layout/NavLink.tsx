@@ -28,7 +28,7 @@ export function NavLink({ href, label, icon }: NavLinkProps) {
         "group text-ink relative inline-flex min-h-11 items-center gap-2 px-3 text-base font-medium whitespace-nowrap",
         "ease-brand hover:text-secondary transition duration-(--motion-base)",
         "active:scale-[0.97] active:duration-(--motion-fast)",
-        active && "text-secondary",
+        active && "text-secondary font-semibold",
       )}
     >
       {icon}
