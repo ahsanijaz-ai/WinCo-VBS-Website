@@ -26,6 +26,8 @@ const colors = [
   { token: "--color-accent", swatch: "bg-accent", share: "10%" },
   { token: "--color-ink", swatch: "bg-ink", share: "text" },
   { token: "--color-text", swatch: "bg-text", share: "text" },
+  { token: "--color-navy", swatch: "bg-navy", share: "dark surfaces" },
+  { token: "--color-light-blue", swatch: "bg-light-blue", share: "dark surfaces" },
 ] as const;
 
 const spacing = [
