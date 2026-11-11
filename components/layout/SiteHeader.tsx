@@ -8,7 +8,7 @@ import { navItems } from "@/lib/nav-items";
 
 /**
  * Site header: logo, the four page links with icons, and the consultation button.
- * From 768 px the links show inline; the button joins them from 1024 px.
+ * From 768 px the links show inline; the button joins them from 1280 px, where there is room.
  * Under 768 px the links move into the mobile menu (added in the next branch).
  */
 export function SiteHeader() {
@@ -38,7 +38,10 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <ButtonLink href={consultation.href} className="hidden lg:inline-flex">
+        <ButtonLink
+          href={consultation.href}
+          className="hidden shrink-0 whitespace-nowrap xl:inline-flex"
+        >
           {consultation.label}
         </ButtonLink>
       </Container>

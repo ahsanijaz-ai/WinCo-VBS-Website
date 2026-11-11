@@ -78,15 +78,21 @@ Text needs 4.5:1 against its background, large text 3:1. Focus rings and other U
 
 ## Logo
 
-The logo is a blue-to-cyan "W" mark, navy "WinCo", cyan "V", blue "BS", with "VIRTUAL BUSINESS SOLUTIONS" underneath.
+The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The logo images the client sent are JPGs with a white or grey background, so the SVG files below were rebuilt from them as vectors. If the client sends the original SVG, replace these files and keep the names.
 
-- We're waiting on an SVG or transparent PNG from the client. Until it arrives, use a text placeholder.
-- The WhatsApp logo images and the project docx files must never be committed, under any name. `.gitignore` blocks them.
-- Full logo in the header and footer. The "W" mark alone is the favicon and the small mobile header icon.
-- Header logo at least 40 px tall on phones.
+| File                                                    | What it is                                                 | Used for                          |
+| ------------------------------------------------------- | ---------------------------------------------------------- | --------------------------------- |
+| `public/brand/logo.svg`                                 | The W mark plus "WinCo VBS" (no tagline), about 7.3:1 wide | Header from 768 px, footer        |
+| `public/brand/logo-mark.svg`                            | The W mark alone, about 2.2:1 wide                         | Header under 768 px               |
+| `app/icon.svg`, `app/favicon.ico`, `app/apple-icon.png` | The W mark on a white tile                                 | Browser tab and home-screen icons |
+
+- The `Logo` component (`components/brand/Logo.tsx`) is the only place the files are used. Never use the files directly in a page.
+- The full wordmark is too wide for a phone, so under 768 px the header shows the W mark alone, 40 px tall. From 768 px it shows the wordmark, 24 px tall, and 36 px tall from 1280 px.
+- Never commit the JPG logo images, the WhatsApp images or the project docx files, under any name. `.gitignore` blocks them.
 - Alt text: `WinCo VBS, Virtual Business Solutions`.
-- Don't stretch, recolour, add shadows to or rotate the logo.
+- Don't stretch, recolour, add shadows to or rotate the logo. The navy "WinCo" disappears on a navy background, so on the dark footer the logo needs a white version, which gets added with the footer.
 - Logo files go in `public/brand/`. The Logo component lives in `components/brand/`.
+- The client's logo images also include a version with "VIRTUAL BUSINESS SOLUTIONS" underneath. It is not in the site yet: at header size the tagline would be unreadable.
 
 ## Typography
 
