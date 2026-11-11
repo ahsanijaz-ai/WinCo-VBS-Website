@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
+import { ClosingCtaSection } from "@/components/sections/home/ClosingCtaSection";
+import { HowWeWorkSection } from "@/components/sections/home/HowWeWorkSection";
+import { IntroSection } from "@/components/sections/home/IntroSection";
+import { WhatWeDoSection } from "@/components/sections/home/WhatWeDoSection";
+import { WhyUsSection } from "@/components/sections/home/WhyUsSection";
 import { homePage } from "@/content";
 
 export const metadata: Metadata = {
@@ -7,7 +12,15 @@ export const metadata: Metadata = {
   description: homePage.seo.description,
 };
 
-/** Home page. The sections below the hero come in task 2.3. */
 export default function HomePage() {
-  return <Hero hero={homePage.hero} />;
+  return (
+    <>
+      <Hero hero={homePage.hero} />
+      <IntroSection intro={homePage.intro} />
+      <WhatWeDoSection whatWeDo={homePage.whatWeDo} />
+      <WhyUsSection whyUs={homePage.whyUs} />
+      <HowWeWorkSection howWeWork={homePage.howWeWork} />
+      <ClosingCtaSection cta={homePage.closingCta} />
+    </>
+  );
 }
