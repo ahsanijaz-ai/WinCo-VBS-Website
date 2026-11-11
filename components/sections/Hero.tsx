@@ -21,10 +21,11 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
  *   edges line up on every page. Heading and text stop at 672 px so lines stay readable.
  * - `size="tall"` (Home) uses a larger heading; `compact` is for the other pages.
  * - With an image, the layout becomes two columns from 1024 px (text 7 of 12, image 5 of 12).
+ * - The content's `tagline` is not shown here; it appears in the footer on every page.
  * - Text never waits for an animation.
  */
 export function Hero({ hero }: HeroProps) {
-  const { title, description, tagline, buttons, size, image } = hero;
+  const { title, description, buttons, size, image } = hero;
   const titleId = "hero-title";
 
   return (
@@ -35,13 +36,6 @@ export function Hero({ hero }: HeroProps) {
       <Container className="py-16 md:py-20">
         <div className={cn("grid gap-12", image && "lg:grid-cols-12 lg:items-center")}>
           <div className={cn("max-w-2xl", image && "lg:col-span-7")}>
-            {tagline && (
-              <p className="bg-secondary-tint text-secondary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold">
-                <span aria-hidden="true" className="bg-accent size-2 rounded-full" />
-                {tagline}
-              </p>
-            )}
-
             <h1
               id={titleId}
               className={cn(size === "tall" && "text-[clamp(2.25rem,1.4rem+4vw,4rem)]")}
