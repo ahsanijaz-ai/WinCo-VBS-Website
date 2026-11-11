@@ -105,10 +105,10 @@ export function MobileMenu({ consultation }: MobileMenuProps) {
           "ease-brand hover:border-accent transition duration-(--motion-fast) active:scale-[0.94]",
         )}
       >
-        {/* Three bars of different lengths, the middle one in the accent colour. */}
+        {/* Three bars of different lengths, the middle one in Primary Blue (6.6:1 on white). */}
         <svg aria-hidden="true" width="18" height="12" viewBox="0 0 18 12" className="text-ink">
           <rect x="0" y="0" width="18" height="2" rx="1" fill="currentColor" />
-          <rect x="3" y="5" width="15" height="2" rx="1" className="fill-accent" />
+          <rect x="3" y="5" width="15" height="2" rx="1" className="fill-secondary" />
           <rect x="0" y="10" width="12" height="2" rx="1" fill="currentColor" opacity="0.5" />
         </svg>
       </button>
