@@ -34,12 +34,14 @@ These colours come from the client's brand colour palette (Primary Blue, Teal, L
 | `--color-secondary`       | `#1F4FD8` | Primary Blue | 30%           | CTA buttons, links, active nav, icons            |
 | `--color-secondary-hover` | `#0B3A6E` | Deep Navy    | part of 30%   | Hover and press on buttons and links             |
 | `--color-secondary-tint`  | `#EDF1FC` | (neutral)    | part of 30%   | Card backgrounds (Primary Blue mixed with white) |
-| `--color-border`          | `#D9E2EF` | (neutral)    | part of 30%   | Card and input outlines, dividers                |
+| `--color-border`          | `#D9E2EF` | (neutral)    | part of 30%   | Card outlines, dividers (decorative only)        |
+| `--color-input-border`    | `#7B8798` | (neutral)    | part of 30%   | Form field borders (needs 3:1 on white)          |
 | `--color-accent`          | `#2EC4B6` | Teal         | 10%           | Badges, step numbers, one highlight per screen   |
 | `--color-ink`             | `#0F1E2E` | Slate        | not counted   | Headings                                         |
 | `--color-text`            | `#3A4A63` | (neutral)    | not counted   | Body text                                        |
 | `--color-navy`            | `#0B3A6E` | Deep Navy    | dark surfaces | Footer background                                |
 | `--color-light-blue`      | `#38BDF8` | Light Blue   | dark surfaces | Highlights on the navy footer only               |
+| `--color-error`           | `#B42318` | (functional) | not counted   | Form error text and error borders only           |
 
 Note on names: the client calls `#1F4FD8` "Primary Blue", but in our tokens "primary" means the 60% background (white). In code, Primary Blue is `secondary`.
 
@@ -58,23 +60,26 @@ Note on names: the client calls `#1F4FD8` "Primary Blue", but in our tokens "pri
 
 Text needs 4.5:1 against its background, large text 3:1. Focus rings and other UI parts need 3:1. These pairs were calculated by hand and still need confirming with axe:
 
-| Pair                                        | Ratio   | Result                                           |
-| ------------------------------------------- | ------- | ------------------------------------------------ |
-| Slate `#0F1E2E` headings on white           | ~16.9:1 | Pass                                             |
-| Body `#3A4A63` on white                     | ~9:1    | Pass                                             |
-| Body `#3A4A63` on `#F4F7FB` or `#EDF1FC`    | ~8:1    | Pass                                             |
-| White on Primary Blue `#1F4FD8` (buttons)   | ~6.6:1  | Pass                                             |
-| White on Deep Navy `#0B3A6E` (hover)        | ~11.4:1 | Pass                                             |
-| Primary Blue links on `#F4F7FB` / `#EDF1FC` | ~6:1    | Pass                                             |
-| Slate text on a Teal badge                  | ~7.8:1  | Pass                                             |
-| White text on the navy footer               | ~11.4:1 | Pass                                             |
-| Teal on the navy footer                     | ~5.3:1  | Pass                                             |
-| Light Blue on the navy footer               | ~5.3:1  | Pass                                             |
-| Primary Blue focus ring on white            | ~6.6:1  | Pass                                             |
-| Primary Blue on the navy footer             | ~1.7:1  | Fail, use Teal                                   |
-| Slate vs Primary Blue (active nav colour)   | ~2.5:1  | Not enough alone, make the active label bold too |
-| Teal `#2EC4B6` text on white                | ~2.2:1  | Fail, never do this                              |
-| Light Blue `#38BDF8` text on white          | ~2.1:1  | Fail, never do this                              |
+| Pair                                        | Ratio           | Result                                           |
+| ------------------------------------------- | --------------- | ------------------------------------------------ |
+| Slate `#0F1E2E` headings on white           | ~16.9:1         | Pass                                             |
+| Body `#3A4A63` on white                     | ~9:1            | Pass                                             |
+| Body `#3A4A63` on `#F4F7FB` or `#EDF1FC`    | ~8:1            | Pass                                             |
+| White on Primary Blue `#1F4FD8` (buttons)   | ~6.6:1          | Pass                                             |
+| White on Deep Navy `#0B3A6E` (hover)        | ~11.4:1         | Pass                                             |
+| Primary Blue links on `#F4F7FB` / `#EDF1FC` | ~6:1            | Pass                                             |
+| Slate text on a Teal badge                  | ~7.8:1          | Pass                                             |
+| White text on the navy footer               | ~11.4:1         | Pass                                             |
+| Teal on the navy footer                     | ~5.3:1          | Pass                                             |
+| Light Blue on the navy footer               | ~5.3:1          | Pass                                             |
+| Primary Blue focus ring on white            | ~6.6:1          | Pass                                             |
+| Primary Blue on the navy footer             | ~1.7:1          | Fail, use Teal                                   |
+| Slate vs Primary Blue (active nav colour)   | ~2.5:1          | Not enough alone, make the active label bold too |
+| Input border `#7B8798` on white             | ~3.65:1         | Pass (form fields need 3:1)                      |
+| Light border `#D9E2EF` on white             | ~1.3:1          | Decorative only, never for form fields           |
+| Error `#B42318` text on white or `#F4F7FB`  | ~6.6:1 / ~6.1:1 | Pass                                             |
+| Teal `#2EC4B6` text on white                | ~2.2:1          | Fail, never do this                              |
+| Light Blue `#38BDF8` text on white          | ~2.1:1          | Fail, never do this                              |
 
 ## Logo
 

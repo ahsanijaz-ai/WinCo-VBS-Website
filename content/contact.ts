@@ -25,12 +25,19 @@ export const contactPage: ContactPage = {
     "Contact WinCo VBS to discuss your goals and explore how we can help.",
   ],
   details: [
-    { label: "Email", value: site.email, href: `mailto:${site.email}` },
-    { label: "Phone / WhatsApp", value: site.phoneDisplay, href: `tel:${site.phoneE164}` },
-    { label: "Location", value: `${site.address.city}, ${site.address.country}` },
-    { label: "Service Area", value: site.serviceArea },
+    { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: "mail" },
+    {
+      label: "Phone / WhatsApp",
+      value: site.phoneDisplay,
+      href: `tel:${site.phoneE164}`,
+      icon: "phone",
+    },
+    { label: "Location", value: `${site.address.city}, ${site.address.country}`, icon: "map-pin" },
+    { label: "Service Area", value: site.serviceArea, icon: "globe" },
   ],
-  whatsappButton,
+  // Second WhatsApp button, under the contact details. Outline style, so it doesn't compete
+  // with the solid one in the hero on a phone screen.
+  whatsappButton: { ...whatsappButton, variant: "secondary" },
   form: {
     title: "How Can We Help?",
     fields: [

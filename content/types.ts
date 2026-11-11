@@ -161,9 +161,12 @@ export type ServicesPage = Page & {
   closingCta: CallToAction;
 };
 
+export type ContactIcon = "mail" | "phone" | "map-pin" | "globe";
+
 export type ContactDetail = {
   label: string;
   value: string;
+  icon: ContactIcon;
   /** mailto:, tel: or wa.me link. Omitted for plain text like the location. */
   href?: string;
 };
