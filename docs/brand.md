@@ -52,7 +52,7 @@ Note on names: the client calls `#1F4FD8` "Primary Blue", but in our tokens "pri
 3. CTA buttons are Primary Blue (`secondary`). Teal is saved for badges, step numbers and success states.
 4. Never put Teal `#2EC4B6` or Light Blue `#38BDF8` text or thin icons on a white or light background. Both only reach about 2.2:1. Use Slate text on a Teal badge, or Teal and Light Blue on the navy footer.
 5. Light Blue is for dark backgrounds only (footer highlights, small decorative details). It never counts as a second accent on light pages.
-6. The footer is Deep Navy (`bg-navy`) with white text. Footer links and focus rings use Teal, because Primary Blue on navy is only about 1.7:1.
+6. The footer is Deep Navy (`bg-navy`) with white text. Footer links are white and turn Teal on hover. Icons and focus rings in the footer are Teal, because Primary Blue on navy is only about 1.7:1.
 7. Grays for borders and muted text come from the neutral tokens above.
 8. No dark mode at launch. The tokens make it easy to add later.
 
