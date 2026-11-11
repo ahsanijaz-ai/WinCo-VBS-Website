@@ -88,7 +88,7 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 - The `Logo` component (`components/brand/Logo.tsx`) is the only place the files are used. Never use the files directly in a page.
 - The full wordmark is too wide for a phone, so under 768 px the header shows the W mark alone, 40 px tall. From 768 px it shows the wordmark, 24 px tall, and 36 px tall from 1280 px.
-- Never commit the JPG logo images or the WhatsApp images, under any name. `.gitignore` blocks them.
+- Never commit the JPG logo images, the WhatsApp images or the project docx files, under any name. `.gitignore` blocks them.
 - Alt text: `WinCo VBS, Virtual Business Solutions`.
 - Don't stretch, recolour, add shadows to or rotate the logo. The navy "WinCo" disappears on a navy background, so on the dark footer the logo needs a white version, which gets added with the footer.
 - Logo files go in `public/brand/`. The Logo component lives in `components/brand/`.
