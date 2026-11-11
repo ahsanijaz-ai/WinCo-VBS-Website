@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
+import { Hero } from "@/components/sections/Hero";
+import { homePage } from "@/content";
+
+export const metadata: Metadata = {
+  title: homePage.seo.title,
+  description: homePage.seo.description,
+};
+
+/** Home page. The sections below the hero come in task 2.3. */
 export default function HomePage() {
-  return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-16">
-      <h1 className="text-3xl font-bold">WinCo VBS</h1>
-      <p className="mt-2">Your Business, Organized and Optimized.</p>
-    </div>
-  );
+  return <Hero hero={homePage.hero} />;
 }
