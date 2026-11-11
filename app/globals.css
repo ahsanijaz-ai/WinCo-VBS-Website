@@ -17,6 +17,7 @@
   --color-secondary-hover: #0b3a6e; /* Deep Navy */
   --color-secondary-tint: #edf1fc;
   --color-accent: #2ec4b6; /* Teal */
+  --color-accent-strong: #229288; /* Teal darkened for large text: 3.8:1 on white */
   --color-border: #d9e2ef;
   --color-input-border: #7b8798; /* form field borders: 3.65:1 on white, WCAG 1.4.11 */
   --color-ink: #0f1e2e; /* Slate */
