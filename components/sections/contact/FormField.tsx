@@ -38,7 +38,7 @@ export function FormField({ field, control, error, defaultValue, className }: Fo
     defaultValue,
     "aria-invalid": error ? true : undefined,
     "aria-describedby": error ? errorId : undefined,
-    className: cn(controlBase, error ? "border-error" : "border-border"),
+    className: cn(controlBase, error ? "border-error" : "border-input-border"),
   };
 
   return (
