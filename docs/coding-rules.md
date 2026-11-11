@@ -63,6 +63,7 @@ docs/                these guides
 
 ## React and Next.js
 
+- Every page starts with the shared hero: `<Hero hero={page.hero} />` from `components/sections/Hero.tsx`. It fills the first screen (`100svh` minus the header), so the next section only shows after scrolling. Don't build page-specific heroes.
 - Server components by default. Add `"use client"` only to components that need state, effects or browser events (mobile menu, form). Keep those components small.
 - Navigation uses `next/link` to real routes (`/`, `/about`, `/services`, `/contact`). No hash links for the main nav.
 - Images use `next/image` with `width`, `height` (or `fill` plus `sizes`) and real alt text. Only the hero image gets `priority`.
