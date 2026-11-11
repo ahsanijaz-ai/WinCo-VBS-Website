@@ -46,8 +46,7 @@ function HighlightedTitle({ title }: { title: string }) {
  *   edges line up on every page. Heading and text stop at 672 px so lines stay readable.
  * - `size="tall"` (Home) uses a larger heading; `compact` is for the other pages.
  * - With an image, the layout becomes two columns from 1024 px (text 7 of 12, image 5 of 12).
- * - `tagline` (Home) is a small letter-spaced line above the heading, Slate text (16.9:1)
- *   followed by a short Primary Blue bar. Uppercase is CSS only; the content keeps its capitals.
+ * - The content's `tagline` is not shown in the hero; it appears in the footer on every page.
  * - Primary buttons get an arrow that slides 4 px on hover.
  * - The last word of each sentence in the heading is coloured (see HighlightedTitle).
  * - Background: a soft Teal glow top left, a dot grid top right (from 1024 px) and layered
@@ -55,7 +54,7 @@ function HighlightedTitle({ title }: { title: string }) {
  * - Text never waits for an animation.
  */
 export function Hero({ hero }: HeroProps) {
-  const { title, description, tagline, buttons, size, image } = hero;
+  const { title, description, buttons, size, image } = hero;
   const titleId = "hero-title";
 
   return (
@@ -110,16 +109,6 @@ export function Hero({ hero }: HeroProps) {
       <Container className="pt-16 pb-32 sm:pb-36 md:pt-20 lg:pb-20">
         <div className={cn("grid gap-12", image && "lg:grid-cols-12 lg:items-center")}>
           <div className={cn("max-w-2xl", image && "lg:col-span-7")}>
-            {tagline && (
-              <p className="text-ink mb-6 flex items-center gap-4 text-xs font-semibold tracking-[0.18em] uppercase sm:text-sm">
-                <span>{tagline}</span>
-                <span
-                  aria-hidden="true"
-                  className="bg-secondary hidden h-0.5 w-16 shrink-0 rounded-full sm:block"
-                />
-              </p>
-            )}
-
             <h1
               id={titleId}
               className={cn(
