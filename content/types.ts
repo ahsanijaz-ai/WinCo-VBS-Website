@@ -124,6 +124,11 @@ export type SiteSettings = {
   location: string;
   footerText: string;
   footerHeadings: FooterHeadings;
+  /** Labels before the email and WhatsApp number in the footer, as in the copy. */
+  footerLabels: {
+    email: string;
+    whatsapp: string;
+  };
   copyright: string;
   socials: SocialLink[];
 };
