@@ -77,7 +77,8 @@ export function Hero({ hero }: HeroProps) {
                 alt={image.alt}
                 width={640}
                 height={640}
-                priority
+                loading="eager"
+                fetchPriority="high"
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="rounded-card h-auto w-full"
               />
