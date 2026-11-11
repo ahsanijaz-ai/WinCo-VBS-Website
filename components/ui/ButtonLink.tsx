@@ -1,17 +1,7 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 import type { CtaButton } from "@/content";
-import { cn } from "@/lib/cn";
-
-const base =
-  "inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-card px-6 text-base font-semibold sm:w-auto " +
-  "transition duration-(--motion-base) ease-brand active:scale-[0.97] active:duration-(--motion-fast)";
-
-/** `primary` is solid blue, `secondary` is the blue outline. Same names as the content files. */
-const variants = {
-  primary: "bg-secondary text-primary hover:bg-secondary-hover",
-  secondary: "border border-secondary bg-primary text-secondary hover:bg-secondary-tint",
-} satisfies Record<CtaButton["variant"], string>;
+import { buttonClassName } from "@/components/ui/button-styles";
 
 type ButtonLinkProps = ComponentPropsWithoutRef<typeof Link> & {
   variant?: CtaButton["variant"];
@@ -22,5 +12,5 @@ type ButtonLinkProps = ComponentPropsWithoutRef<typeof Link> & {
  * Full width on phones and automatic width from 640 px; pass `className` to override.
  */
 export function ButtonLink({ variant = "primary", className, ...props }: ButtonLinkProps) {
-  return <Link className={cn(base, variants[variant], className)} {...props} />;
+  return <Link className={buttonClassName(variant, className)} {...props} />;
 }
