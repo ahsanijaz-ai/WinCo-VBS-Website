@@ -96,6 +96,7 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 - Never commit the JPG logo images, the WhatsApp images or the project docx files, under any name. `.gitignore` blocks them.
 - Alt text: `WinCo VBS, Virtual Business Solutions`.
 - Don't stretch, recolour, add shadows to or rotate the logo. The navy "WinCo" disappears on a navy background, so on the dark footer the logo needs a white version, which gets added with the footer.
+- The logo files are 15% more saturated than the client's original JPGs (for example navy `#0B3589` became `#023292`). This was approved on purpose in PR #12 for a sharper look on screen. Don't change the colours again.
 - Logo files go in `public/brand/`. The Logo component lives in `components/brand/`.
 - The client's logo images also include a version with "VIRTUAL BUSINESS SOLUTIONS" underneath. It is not in the site yet: at header size the tagline would be unreadable.
 
