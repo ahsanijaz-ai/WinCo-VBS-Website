@@ -25,6 +25,9 @@
   --color-navy: #0b3a6e; /* Deep Navy */
   --color-light-blue: #38bdf8; /* Light Blue */
 
+  /* Form errors only. Not a brand colour; the palette has no red. */
+  --color-error: #b42318;
+
   /* Type */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
