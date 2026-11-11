@@ -20,6 +20,10 @@ export const site: SiteSettings = {
     quickLinks: "Quick Links",
     social: "Social Media",
   },
+  footerLabels: {
+    email: "Email",
+    whatsapp: "WhatsApp",
+  },
   copyright: "© 2026 WinCo VBS. All rights reserved.",
   // TODO: real profile URLs from the client.
   socials: [
