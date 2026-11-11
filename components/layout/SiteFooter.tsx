@@ -14,24 +14,27 @@ const headingClass = "text-primary mb-4 text-lg font-semibold";
 
 const labelOf = (href: string) => navItems.find((item) => item.href === href)?.label ?? "";
 
+/** A titled footer column: a `<nav>` for link lists, a `<section>` for contact details. */
 function FooterColumn({
+  as: Tag = "nav",
   id,
   title,
   className,
   children,
 }: {
+  as?: "nav" | "section";
   id: string;
   title: string;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <nav aria-labelledby={id} className={className}>
+    <Tag aria-labelledby={id} className={className}>
       <h2 id={id} className={headingClass}>
         {title}
       </h2>
       {children}
-    </nav>
+    </Tag>
   );
 }
 
@@ -125,7 +128,12 @@ export function SiteFooter() {
             </ul>
           </FooterColumn>
 
-          <FooterColumn id="footer-contact" title={labelOf("/contact")} className="lg:col-span-4">
+          <FooterColumn
+            as="section"
+            id="footer-contact"
+            title={labelOf("/contact")}
+            className="lg:col-span-4"
+          >
             <ul>
               <ContactRow icon={MessageCircle} label={site.footerLabels.whatsapp}>
                 <a
