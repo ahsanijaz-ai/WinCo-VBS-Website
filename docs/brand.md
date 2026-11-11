@@ -34,7 +34,8 @@ These colours come from the client's brand colour palette (Primary Blue, Teal, L
 | `--color-secondary`       | `#1F4FD8` | Primary Blue | 30%           | CTA buttons, links, active nav, icons            |
 | `--color-secondary-hover` | `#0B3A6E` | Deep Navy    | part of 30%   | Hover and press on buttons and links             |
 | `--color-secondary-tint`  | `#EDF1FC` | (neutral)    | part of 30%   | Card backgrounds (Primary Blue mixed with white) |
-| `--color-border`          | `#D9E2EF` | (neutral)    | part of 30%   | Card and input outlines, dividers                |
+| `--color-border`          | `#D9E2EF` | (neutral)    | part of 30%   | Card outlines, dividers (decorative only)        |
+| `--color-input-border`    | `#7B8798` | (neutral)    | part of 30%   | Form field borders (needs 3:1 on white)          |
 | `--color-accent`          | `#2EC4B6` | Teal         | 10%           | Badges, step numbers, one highlight per screen   |
 | `--color-ink`             | `#0F1E2E` | Slate        | not counted   | Headings                                         |
 | `--color-text`            | `#3A4A63` | (neutral)    | not counted   | Body text                                        |
@@ -74,6 +75,8 @@ Text needs 4.5:1 against its background, large text 3:1. Focus rings and other U
 | Primary Blue focus ring on white            | ~6.6:1          | Pass                                             |
 | Primary Blue on the navy footer             | ~1.7:1          | Fail, use Teal                                   |
 | Slate vs Primary Blue (active nav colour)   | ~2.5:1          | Not enough alone, make the active label bold too |
+| Input border `#7B8798` on white             | ~3.65:1         | Pass (form fields need 3:1)                      |
+| Light border `#D9E2EF` on white             | ~1.3:1          | Decorative only, never for form fields           |
 | Error `#B42318` text on white or `#F4F7FB`  | ~6.6:1 / ~6.1:1 | Pass                                             |
 | Teal `#2EC4B6` text on white                | ~2.2:1          | Fail, never do this                              |
 | Light Blue `#38BDF8` text on white          | ~2.1:1          | Fail, never do this                              |
