@@ -80,7 +80,7 @@ docs/                these guides
 ## Styling
 
 - Tailwind classes, mobile first. Write the phone layout with no prefix, then add `sm:`, `md:`, `lg:`, `xl:`.
-- Colours only through tokens. No hex values, no arbitrary colours like `bg-[#0B63CE]`.
+- Colours only through tokens. No hex values, no arbitrary colours like `bg-[#1F4FD8]`.
 - Animation durations only through motion tokens (170, 200 or 240 ms).
 - Combine classes with `cn()` from `lib/cn.ts`.
 - Prettier sorts Tailwind classes. Don't fight it.

@@ -10,16 +10,20 @@
   /* Remove Tailwind's default palette (bg-blue-500 and so on), so only our tokens exist */
   --color-*: initial;
 
-  /* Colour: 60 / 30 / 10 */
-  --color-primary: #ffffff;
+  /* Colour: 60 / 30 / 10, from the client's brand colour palette */
+  --color-primary: #ffffff; /* White */
   --color-primary-alt: #f4f7fb;
-  --color-secondary: #0b63ce;
-  --color-secondary-hover: #094fa8;
-  --color-secondary-tint: #eaf2fc;
-  --color-accent: #19bfd0;
+  --color-secondary: #1f4fd8; /* Primary Blue */
+  --color-secondary-hover: #0b3a6e; /* Deep Navy */
+  --color-secondary-tint: #edf1fc;
+  --color-accent: #2ec4b6; /* Teal */
   --color-border: #d9e2ef;
-  --color-ink: #0b2447;
+  --color-ink: #0f1e2e; /* Slate */
   --color-text: #3a4a63;
+
+  /* Dark surfaces: the footer, and highlights that only sit on dark backgrounds */
+  --color-navy: #0b3a6e; /* Deep Navy */
+  --color-light-blue: #38bdf8; /* Light Blue */
 
   /* Type */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
