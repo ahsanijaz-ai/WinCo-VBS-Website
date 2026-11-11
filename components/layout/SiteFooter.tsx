@@ -14,9 +14,19 @@ const headingClass = "text-primary mb-4 text-lg font-semibold";
 
 const labelOf = (href: string) => navItems.find((item) => item.href === href)?.label ?? "";
 
-function FooterColumn({ id, title, children }: { id: string; title: string; children: ReactNode }) {
+function FooterColumn({
+  id,
+  title,
+  className,
+  children,
+}: {
+  id: string;
+  title: string;
+  className?: string;
+  children: ReactNode;
+}) {
   return (
-    <nav aria-labelledby={id}>
+    <nav aria-labelledby={id} className={className}>
       <h2 id={id} className={headingClass}>
         {title}
       </h2>
@@ -35,10 +45,10 @@ function ContactRow({
   children: ReactNode;
 }) {
   return (
-    <li className="border-primary/15 flex items-start gap-3 border-b py-3 first:pt-0">
-      <Icon aria-hidden="true" className="text-accent mt-3 size-5 shrink-0" />
+    <li className="border-primary/15 flex items-start gap-3 border-b py-2 first:pt-0">
+      <Icon aria-hidden="true" className="text-accent mt-2 size-5 shrink-0" />
       <div className="min-w-0">
-        <span className="text-primary/70 block pt-2.5 text-xs">{label}</span>
+        <span className="text-primary/70 block pt-2 text-xs leading-4">{label}</span>
         {children}
       </div>
     </li>
@@ -50,7 +60,9 @@ function ContactRow({
  *
  * - Content uses the full screen width with the page gutter (wider gutter from 1280 px),
  *   not the 1280 px page container, so the footer reads as one full-width band.
- * - Four columns from 1024 px: brand, services, quick links, contact. Two from 640 px, one on phones.
+ * - Four columns from 1024 px (3, 3, 2 and 4 of 12): brand, services, quick links, contact.
+ *   The contact column is widest so the consultation button stays on one line. Two columns from
+ *   640 px, one on phones. Spacing is kept tight so the footer fits below the header on a laptop.
  * - Focus rings inside the footer are Teal, because Primary Blue on navy is only about 1.7:1.
  * - Social links without a URL are hidden; their row hides too when none are left.
  */
@@ -66,9 +78,9 @@ export function SiteFooter() {
         className="absolute inset-0 -z-10 bg-[radial-gradient(40%_50%_at_8%_10%,color-mix(in_oklab,var(--color-light-blue)_14%,transparent),transparent_70%),radial-gradient(35%_45%_at_100%_100%,color-mix(in_oklab,var(--color-accent)_12%,transparent),transparent_70%)]"
       />
 
-      <div className="w-full px-(--gutter) pt-16 pb-8 md:pt-20 xl:px-16">
-        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
-          <div>
+      <div className="w-full px-(--gutter) pt-12 pb-6 md:pt-14 xl:px-16">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
+          <div className="lg:col-span-3">
             <Logo tone="dark" />
             <p className="mt-6 font-semibold">{site.tagline}</p>
             <p className="text-primary/80 mt-2 max-w-[40ch]">{site.footerText}</p>
@@ -85,7 +97,7 @@ export function SiteFooter() {
             )}
           </div>
 
-          <FooterColumn id="footer-services" title={labelOf("/services")}>
+          <FooterColumn id="footer-services" title={labelOf("/services")} className="lg:col-span-3">
             <ul>
               {servicesPage.groups.map(({ id, title }) => (
                 <li key={id}>
@@ -97,7 +109,11 @@ export function SiteFooter() {
             </ul>
           </FooterColumn>
 
-          <FooterColumn id="footer-quick-links" title={site.footerHeadings.quickLinks}>
+          <FooterColumn
+            id="footer-quick-links"
+            title={site.footerHeadings.quickLinks}
+            className="lg:col-span-2"
+          >
             <ul>
               {navItems.map(({ href, label }) => (
                 <li key={href}>
@@ -109,7 +125,7 @@ export function SiteFooter() {
             </ul>
           </FooterColumn>
 
-          <FooterColumn id="footer-contact" title={labelOf("/contact")}>
+          <FooterColumn id="footer-contact" title={labelOf("/contact")} className="lg:col-span-4">
             <ul>
               <ContactRow icon={MessageCircle} label={site.footerLabels.whatsapp}>
                 <a
@@ -132,14 +148,14 @@ export function SiteFooter() {
                 </p>
               </ContactRow>
             </ul>
-            <ButtonLink href={cta.href} className="mt-6 w-full sm:w-full">
+            <ButtonLink href={cta.href} className="mt-5 w-full sm:w-full sm:whitespace-nowrap">
               <CalendarDays aria-hidden="true" className="size-5" />
               {cta.label}
             </ButtonLink>
           </FooterColumn>
         </div>
 
-        <div className="border-primary/15 mt-12 border-t pt-8">
+        <div className="border-primary/15 mt-10 border-t pt-6">
           <p className="text-primary/80 text-sm">{site.copyright}</p>
         </div>
       </div>
