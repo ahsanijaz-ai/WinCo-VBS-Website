@@ -119,15 +119,26 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 ## Motion
 
-Every animation lasts between 170 and 240 ms. Use the tokens, never a hard-coded duration.
+Every UI-feedback animation (hover, press, menu) lasts between 170 and 240 ms. Use the tokens, never a hard-coded duration.
 
-| Token           | Value  | Typical use                               |
-| --------------- | ------ | ----------------------------------------- |
-| `--motion-fast` | 170 ms | Touch press, small feedback               |
-| `--motion-base` | 200 ms | Nav hover underline, icon lift, hamburger |
-| `--motion-slow` | 240 ms | Mobile menu open, header shadow on scroll |
+| Token             | Value  | Typical use                               |
+| ----------------- | ------ | ----------------------------------------- |
+| `--motion-fast`   | 170 ms | Touch press, small feedback               |
+| `--motion-base`   | 200 ms | Nav hover underline, icon lift, hamburger |
+| `--motion-slow`   | 240 ms | Mobile menu open, header shadow on scroll |
+| `--motion-reveal` | 650 ms | Scroll-reveal of page content (see below) |
 
-Easing: one curve for everything, stored as `--ease-brand: cubic-bezier(0.22, 1, 0.36, 1)`. Use the token, never write the curve in a component.
+Easing: one curve for UI feedback, stored as `--ease-brand: cubic-bezier(0.22, 1, 0.36, 1)`. Use the token, never write the curve in a component.
+
+### Scroll reveal
+
+Page content (headings, cards, list items) slides in from the left and fades in once as it scrolls into view, via the shared `Reveal` component (`components/sections/home/Reveal.tsx`) and `useReveal` hook. This is content entering the page, not UI feedback, so it intentionally runs slower and with its own easing:
+
+- Duration: `--motion-reveal` (650 ms), not the 170-240 ms UI-feedback tokens.
+- Easing: `--ease-reveal: cubic-bezier(0.16, 1, 0.3, 1)`, a slower decelerate curve distinct from `--ease-brand`.
+- Items in a list reveal one after another (a ~130 ms stagger per item), not all at once.
+- The Hero is exempt: text never waits for animation, it shows immediately.
+- Respects `prefers-reduced-motion` the same way as everything else below.
 
 - Animate mostly `transform` and `opacity`. Fades of colour, background colour and shadow are allowed too. Never animate width, height, top or margin.
 - Nav and UI animations are plain CSS, no JavaScript.
