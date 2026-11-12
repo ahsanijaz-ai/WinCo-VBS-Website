@@ -9,8 +9,10 @@ import { navItems } from "@/lib/nav-items";
 
 /**
  * Site header: logo, the four page links with icons, and the consultation button.
- * From 768 px the links show inline; the button joins them from 1280 px, where there is room.
- * Under 768 px the links move into the mobile menu.
+ * From 1024 px the links and the button show inline: compact (tighter links, smaller button)
+ * until 1280 px, full size from 1280 px. Under 1024 px everything, including the button, moves
+ * into the mobile menu, so the consultation button is never hidden. Zooming in a browser makes
+ * the page narrower, so this also covers laptops zoomed to 175% or more.
  */
 export function SiteHeader() {
   const consultation = homePage.closingCta.button;
@@ -20,8 +22,8 @@ export function SiteHeader() {
       <Container className="flex h-(--header-h) items-center justify-between gap-4">
         <Logo />
 
-        <nav aria-label="Main" className="hidden md:block">
-          <ul className="flex items-center gap-2">
+        <nav aria-label="Main" className="hidden lg:block">
+          <ul className="flex items-center gap-1 xl:gap-2">
             {navItems.map(({ href, label, icon: Icon }) => (
               <li key={href}>
                 <NavLink
@@ -41,7 +43,7 @@ export function SiteHeader() {
 
         <ButtonLink
           href={consultation.href}
-          className="hidden shrink-0 whitespace-nowrap xl:inline-flex"
+          className="hidden shrink-0 whitespace-nowrap lg:inline-flex lg:px-4 lg:text-sm xl:px-6 xl:text-base"
         >
           {consultation.label}
         </ButtonLink>

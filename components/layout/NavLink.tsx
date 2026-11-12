@@ -25,7 +25,7 @@ export function NavLink({ href, label, icon }: NavLinkProps) {
       href={href}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group text-ink relative inline-flex min-h-11 items-center gap-2 px-3 text-base font-medium whitespace-nowrap",
+        "group text-ink relative inline-flex min-h-11 items-center gap-2 px-2 text-base font-medium whitespace-nowrap xl:px-3",
         "ease-brand hover:text-secondary transition duration-(--motion-base)",
         "active:scale-[0.97] active:duration-(--motion-fast)",
         active && "text-secondary font-semibold",
@@ -36,7 +36,7 @@ export function NavLink({ href, label, icon }: NavLinkProps) {
       <span
         aria-hidden="true"
         className={cn(
-          "bg-accent absolute inset-x-3 bottom-1 h-0.5 origin-left scale-x-0 opacity-0",
+          "bg-accent absolute inset-x-2 bottom-1 h-0.5 origin-left scale-x-0 opacity-0 xl:inset-x-3",
           "ease-brand transition duration-(--motion-base)",
           "group-hover:scale-x-100 group-hover:opacity-100",
           active && "scale-x-100 opacity-100",

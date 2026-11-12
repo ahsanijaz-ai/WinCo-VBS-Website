@@ -90,13 +90,13 @@ docs/                these guides
 
 ## Breakpoints
 
-| Name | Width      | What changes                                    |
-| ---- | ---------- | ----------------------------------------------- |
-| base | 320–639 px | One column, hamburger menu, full-width buttons  |
-| sm   | 640 px+    | Two-column card grids                           |
-| md   | 768 px+    | Inline nav, form fields pair up                 |
-| lg   | 1024 px+   | Four-up What We Do grid, hero text beside image |
-| xl   | 1280 px+   | Content capped at about 1200 px                 |
+| Name | Width      | What changes                                                                                   |
+| ---- | ---------- | ---------------------------------------------------------------------------------------------- |
+| base | 320–639 px | One column, hamburger menu, full-width buttons                                                 |
+| sm   | 640 px+    | Two-column card grids                                                                          |
+| md   | 768 px+    | Form fields pair up. Still the hamburger menu                                                  |
+| lg   | 1024 px+   | Inline nav plus a compact consultation button, four-up What We Do grid, hero text beside image |
+| xl   | 1280 px+   | Full-size consultation button, content capped at about 1200 px                                 |
 
 No page may scroll sideways at any width from 320 to 1920 px.
 
