@@ -18,3 +18,11 @@ const variants = {
 export function buttonClassName(variant: CtaButton["variant"] = "primary", className?: string) {
   return cn(base, variants[variant], className);
 }
+
+/**
+ * Hover lift for a call-to-action: up 2 px in 180 ms ease-out, only on devices that can hover
+ * (Tailwind hover:) and only without reduced motion. Add the shadow step per button. Touch
+ * screens keep the existing press feedback from buttonClassName.
+ */
+export const ctaLiftClassName =
+  "duration-(--motion-hover) ease-[ease-out] motion-safe:hover:-translate-y-0.5";
