@@ -5,6 +5,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import type { ContactIcon, ContactPage } from "@/content";
 import { site } from "@/content";
 import { cn } from "@/lib/cn";
+import { SectionDecor } from "@/components/sections/contact/SectionDecor";
+import { SplitTitle } from "@/components/sections/contact/SplitTitle";
 
 const placeIcons: Record<ContactIcon, LucideIcon> = {
   mail: Mail,
@@ -30,18 +32,6 @@ const pillClass =
   "mt-8 min-h-14 gap-3 rounded-full px-5 text-base sm:px-8 sm:text-lg shadow-lg " +
   "duration-(--motion-hover) ease-[ease-out] motion-safe:hover:not-active:scale-[1.02] active:scale-[0.98]";
 
-/** "Touch" in strong Teal: the last word of the heading is coloured, like the hero headings. */
-function SplitTitle({ title }: { title: string }) {
-  const cut = title.lastIndexOf(" ");
-  if (cut === -1) return <>{title}</>;
-  return (
-    <>
-      {title.slice(0, cut + 1)}
-      <span className="text-accent-strong">{title.slice(cut + 1)}</span>
-    </>
-  );
-}
-
 /** Small brand wave above the heading, Primary Blue fading into Teal. */
 function HeadingWave() {
   return (
@@ -57,31 +47,6 @@ function HeadingWave() {
         d="M2 16C22 4 38 4 58 12s38 8 60-6c-14 18-40 20-60 12S20 10 2 16Z"
       />
     </svg>
-  );
-}
-
-/** Soft background shapes: a blue glow top left, blue and Teal waves in the bottom corners. */
-function SectionDecor() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-      <div className="bg-secondary-tint absolute -top-56 -left-56 size-[38rem] rounded-full blur-2xl" />
-      <svg
-        className="absolute bottom-0 left-0 h-20 w-1/2 sm:h-28 lg:h-32 lg:w-[34%]"
-        viewBox="0 0 400 120"
-        preserveAspectRatio="none"
-      >
-        <path className="fill-secondary/15" d="M0 30C120 40 260 80 400 120H0Z" />
-        <path className="fill-secondary" d="M0 70C110 76 230 96 330 120H0Z" />
-      </svg>
-      <svg
-        className="absolute right-0 bottom-0 h-20 w-1/2 sm:h-28 lg:h-32 lg:w-[34%]"
-        viewBox="0 0 400 120"
-        preserveAspectRatio="none"
-      >
-        <path className="fill-accent-tint" d="M400 20C280 40 140 84 0 120H400Z" />
-        <path className="fill-accent/70" d="M400 64C300 74 180 96 80 120H400Z" />
-      </svg>
-    </div>
   );
 }
 
