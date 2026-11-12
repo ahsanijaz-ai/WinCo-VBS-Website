@@ -19,6 +19,11 @@ type HeroProps = {
    * hover (180 ms). Both skip when the visitor prefers reduced motion. Default off.
    */
   animated?: boolean;
+  /**
+   * `pill` (Contact): primary buttons become fully rounded with a Primary Blue gradient and the
+   * arrow in a light circle on the right. Default keeps the standard 8 px button.
+   */
+  buttonStyle?: "default" | "pill";
 };
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -66,7 +71,13 @@ function HighlightedTitle({ title }: { title: string }) {
  *   the screen's one accent (brand rule 2), so the Teal wave is only a soft 25 % tint.
  * - Text never waits for an animation; with `animated` it fades in over 220 ms on load.
  */
-export function Hero({ hero, align = "left", illustration, animated = false }: HeroProps) {
+export function Hero({
+  hero,
+  align = "left",
+  illustration,
+  animated = false,
+  buttonStyle = "default",
+}: HeroProps) {
   const { title, description, buttons, size, image } = hero;
   const titleId = "hero-title";
   const centered = align === "center";
@@ -167,31 +178,45 @@ export function Hero({ hero, align = "left", illustration, animated = false }: H
                   centered && "sm:justify-center",
                 )}
               >
-                {buttons.map(({ label, href, variant }) => (
-                  <ButtonLink
-                    key={label}
-                    href={href}
-                    variant={variant}
-                    target={isExternal(href) ? "_blank" : undefined}
-                    rel={isExternal(href) ? "noopener noreferrer" : undefined}
-                    className={cn(
-                      "group",
-                      variant === "primary" && "shadow-secondary/30 shadow-lg",
-                      animated && variant === "primary" && cn(ctaLiftClassName, "hover:shadow-xl"),
-                    )}
-                  >
-                    {label}
-                    {variant === "primary" && (
-                      <ArrowRight
-                        aria-hidden="true"
-                        className={cn(
-                          "ease-brand size-5 transition duration-(--motion-base) group-hover:translate-x-1",
-                          animated && "duration-(--motion-hover) ease-[ease-out]",
-                        )}
-                      />
-                    )}
-                  </ButtonLink>
-                ))}
+                {buttons.map(({ label, href, variant }) => {
+                  const pill = buttonStyle === "pill" && variant === "primary";
+                  const arrow = (
+                    <ArrowRight
+                      aria-hidden="true"
+                      className={cn(
+                        "ease-brand size-5 transition duration-(--motion-base) group-hover:translate-x-1",
+                        animated && "duration-(--motion-hover) ease-[ease-out]",
+                      )}
+                    />
+                  );
+                  return (
+                    <ButtonLink
+                      key={label}
+                      href={href}
+                      variant={variant}
+                      target={isExternal(href) ? "_blank" : undefined}
+                      rel={isExternal(href) ? "noopener noreferrer" : undefined}
+                      className={cn(
+                        "group",
+                        variant === "primary" && "shadow-secondary/30 shadow-lg",
+                        animated &&
+                          variant === "primary" &&
+                          cn(ctaLiftClassName, "hover:shadow-xl"),
+                        pill &&
+                          "from-secondary shadow-secondary/35 min-h-14 gap-3 rounded-full bg-linear-to-br to-[color-mix(in_oklab,var(--color-secondary)_72%,var(--color-secondary-hover))] py-2 pr-2 pl-5 whitespace-nowrap sm:gap-4 sm:pl-7",
+                      )}
+                    >
+                      {label}
+                      {pill ? (
+                        <span className="bg-primary/15 flex size-9 shrink-0 items-center justify-center rounded-full sm:size-10">
+                          {arrow}
+                        </span>
+                      ) : (
+                        variant === "primary" && arrow
+                      )}
+                    </ButtonLink>
+                  );
+                })}
               </div>
             )}
           </div>
