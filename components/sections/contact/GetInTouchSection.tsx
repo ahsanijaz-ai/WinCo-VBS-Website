@@ -1,5 +1,4 @@
-import { Globe, Mail, MapPin, MessageCircle, Phone, Send, type LucideIcon } from "lucide-react";
-import type { ReactNode } from "react";
+import { Globe, Mail, MapPin, MessageCircle, Phone, type LucideIcon } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Reveal } from "@/components/ui/Reveal";
@@ -7,7 +6,7 @@ import type { ContactIcon, ContactPage } from "@/content";
 import { site } from "@/content";
 import { cn } from "@/lib/cn";
 
-const icons: Record<ContactIcon, LucideIcon> = {
+const placeIcons: Record<ContactIcon, LucideIcon> = {
   mail: Mail,
   phone: Phone,
   "map-pin": MapPin,
@@ -15,32 +14,75 @@ const icons: Record<ContactIcon, LucideIcon> = {
 };
 
 /**
- * Card hover: lift 4 px with a stronger shadow, 200 ms on the brand curve. Hover devices only,
- * and no lift with reduced motion. The entrance uses `transform`, the lift uses `translate`,
- * so the two never fight.
+ * Card: 24 px corners, soft shadow. Hover lifts it 4 px with a stronger shadow, 200 ms on the
+ * brand curve, on hover devices only and never with reduced motion. The entrance uses
+ * `transform`, the lift uses `translate`, so the two never fight.
  */
 const cardClass =
-  "reveal-item bg-primary border-border rounded-card flex h-full flex-col items-center border p-8 text-center shadow-sm sm:p-10 " +
-  "transition-[translate,box-shadow] duration-(--motion-base) ease-brand motion-safe:hover:-translate-y-1 hover:shadow-lg";
+  "reveal-item bg-primary relative isolate flex h-full flex-col items-center overflow-hidden rounded-3xl border border-primary p-6 text-center shadow-xl shadow-secondary/10 sm:p-10 " +
+  "transition-[translate,box-shadow] duration-(--motion-base) ease-brand motion-safe:hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/15";
 
 /**
- * Card button hover: grow to 1.02 and darken slightly toward Deep Navy, 180 ms ease-out.
- * Pressed: 0.98. Overrides the standard button hover colour and press scale.
+ * Card button: a pill showing the address or number. Hover grows it to 1.02 and darkens it a
+ * little, 180 ms ease-out; pressed shrinks it to 0.98.
  */
-const cardButtonClass =
-  "duration-(--motion-hover) ease-[ease-out] motion-safe:hover:not-active:scale-[1.02] active:scale-[0.98] " +
-  "hover:bg-[color-mix(in_oklab,var(--color-secondary)_82%,var(--color-secondary-hover))]";
+const pillClass =
+  "mt-8 min-h-14 gap-3 rounded-full px-5 text-base sm:px-8 sm:text-lg shadow-lg " +
+  "duration-(--motion-hover) ease-[ease-out] motion-safe:hover:not-active:scale-[1.02] active:scale-[0.98]";
 
-function CardIcon({ icon: Icon }: { icon: LucideIcon }) {
+/** "Touch" in strong Teal: the last word of the heading is coloured, like the hero headings. */
+function SplitTitle({ title }: { title: string }) {
+  const cut = title.lastIndexOf(" ");
+  if (cut === -1) return <>{title}</>;
   return (
-    <span className="bg-secondary-tint text-secondary flex size-16 items-center justify-center rounded-full">
-      <Icon aria-hidden="true" className="size-7" />
-    </span>
+    <>
+      {title.slice(0, cut + 1)}
+      <span className="text-accent-strong">{title.slice(cut + 1)}</span>
+    </>
   );
 }
 
-function CardTitle({ children }: { children: ReactNode }) {
-  return <h3 className="mt-6 text-2xl font-bold">{children}</h3>;
+/** Small brand wave above the heading, Primary Blue fading into Teal. */
+function HeadingWave() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 120 24" className="mx-auto mb-4 h-5 w-24 sm:h-6 sm:w-28">
+      <defs>
+        <linearGradient id="git-wave" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" stopColor="var(--color-secondary)" />
+          <stop offset="1" stopColor="var(--color-accent)" />
+        </linearGradient>
+      </defs>
+      <path
+        fill="url(#git-wave)"
+        d="M2 16C22 4 38 4 58 12s38 8 60-6c-14 18-40 20-60 12S20 10 2 16Z"
+      />
+    </svg>
+  );
+}
+
+/** Soft background shapes: a blue glow top left, blue and Teal waves in the bottom corners. */
+function SectionDecor() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+      <div className="bg-secondary-tint absolute -top-56 -left-56 size-[38rem] rounded-full blur-2xl" />
+      <svg
+        className="absolute bottom-0 left-0 h-20 w-1/2 sm:h-28 lg:h-32 lg:w-[34%]"
+        viewBox="0 0 400 120"
+        preserveAspectRatio="none"
+      >
+        <path className="fill-secondary/15" d="M0 30C120 40 260 80 400 120H0Z" />
+        <path className="fill-secondary" d="M0 70C110 76 230 96 330 120H0Z" />
+      </svg>
+      <svg
+        className="absolute right-0 bottom-0 h-20 w-1/2 sm:h-28 lg:h-32 lg:w-[34%]"
+        viewBox="0 0 400 120"
+        preserveAspectRatio="none"
+      >
+        <path className="fill-accent-tint" d="M400 20C280 40 140 84 0 120H400Z" />
+        <path className="fill-accent/70" d="M400 64C300 74 180 96 80 120H400Z" />
+      </svg>
+    </div>
+  );
 }
 
 type GetInTouchSectionProps = Pick<ContactPage, "intro" | "getInTouch" | "details">;
@@ -51,62 +93,81 @@ export function GetInTouchSection({ intro, getInTouch, details }: GetInTouchSect
   const placeDetails = details.filter((detail) => !detail.href);
 
   return (
-    <Section tone="alt" aria-labelledby="contact-get-in-touch">
+    <Section
+      tone="alt"
+      aria-labelledby="contact-get-in-touch"
+      className="relative isolate overflow-hidden pb-[calc(var(--section-y)+4rem)]"
+    >
+      <SectionDecor />
+
       <Reveal>
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 id="contact-get-in-touch" className="reveal-item">
-            {title}
-          </h2>
-          <div className="reveal-item mt-4 grid gap-2 text-lg leading-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="reveal-item">
+            <HeadingWave />
+            <h2
+              id="contact-get-in-touch"
+              className="text-[clamp(2.25rem,1.5rem+3vw,3.75rem)] leading-tight font-bold"
+            >
+              <SplitTitle title={title} />
+            </h2>
+          </div>
+          <div className="reveal-item mx-auto mt-4 grid max-w-2xl gap-2 text-lg leading-8">
             {intro.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
         </div>
 
-        <ul className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
+        <ul className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2 lg:gap-8">
           <li>
-            <article className={cn(cardClass, "justify-center")}>
-              <CardIcon icon={Mail} />
-              <CardTitle>{emailCard.title}</CardTitle>
-              <a
+            <article className={cardClass}>
+              <span
+                aria-hidden="true"
+                className="bg-secondary-tint absolute -top-24 -left-24 -z-10 size-56 rounded-full blur-md"
+              />
+              <span className="bg-secondary-tint text-secondary flex size-16 items-center justify-center rounded-2xl">
+                <Mail aria-hidden="true" className="size-8" />
+              </span>
+              <h3 className="mt-6 text-2xl font-bold">{emailCard.title}</h3>
+              <p className="mt-3">{emailCard.description}</p>
+              <ButtonLink
                 href={`mailto:${site.email}`}
-                className="text-secondary mt-3 text-lg font-semibold break-all underline-offset-4 hover:underline"
+                aria-label={`${emailCard.title}: ${site.email}`}
+                className={cn(
+                  pillClass,
+                  "shadow-secondary/30 hover:bg-[color-mix(in_oklab,var(--color-secondary)_82%,var(--color-secondary-hover))]",
+                )}
               >
-                {site.email}
-              </a>
-              <ButtonLink href={`mailto:${site.email}`} className={cn("mt-8", cardButtonClass)}>
-                <Send aria-hidden="true" className="size-5" />
-                {emailCard.buttonLabel}
+                <Mail aria-hidden="true" className="size-6 shrink-0" />
+                <span className="break-all">{site.email}</span>
               </ButtonLink>
             </article>
           </li>
 
           <li>
             <article className={cardClass}>
-              <CardIcon icon={MessageCircle} />
-              <CardTitle>{whatsappCard.title}</CardTitle>
-              <p className="mt-2 text-xs font-semibold tracking-[0.2em] uppercase">
-                {whatsappCard.eyebrow}
-              </p>
-              <div className="border-border mt-6 w-full border-t pt-6">
-                <p className="text-ink text-lg font-semibold">{site.phoneDisplay}</p>
-                <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-                  <ButtonLink
-                    href={site.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cardButtonClass}
-                  >
-                    <MessageCircle aria-hidden="true" className="size-5" />
-                    {whatsappCard.whatsappLabel}
-                  </ButtonLink>
-                  <ButtonLink href={`tel:${site.phoneE164}`} variant="secondary">
-                    <Phone aria-hidden="true" className="size-5" />
-                    {whatsappCard.callLabel}
-                  </ButtonLink>
-                </div>
-              </div>
+              <span
+                aria-hidden="true"
+                className="bg-accent-tint absolute -right-24 -bottom-24 -z-10 size-56 rounded-full blur-md"
+              />
+              <span className="bg-accent-tint text-accent-deep flex size-16 items-center justify-center rounded-2xl">
+                <Phone aria-hidden="true" className="size-8" />
+              </span>
+              <h3 className="mt-6 text-2xl font-bold">{whatsappCard.title}</h3>
+              <p className="mt-3">{whatsappCard.description}</p>
+              <ButtonLink
+                href={site.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${whatsappCard.title}: ${site.phoneDisplay}`}
+                className={cn(
+                  pillClass,
+                  "bg-accent-deep shadow-accent-deep/30 hover:bg-[color-mix(in_oklab,var(--color-accent-deep)_82%,var(--color-ink))]",
+                )}
+              >
+                <MessageCircle aria-hidden="true" className="size-6 shrink-0" />
+                <span className="whitespace-nowrap">{site.phoneDisplay}</span>
+              </ButtonLink>
             </article>
           </li>
         </ul>
@@ -114,7 +175,7 @@ export function GetInTouchSection({ intro, getInTouch, details }: GetInTouchSect
 
       <ul className="mx-auto mt-10 flex max-w-4xl flex-col items-center justify-center gap-x-8 gap-y-3 text-center sm:flex-row sm:flex-wrap">
         {placeDetails.map(({ label, value, icon }) => {
-          const Icon = icons[icon];
+          const Icon = placeIcons[icon];
           return (
             <li key={label} className="flex items-center gap-2">
               <Icon aria-hidden="true" className="text-secondary size-5 shrink-0" />
