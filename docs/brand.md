@@ -148,6 +148,7 @@ Page content (headings, cards, list items) slides in from the left and fades in 
 - Respect `prefers-reduced-motion`: swap slides and scales for a 170 ms fade, or nothing.
 - Text never waits for an animation. The hero shows immediately. One exception: on the Contact page the illustration, heading and description fade up 8 px once on load (`motion-safe:animate-fade-up`, 220 ms, no stagger), so the text is in place within 220 ms.
 - Call-to-action hover (navbar button, Contact hero button): lift 2 px with a slightly stronger shadow, and the arrow slides 4 px if there is one, in 180 ms ease-out (`ctaLiftClassName` in `components/ui/button-styles.ts`). Hover devices only; touch screens keep the press feedback.
+- Contact "Get in Touch" section: the heading, subtitle and both cards fade up 12 px once when the section scrolls into view (`Reveal` in `components/ui/Reveal.tsx`, 220 ms ease-out, all together). Cards lift 4 px with a stronger shadow on hover (200 ms, brand curve). The Email and WhatsApp buttons grow to 1.02 and darken slightly toward Deep Navy on hover (180 ms ease-out) and shrink to 0.98 when pressed. With reduced motion nothing hides or moves.
 
 ## Icons
 
