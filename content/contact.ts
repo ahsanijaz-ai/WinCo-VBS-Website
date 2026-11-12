@@ -93,7 +93,9 @@ export const contactPage: ContactPage = {
     // Same titles as the service groups, so the two lists can't drift apart.
     serviceOptions: [...servicesPage.groups.map((group) => group.title), "General Inquiry / Other"],
     submitLabel: "Send Inquiry",
+    successTitle: "Inquiry Sent Successfully",
     successMessage:
       "Thank you for contacting WinCo VBS. We've received your inquiry and will be in touch as soon as possible.",
+    successNote: "Our team will review your request shortly.",
   },
 };

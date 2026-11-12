@@ -108,6 +108,8 @@ export type FooterHeadings = {
 export type SiteSettings = {
   name: string;
   shortName: string;
+  /** The line that goes with the logo, e.g. under it on the form success panel. */
+  logoLine: string;
   tagline: string;
   email: string;
   /** Shown to visitors, e.g. "+1 (246) 269-0471". */
@@ -194,7 +196,11 @@ export type InquiryForm = {
   /** Options for the "Service Interested In" dropdown. */
   serviceOptions: string[];
   submitLabel: string;
+  /** Heading of the success panel. Drafted, not in the client copy. */
+  successTitle: string;
   successMessage: string;
+  /** Small line under the message, next to a clock icon. Drafted, not in the client copy. */
+  successNote: string;
 };
 
 /** The "Get in Touch" section under the Contact hero: heading, intro and two contact cards. */
