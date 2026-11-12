@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { RollLabel } from "@/components/ui/RollLabel";
 import type { CtaButton } from "@/content";
 import { cn } from "@/lib/cn";
 import { isActivePath, navItems } from "@/lib/nav-items";
@@ -194,7 +195,7 @@ export function MobileMenu({ consultation }: MobileMenuProps) {
             className="shadow-secondary/25 w-full shadow-lg sm:w-full"
           >
             <CalendarDays aria-hidden="true" className="size-5" />
-            {consultation.label}
+            <RollLabel text={consultation.label} />
           </ButtonLink>
         </div>
       </div>
