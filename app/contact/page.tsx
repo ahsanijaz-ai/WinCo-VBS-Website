@@ -17,7 +17,13 @@ export default function ContactPage() {
 
   return (
     <>
-      <Hero hero={hero} align="center" illustration={<EnvelopeIllustration />} animated />
+      <Hero
+        hero={hero}
+        align="center"
+        illustration={<EnvelopeIllustration />}
+        animated
+        buttonStyle="pill"
+      />
 
       <Section tone="alt" fullScreen={false} aria-label={form.title}>
         <Reveal className="grid gap-10 lg:grid-cols-5 lg:gap-12">
