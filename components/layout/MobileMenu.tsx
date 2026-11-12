@@ -19,13 +19,13 @@ type MobileMenuProps = {
 const STAGGER_MS = 15;
 
 /**
- * Hamburger button and full-screen menu panel for screens under 768 px.
+ * Hamburger button and full-screen menu panel for screens under 1024 px.
  *
  * - The panel slides in from the right in 240 ms; the rows fade and slide in one after another.
  * - It is a modal dialog: focus moves to the close button, Tab stays inside the panel,
  *   the page behind is inert and does not scroll.
  * - It closes on Escape, on the close button, after choosing a link, on any page change
- *   (including browser back) and when the screen widens to 768 px. Focus returns to the
+ *   (including browser back) and when the screen widens to 1024 px. Focus returns to the
  *   hamburger button when the visitor closes it by keyboard or the close button.
  */
 export function MobileMenu({ consultation }: MobileMenuProps) {
@@ -75,7 +75,7 @@ export function MobileMenu({ consultation }: MobileMenuProps) {
         first.focus();
       }
     };
-    const wide = window.matchMedia("(min-width: 768px)");
+    const wide = window.matchMedia("(min-width: 1024px)");
     const onWide = (event: MediaQueryListEvent) => {
       if (event.matches) setOpenOn(null);
     };
@@ -92,7 +92,7 @@ export function MobileMenu({ consultation }: MobileMenuProps) {
   }, [open]);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         ref={openButtonRef}
         type="button"
