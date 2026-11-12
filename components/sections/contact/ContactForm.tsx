@@ -2,7 +2,6 @@
 
 import {
   Building2,
-  Check,
   Layers,
   Mail,
   MapPin,
@@ -15,6 +14,7 @@ import {
 import { useActionState, useEffect, useRef } from "react";
 import { submitInquiry } from "@/app/contact/actions";
 import { FormField, type FieldControl } from "@/components/sections/contact/FormField";
+import { InquirySuccess } from "@/components/sections/contact/InquirySuccess";
 import { SplitTitle } from "@/components/sections/contact/SplitTitle";
 import { buttonClassName } from "@/components/ui/button-styles";
 import { countries, type InquiryFieldName, type InquiryForm } from "@/content";
@@ -61,7 +61,13 @@ const initialState: InquiryState = { status: "idle" };
 export function ContactForm({ form }: { form: InquiryForm }) {
   const [state, formAction, pending] = useActionState(submitInquiry, initialState);
   const formRef = useRef<HTMLFormElement>(null);
+  const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const fieldControls = controls(form.serviceOptions);
+
+  // After a successful submit the form is replaced, so move focus to the success heading.
+  useEffect(() => {
+    if (state.status === "success") successHeadingRef.current?.focus();
+  }, [state]);
 
   // After a failed submit, move focus to the first field with an error.
   useEffect(() => {
@@ -70,17 +76,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
   }, [state]);
 
   if (state.status === "success") {
-    return (
-      <div
-        role="status"
-        className="bg-secondary-tint rounded-card ease-brand flex items-start gap-4 p-6 transition duration-(--motion-slow) md:p-8 starting:translate-y-2 starting:opacity-0"
-      >
-        <span className="bg-accent text-ink flex size-11 shrink-0 items-center justify-center rounded-full">
-          <Check aria-hidden="true" className="size-6" strokeWidth={2.5} />
-        </span>
-        <p className="text-ink pt-2 text-lg font-semibold">{form.successMessage}</p>
-      </div>
-    );
+    return <InquirySuccess form={form} headingRef={successHeadingRef} />;
   }
 
   const errors = state.status === "error" ? state.fieldErrors : {};
