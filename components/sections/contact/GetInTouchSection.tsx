@@ -1,12 +1,18 @@
 import { Globe, Mail, MapPin, MessageCircle, Phone, type LucideIcon } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import { Reveal } from "@/components/ui/Reveal";
+import {
+  Reveal,
+  RevealClip,
+  RevealFade,
+  RevealIcon,
+  RevealUnit,
+  RevealWords,
+} from "@/components/ui/Reveal";
 import type { ContactIcon, ContactPage } from "@/content";
 import { site } from "@/content";
 import { cn } from "@/lib/cn";
 import { SectionDecor } from "@/components/sections/contact/SectionDecor";
-import { SplitTitle } from "@/components/sections/contact/SplitTitle";
 
 const placeIcons: Record<ContactIcon, LucideIcon> = {
   mail: Mail,
@@ -17,11 +23,11 @@ const placeIcons: Record<ContactIcon, LucideIcon> = {
 
 /**
  * Card: 24 px corners, soft shadow. Hover lifts it 4 px with a stronger shadow, 200 ms on the
- * brand curve, on hover devices only and never with reduced motion. The entrance uses
- * `transform`, the lift uses `translate`, so the two never fight.
+ * brand curve, on hover devices only and never with reduced motion. The scroll reveal moves the
+ * list item around the card, the lift moves the card itself, so the two never fight.
  */
 const cardClass =
-  "reveal-item bg-primary relative isolate flex h-full flex-col items-center overflow-hidden rounded-3xl border border-primary p-6 text-center shadow-xl shadow-secondary/10 sm:p-10 " +
+  "bg-primary relative isolate flex h-full flex-col items-center overflow-hidden rounded-3xl border border-primary p-6 text-center shadow-xl shadow-secondary/10 sm:p-10 " +
   "transition-[translate,box-shadow] duration-(--motion-base) ease-brand motion-safe:hover:-translate-y-1 hover:shadow-2xl hover:shadow-secondary/15";
 
 /**
@@ -65,34 +71,38 @@ export function GetInTouchSection({ intro, getInTouch, details }: GetInTouchSect
     >
       <SectionDecor />
 
-      <Reveal>
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="reveal-item">
+      <Reveal className="contents">
+        <RevealUnit className="mx-auto max-w-3xl text-center">
+          <RevealIcon>
             <HeadingWave />
-            <h2
-              id="contact-get-in-touch"
-              className="text-[clamp(2.25rem,1.5rem+3vw,3.75rem)] leading-tight font-bold"
-            >
-              <SplitTitle title={title} />
-            </h2>
-          </div>
-          <div className="reveal-item mx-auto mt-4 grid max-w-2xl gap-2 text-lg leading-8">
+          </RevealIcon>
+          <RevealWords
+            as="h2"
+            id="contact-get-in-touch"
+            standalone={false}
+            text={title}
+            lastWordClassName="text-accent-strong"
+            className="text-[clamp(2.25rem,1.5rem+3vw,3.75rem)] leading-tight font-bold"
+          />
+          <RevealClip as="div" className="mx-auto mt-4 grid max-w-2xl gap-2 text-lg leading-8">
             {intro.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-          </div>
-        </div>
+          </RevealClip>
+        </RevealUnit>
 
         <ul className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-2 lg:gap-8">
-          <li>
+          <RevealFade as="li">
             <article className={cardClass}>
               <span
                 aria-hidden="true"
                 className="bg-secondary-tint absolute -top-24 -left-24 -z-10 size-56 rounded-full blur-md"
               />
-              <span className="bg-secondary-tint text-secondary flex size-16 items-center justify-center rounded-2xl">
-                <Mail aria-hidden="true" className="size-8" />
-              </span>
+              <RevealIcon>
+                <span className="bg-secondary-tint text-secondary flex size-16 items-center justify-center rounded-2xl">
+                  <Mail aria-hidden="true" className="size-8" />
+                </span>
+              </RevealIcon>
               <h3 className="mt-6 text-2xl font-bold">{emailCard.title}</h3>
               <p className="mt-3">{emailCard.description}</p>
               <ButtonLink
@@ -107,17 +117,19 @@ export function GetInTouchSection({ intro, getInTouch, details }: GetInTouchSect
                 <span className="break-all">{site.email}</span>
               </ButtonLink>
             </article>
-          </li>
+          </RevealFade>
 
-          <li>
+          <RevealFade as="li">
             <article className={cardClass}>
               <span
                 aria-hidden="true"
                 className="bg-accent-tint absolute -right-24 -bottom-24 -z-10 size-56 rounded-full blur-md"
               />
-              <span className="bg-accent-tint text-accent-deep flex size-16 items-center justify-center rounded-2xl">
-                <Phone aria-hidden="true" className="size-8" />
-              </span>
+              <RevealIcon>
+                <span className="bg-accent-tint text-accent-deep flex size-16 items-center justify-center rounded-2xl">
+                  <Phone aria-hidden="true" className="size-8" />
+                </span>
+              </RevealIcon>
               <h3 className="mt-6 text-2xl font-bold">{whatsappCard.title}</h3>
               <p className="mt-3">{whatsappCard.description}</p>
               <ButtonLink
@@ -134,23 +146,25 @@ export function GetInTouchSection({ intro, getInTouch, details }: GetInTouchSect
                 <span className="whitespace-nowrap">{site.phoneDisplay}</span>
               </ButtonLink>
             </article>
-          </li>
+          </RevealFade>
         </ul>
-      </Reveal>
 
-      <ul className="mx-auto mt-10 flex max-w-4xl flex-col items-center justify-center gap-x-8 gap-y-3 text-center sm:flex-row sm:flex-wrap">
-        {placeDetails.map(({ label, value, icon }) => {
-          const Icon = placeIcons[icon];
-          return (
-            <li key={label} className="flex items-center gap-2">
-              <Icon aria-hidden="true" className="text-secondary size-5 shrink-0" />
-              <span>
-                <span className="text-ink font-semibold">{label}:</span> {value}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+        <RevealFade as="div">
+          <ul className="mx-auto mt-10 flex max-w-4xl flex-col items-center justify-center gap-x-8 gap-y-3 text-center sm:flex-row sm:flex-wrap">
+            {placeDetails.map(({ label, value, icon }) => {
+              const Icon = placeIcons[icon];
+              return (
+                <li key={label} className="flex items-center gap-2">
+                  <Icon aria-hidden="true" className="text-secondary size-5 shrink-0" />
+                  <span>
+                    <span className="text-ink font-semibold">{label}:</span> {value}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </RevealFade>
+      </Reveal>
     </Section>
   );
 }
