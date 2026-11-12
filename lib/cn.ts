@@ -2,13 +2,15 @@ import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 
 /**
- * tailwind-merge only knows Tailwind's default theme. Our custom easing (`ease-brand`) is added
- * here, so a later `ease-*` class on the same element replaces it instead of both staying.
+ * tailwind-merge only knows Tailwind's default theme. Our custom easing (`ease-brand`) and corner
+ * radius (`rounded-card`) are added here, so a later `ease-*` or `rounded-*` class on the same
+ * element replaces them instead of both staying.
  */
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       ease: ["brand"],
+      radius: ["card"],
     },
   },
 });
