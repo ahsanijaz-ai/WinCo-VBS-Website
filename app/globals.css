@@ -48,13 +48,16 @@
   --default-transition-duration: 200ms;
   --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Entrance: fade up 8 px once on page load (Contact hero). Use as motion-safe:animate-fade-up. */
+  /*
+   * Entrance: fade up once (Contact). Use as motion-safe:animate-fade-up. The distance is
+   * --fade-y: 8 px by default (hero), 12 px for sections revealed on scroll.
+   */
   --animate-fade-up: fade-up var(--motion-enter) ease-out both;
 
   @keyframes fade-up {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(var(--fade-y, 8px));
     }
     to {
       opacity: 1;
