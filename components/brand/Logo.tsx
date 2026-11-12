@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { PageLink } from "@/components/ui/PageLink";
 import { cn } from "@/lib/cn";
 
 type LogoProps = {
@@ -28,7 +28,7 @@ const alt = "WinCo VBS, Virtual Business Solutions";
  */
 export function Logo({ className, tone = "light" }: LogoProps) {
   return (
-    <Link href="/" className={cn("inline-flex min-h-11 shrink-0 items-center", className)}>
+    <PageLink href="/" className={cn("inline-flex min-h-11 shrink-0 items-center", className)}>
       {tone === "dark" ? (
         <Image
           src="/brand/logo-white.svg"
@@ -57,6 +57,6 @@ export function Logo({ className, tone = "light" }: LogoProps) {
           />
         </>
       )}
-    </Link>
+    </PageLink>
   );
 }
