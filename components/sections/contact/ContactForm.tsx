@@ -15,8 +15,8 @@ import { useActionState, useEffect, useRef } from "react";
 import { submitInquiry } from "@/app/contact/actions";
 import { FormField, type FieldControl } from "@/components/sections/contact/FormField";
 import { InquirySuccess } from "@/components/sections/contact/InquirySuccess";
-import { SplitTitle } from "@/components/sections/contact/SplitTitle";
 import { buttonClassName } from "@/components/ui/button-styles";
+import { RevealWords } from "@/components/ui/Reveal";
 import { countries, type InquiryFieldName, type InquiryForm } from "@/content";
 import { HONEYPOT_FIELD, INQUIRY_LIMITS, type InquiryState } from "@/lib/inquiry-schema";
 
@@ -85,9 +85,13 @@ export function ContactForm({ form }: { form: InquiryForm }) {
   return (
     <form ref={formRef} action={formAction} className="grid gap-6">
       <div>
-        <h2 className="text-[clamp(2rem,1.5rem+2.4vw,3.25rem)] leading-tight font-bold">
-          <SplitTitle title={form.title} />
-        </h2>
+        <RevealWords
+          as="h2"
+          standalone={false}
+          text={form.title}
+          lastWordClassName="text-accent-strong"
+          className="text-[clamp(2rem,1.5rem+2.4vw,3.25rem)] leading-tight font-bold"
+        />
         <p className="mt-3">
           Fields marked <span className="text-secondary font-semibold">*</span> are required.
         </p>

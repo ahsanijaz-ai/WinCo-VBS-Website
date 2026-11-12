@@ -5,6 +5,7 @@ import { EnvelopeIllustration } from "@/components/sections/contact/EnvelopeIllu
 import { GetInTouchSection } from "@/components/sections/contact/GetInTouchSection";
 import { SectionDecor } from "@/components/sections/contact/SectionDecor";
 import { Hero } from "@/components/sections/Hero";
+import { Reveal, RevealFade } from "@/components/ui/Reveal";
 import { contactPage } from "@/content";
 
 export const metadata: Metadata = {
@@ -34,9 +35,14 @@ export default function ContactPage() {
         className="relative isolate overflow-hidden pb-[calc(var(--section-y)+4rem)]"
       >
         <SectionDecor />
-        <div className="bg-primary/90 border-primary shadow-secondary/10 mx-auto max-w-4xl rounded-3xl border p-6 shadow-xl backdrop-blur-sm sm:p-10">
-          <ContactForm form={form} />
-        </div>
+        <Reveal className="contents">
+          <RevealFade
+            as="div"
+            className="bg-primary/90 border-primary shadow-secondary/10 mx-auto max-w-4xl rounded-3xl border p-6 shadow-xl backdrop-blur-sm sm:p-10"
+          >
+            <ContactForm form={form} />
+          </RevealFade>
+        </Reveal>
       </Section>
     </>
   );
