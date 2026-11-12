@@ -47,13 +47,48 @@ export const contactPage: ContactPage = {
   form: {
     title: "How Can We Help?",
     fields: [
-      { name: "fullName", label: "Full Name", required: true },
-      { name: "organization", label: "Business / Organization Name", required: false },
-      { name: "email", label: "Email Address", required: true },
-      { name: "phone", label: "Phone / WhatsApp", required: false },
-      { name: "country", label: "Country", required: false },
-      { name: "service", label: "Service Interested In", required: false },
-      { name: "message", label: "Tell Us About Your Business Needs", required: false },
+      {
+        name: "fullName",
+        label: "Full Name",
+        required: true,
+        placeholder: "Enter your full name",
+      },
+      {
+        name: "organization",
+        label: "Business / Organization Name",
+        required: false,
+        placeholder: "Enter organization name",
+      },
+      {
+        name: "email",
+        label: "Email Address",
+        required: true,
+        placeholder: "Enter your email address",
+      },
+      {
+        name: "phone",
+        label: "Phone / WhatsApp",
+        required: false,
+        placeholder: "Enter your phone number",
+      },
+      {
+        name: "country",
+        label: "Country",
+        required: false,
+        placeholder: "Select your country",
+      },
+      {
+        name: "service",
+        label: "Service Interested In",
+        required: false,
+        placeholder: "Select a service",
+      },
+      {
+        name: "message",
+        label: "Tell Us About Your Business Needs",
+        required: false,
+        placeholder: "Share your requirements, goals, or any specific details...",
+      },
     ],
     // Same titles as the service groups, so the two lists can't drift apart.
     serviceOptions: [...servicesPage.groups.map((group) => group.title), "General Inquiry / Other"],

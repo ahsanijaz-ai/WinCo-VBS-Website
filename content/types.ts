@@ -184,6 +184,8 @@ export type InquiryField = {
   name: InquiryFieldName;
   label: string;
   required: boolean;
+  /** Hint inside the empty field. Drafted, not in the client copy. The label always stays visible. */
+  placeholder: string;
 };
 
 export type InquiryForm = {
