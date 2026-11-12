@@ -38,6 +38,8 @@ These colours come from the client's brand colour palette (Primary Blue, Teal, L
 | `--color-input-border`    | `#7B8798` | (neutral)        | part of 30%   | Form field borders (needs 3:1 on white)                                  |
 | `--color-accent`          | `#2EC4B6` | Teal             | 10%           | Badges, step numbers, one highlight per screen                           |
 | `--color-accent-strong`   | `#229288` | (Teal, darkened) | part of 10%   | Large text only (24 px+ or 18.7 px bold): the coloured hero heading word |
+| `--color-accent-deep`     | `#1B7A71` | (Teal, deep)     | part of 10%   | Teal buttons with white text (5.2:1), e.g. the Contact WhatsApp pill     |
+| `--color-accent-tint`     | `#E6F7F5` | (neutral)        | part of 10%   | Pale Teal behind Teal icons                                              |
 | `--color-ink`             | `#0F1E2E` | Slate            | not counted   | Headings                                                                 |
 | `--color-text`            | `#3A4A63` | (neutral)        | not counted   | Body text                                                                |
 | `--color-navy`            | `#0B3A6E` | Deep Navy        | dark surfaces | Footer background                                                        |
@@ -80,6 +82,7 @@ Text needs 4.5:1 against its background, large text 3:1. Focus rings and other U
 | Light border `#D9E2EF` on white                       | ~1.3:1          | Decorative only, never for form fields           |
 | Error `#B42318` text on white or `#F4F7FB`            | ~6.6:1 / ~6.1:1 | Pass                                             |
 | Strong Teal `#229288` large text on white / `#F4F7FB` | ~3.8:1 / ~3.5:1 | Pass for large text only, fails body text        |
+| White on deep Teal `#1B7A71` (buttons)                | ~5.2:1          | Pass                                             |
 | Teal `#2EC4B6` text on white                          | ~2.2:1          | Fail, never do this                              |
 | Light Blue `#38BDF8` text on white                    | ~2.1:1          | Fail, never do this                              |
 
@@ -112,7 +115,7 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 ## Spacing and shape
 
-- Corner radius: 8 px. One exception: the Contact hero button is a pill (fully rounded) with a Primary Blue gradient and the arrow in a light circle (`<Hero buttonStyle="pill" />`). Every other button keeps 8 px.
+- Corner radius: 8 px. One exception: the Contact hero button is a pill (fully rounded) with a Primary Blue gradient and the arrow in a light circle (`<Hero buttonStyle="pill" />`). Every other button keeps 8 px. The Contact "Get in Touch" cards also follow their design: 24 px card corners, 16 px icon tiles and pill buttons.
 - Side gutters: 16 px on phones.
 - Content max width: about 1200 px.
 - Touch targets: at least 44 x 44 px.
