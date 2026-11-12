@@ -1,12 +1,23 @@
 "use client";
 
-import { Check } from "lucide-react";
+import {
+  Building2,
+  Check,
+  Layers,
+  Mail,
+  MapPin,
+  MessageSquareMore,
+  Phone,
+  Send,
+  User,
+  type LucideIcon,
+} from "lucide-react";
 import { useActionState, useEffect, useRef } from "react";
 import { submitInquiry } from "@/app/contact/actions";
 import { FormField, type FieldControl } from "@/components/sections/contact/FormField";
+import { SplitTitle } from "@/components/sections/contact/SplitTitle";
 import { buttonClassName } from "@/components/ui/button-styles";
-import { RollLabel } from "@/components/ui/RollLabel";
-import type { InquiryFieldName, InquiryForm } from "@/content";
+import { countries, type InquiryFieldName, type InquiryForm } from "@/content";
 import { HONEYPOT_FIELD, INQUIRY_LIMITS, type InquiryState } from "@/lib/inquiry-schema";
 
 const controls = (serviceOptions: string[]): Record<InquiryFieldName, FieldControl> => ({
@@ -25,15 +36,21 @@ const controls = (serviceOptions: string[]): Record<InquiryFieldName, FieldContr
     maxLength: INQUIRY_LIMITS.short,
   },
   phone: { kind: "input", type: "tel", autoComplete: "tel", inputMode: "tel", maxLength: 30 },
-  country: {
-    kind: "input",
-    type: "text",
-    autoComplete: "country-name",
-    maxLength: INQUIRY_LIMITS.short,
-  },
-  service: { kind: "select", options: serviceOptions, placeholder: "Select a service" },
+  country: { kind: "select", options: countries, autoComplete: "country-name" },
+  service: { kind: "select", options: serviceOptions },
   message: { kind: "textarea", maxLength: INQUIRY_LIMITS.message },
 });
+
+/** Icon in the tile inside each field. */
+const fieldIcons: Record<InquiryFieldName, LucideIcon> = {
+  fullName: User,
+  organization: Building2,
+  email: Mail,
+  phone: Phone,
+  country: MapPin,
+  service: Layers,
+  message: MessageSquareMore,
+};
 
 /** The message box spans both columns from 768 px; every other field takes one column. */
 const fullWidth: InquiryFieldName[] = ["message"];
@@ -72,8 +89,10 @@ export function ContactForm({ form }: { form: InquiryForm }) {
   return (
     <form ref={formRef} action={formAction} className="grid gap-6">
       <div>
-        <h2 className="text-2xl md:text-3xl">{form.title}</h2>
-        <p className="mt-2 text-sm">
+        <h2 className="text-[clamp(2rem,1.5rem+2.4vw,3.25rem)] leading-tight font-bold">
+          <SplitTitle title={form.title} />
+        </h2>
+        <p className="mt-3">
           Fields marked <span className="text-secondary font-semibold">*</span> are required.
         </p>
       </div>
@@ -84,6 +103,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
             key={field.name}
             field={field}
             control={fieldControls[field.name]}
+            icon={fieldIcons[field.name]}
             error={errors[field.name]}
             defaultValue={values[field.name]}
             className={fullWidth.includes(field.name) ? "md:col-span-2" : undefined}
@@ -107,9 +127,13 @@ export function ContactForm({ form }: { form: InquiryForm }) {
         <button
           type="submit"
           disabled={pending}
-          className={buttonClassName("primary", "disabled:cursor-wait disabled:opacity-70")}
+          className={buttonClassName(
+            "primary",
+            "shadow-secondary/30 min-h-14 gap-3 rounded-2xl px-8 text-lg shadow-lg disabled:cursor-wait disabled:opacity-70",
+          )}
         >
-          <RollLabel text={pending ? "Sending..." : form.submitLabel} />
+          <Send aria-hidden="true" className="size-5" />
+          {pending ? "Sending..." : form.submitLabel}
         </button>
       </div>
     </form>
