@@ -24,6 +24,17 @@ export const contactPage: ContactPage = {
     "Have a project in mind? Need ongoing business support? Looking for ways to improve your operations? We'd love to hear from you.",
     "Contact WinCo VBS to discuss your goals and explore how we can help.",
   ],
+  // Heading and card labels are drafted for the new section and need client approval.
+  getInTouch: {
+    title: "Get in Touch",
+    emailCard: { title: "Email Us", buttonLabel: "Send an Email" },
+    whatsappCard: {
+      title: "Chat on WhatsApp",
+      eyebrow: "WhatsApp & Direct Call",
+      whatsappLabel: "WhatsApp",
+      callLabel: "Call",
+    },
+  },
   details: [
     { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: "mail" },
     {
@@ -35,9 +46,6 @@ export const contactPage: ContactPage = {
     { label: "Location", value: `${site.address.city}, ${site.address.country}`, icon: "map-pin" },
     { label: "Service Area", value: site.serviceArea, icon: "globe" },
   ],
-  // Second WhatsApp button, under the contact details. Outline style, so it doesn't compete
-  // with the solid one in the hero on a phone screen.
-  whatsappButton: { ...whatsappButton, variant: "secondary" },
   form: {
     title: "How Can We Help?",
     fields: [

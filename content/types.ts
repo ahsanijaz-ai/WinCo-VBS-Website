@@ -195,9 +195,27 @@ export type InquiryForm = {
   successMessage: string;
 };
 
+/** The "Get in Touch" section under the Contact hero: heading, intro and two contact cards. */
+export type GetInTouch = {
+  /** Drafted heading, not in the client copy: needs client approval. */
+  title: string;
+  emailCard: {
+    title: string;
+    buttonLabel: string;
+  };
+  whatsappCard: {
+    title: string;
+    /** Small line under the title, e.g. "WhatsApp & Direct Call". */
+    eyebrow: string;
+    whatsappLabel: string;
+    callLabel: string;
+  };
+};
+
 export type ContactPage = Page & {
+  /** Shown as the subtitle of the Get in Touch section. */
   intro: string[];
+  getInTouch: GetInTouch;
   details: ContactDetail[];
-  whatsappButton: CtaButton;
   form: InquiryForm;
 };
