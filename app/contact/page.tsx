@@ -29,10 +29,13 @@ export default function ContactPage() {
 
       <GetInTouchSection intro={intro} getInTouch={getInTouch} details={details} />
 
+      {/* id: target of every "Schedule a Free Consultation" button (/contact#inquiry-form). */}
       <Section
+        id="inquiry-form"
+        tabIndex={-1}
         tone="alt"
         aria-label={form.title}
-        className="relative isolate overflow-hidden pb-[calc(var(--section-y)+4rem)]"
+        className="relative isolate overflow-hidden pb-[calc(var(--section-y)+4rem)] focus:outline-none"
       >
         <SectionDecor />
         <Reveal className="contents">
