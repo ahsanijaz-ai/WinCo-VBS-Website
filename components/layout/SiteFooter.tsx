@@ -5,6 +5,7 @@ import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { homePage, servicesPage, site } from "@/content";
 import { navItems } from "@/lib/nav-items";
+import { Reveal, RevealFade } from "@/components/ui/Reveal";
 
 /** Footer link: white text, Teal on hover (brand rule 6: Primary Blue fails on navy). */
 const linkClass =
@@ -82,8 +83,8 @@ export function SiteFooter() {
       />
 
       <div className="w-full px-(--gutter) pt-12 pb-6 md:pt-14 xl:px-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
-          <div className="lg:col-span-3">
+        <Reveal className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
+          <RevealFade as="div" className="lg:col-span-3">
             <Logo tone="dark" />
             <p className="mt-6 font-semibold">{site.tagline}</p>
             <p className="text-primary/80 mt-2 max-w-[40ch]">{site.footerText}</p>
@@ -98,70 +99,67 @@ export function SiteFooter() {
                 ))}
               </ul>
             )}
-          </div>
+          </RevealFade>
 
-          <FooterColumn id="footer-services" title={labelOf("/services")} className="lg:col-span-3">
-            <ul>
-              {servicesPage.groups.map(({ id, title }) => (
-                <li key={id}>
-                  <Link href={`/services#${id}`} className={linkClass}>
-                    {title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </FooterColumn>
+          <RevealFade as="div" className="lg:col-span-3">
+            <FooterColumn id="footer-services" title={labelOf("/services")}>
+              <ul>
+                {servicesPage.groups.map(({ id, title }) => (
+                  <li key={id}>
+                    <Link href={`/services#${id}`} className={linkClass}>
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </FooterColumn>
+          </RevealFade>
 
-          <FooterColumn
-            id="footer-quick-links"
-            title={site.footerHeadings.quickLinks}
-            className="lg:col-span-2"
-          >
-            <ul>
-              {navItems.map(({ href, label }) => (
-                <li key={href}>
-                  <Link href={href} className={linkClass}>
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </FooterColumn>
+          <RevealFade as="div" className="lg:col-span-2">
+            <FooterColumn id="footer-quick-links" title={site.footerHeadings.quickLinks}>
+              <ul>
+                {navItems.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className={linkClass}>
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </FooterColumn>
+          </RevealFade>
 
-          <FooterColumn
-            as="section"
-            id="footer-contact"
-            title={labelOf("/contact")}
-            className="lg:col-span-4"
-          >
-            <ul>
-              <ContactRow icon={MessageCircle} label={site.footerLabels.whatsapp}>
-                <a
-                  href={site.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={linkClass}
-                >
-                  {site.phoneDisplay}
-                </a>
-              </ContactRow>
-              <ContactRow icon={Mail} label={site.footerLabels.email}>
-                <a href={`mailto:${site.email}`} className={`${linkClass} break-all`}>
-                  {site.email}
-                </a>
-              </ContactRow>
-              <ContactRow icon={MapPin} label={site.serviceArea}>
-                <p className="flex min-h-11 items-center">
-                  {site.address.city}, {site.address.country}
-                </p>
-              </ContactRow>
-            </ul>
-            <ButtonLink href={cta.href} className="mt-5 w-full sm:w-full sm:whitespace-nowrap">
-              <CalendarDays aria-hidden="true" className="size-5" />
-              {cta.label}
-            </ButtonLink>
-          </FooterColumn>
-        </div>
+          <RevealFade as="div" className="lg:col-span-4">
+            <FooterColumn as="section" id="footer-contact" title={labelOf("/contact")}>
+              <ul>
+                <ContactRow icon={MessageCircle} label={site.footerLabels.whatsapp}>
+                  <a
+                    href={site.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={linkClass}
+                  >
+                    {site.phoneDisplay}
+                  </a>
+                </ContactRow>
+                <ContactRow icon={Mail} label={site.footerLabels.email}>
+                  <a href={`mailto:${site.email}`} className={`${linkClass} break-all`}>
+                    {site.email}
+                  </a>
+                </ContactRow>
+                <ContactRow icon={MapPin} label={site.serviceArea}>
+                  <p className="flex min-h-11 items-center">
+                    {site.address.city}, {site.address.country}
+                  </p>
+                </ContactRow>
+              </ul>
+              <ButtonLink href={cta.href} className="mt-5 w-full sm:w-full sm:whitespace-nowrap">
+                <CalendarDays aria-hidden="true" className="size-5" />
+                {cta.label}
+              </ButtonLink>
+            </FooterColumn>
+          </RevealFade>
+        </Reveal>
 
         <div className="border-primary/15 mt-10 border-t pt-6">
           <p className="text-primary/80 text-sm">{site.copyright}</p>

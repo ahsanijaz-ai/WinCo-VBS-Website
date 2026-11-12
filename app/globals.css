@@ -33,6 +33,10 @@
   /* Type */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
+  /* A deliberately bigger/bolder size for the home page's 3 scroll-reveal section headings
+     only (What We Do, Why WinCo VBS?, How We Work) — not the shared h2 default. */
+  --text-section-heading: clamp(2.25rem, 1.65rem + 2.4vw, 3.25rem);
+
   /* Shape and width */
   --radius-card: 0.5rem; /* rounded-card: 8 px */
   --container-site: 80rem; /* max-w-site: 1280 px outer width */
@@ -46,10 +50,25 @@
 }
 
 :root {
-  /* Motion: every transition uses one of these three durations */
+  /* Motion: every UI-feedback transition (hover, press, menu) uses one of these three durations */
   --motion-fast: 170ms;
   --motion-base: 200ms;
   --motion-slow: 240ms;
+
+  /* Scroll-reveal: content entering the viewport, not UI feedback, so it runs slower and with
+     its own easing curves. One generic engine (components/ui/Reveal.tsx) drives every section. */
+  --reveal-stagger: 110ms; /* gap between blocks entering together, in DOM order */
+  --reveal-settle: 1700ms; /* entrance length before transitions are removed and hover takes over */
+  --reveal-dur-word: 850ms; /* heading word-mask reveal */
+  --reveal-dur-clip: 900ms; /* clip-path wipe: taglines, lead paragraphs */
+  --reveal-dur-line: 900ms; /* line draw: dividers, rules */
+  --reveal-dur-icon: 780ms; /* spring pop-in: icons, images */
+  --reveal-dur-text: 780ms; /* staggered fade-up: body text, cards, list items, buttons */
+  --reveal-dur-draw: 950ms; /* SVG stroke-draw for outlined inline icons */
+  --reveal-dur-mark: 1250ms; /* decorative background marks */
+  --ease-reveal-out: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-reveal-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-reveal-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Layout values: they change only at breakpoints, never per component */
   --gutter: 1rem; /* page side padding: 16 px */
@@ -108,6 +127,331 @@
   :focus-visible {
     outline: 2px solid var(--color-secondary);
     outline-offset: 2px;
+  }
+}
+
+/*
+ * Generic scroll-in choreography, driven by components/ui/Reveal.tsx. It adds `.reveal-js`
+ * only when JS runs and the visitor has not asked for reduced motion, so content is always
+ * fully visible otherwise (no-JS and prefers-reduced-motion both get the plain, final state).
+ * `.reveal-in` = block has entered the viewport; `.reveal-done` = entrance finished, its
+ * transitions are torn down so hover effects (below) are never delayed by a lingering rule.
+ * Animates only transform, opacity and clip-path (stroke-dashoffset is set inline by the hook).
+ */
+@layer components {
+  @keyframes reveal-march {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+  @keyframes reveal-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes reveal-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.12);
+    }
+  }
+  @keyframes reveal-wave {
+    0%,
+    100% {
+      transform: skewY(0deg) scaleX(1);
+    }
+    50% {
+      transform: skewY(-6deg) scaleX(1.06);
+    }
+  }
+
+  /* ---- optional hover polish for a card-like unit, opt in with data-reveal-hover ---- */
+  .reveal [data-reveal-icon] {
+    transition: transform 0.55s var(--ease-reveal-spring);
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-icon] {
+    transform: translateY(-6px) scale(1.07);
+  }
+
+  .reveal [data-reveal-line] {
+    transition:
+      transform 0.6s var(--ease-brand),
+      background-color 0.4s ease;
+    transform-origin: left center;
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-line] {
+    background-color: var(--color-secondary);
+    transform: scaleY(2);
+  }
+
+  .reveal [data-reveal-hover] [data-reveal-fade] {
+    transition:
+      color 0.35s ease,
+      transform 0.45s var(--ease-brand);
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-fade] {
+    color: var(--color-secondary);
+    transform: translateX(3px);
+  }
+
+  /* per-icon hover flourishes: opt in on any inline SVG element with these attributes */
+  .reveal [data-reveal-hover]:hover [data-reveal-dash] {
+    animation: reveal-march 0.9s linear infinite;
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-spin] {
+    animation: reveal-spin 1.4s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-pulse] {
+    animation: reveal-pulse 1.1s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-wave] {
+    animation: reveal-wave 1.1s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+  .reveal [data-reveal-node] {
+    transition: transform 0.5s var(--ease-reveal-spring);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .reveal [data-reveal-node="2"] {
+    transition-delay: 0.06s;
+  }
+  .reveal [data-reveal-node="3"] {
+    transition-delay: 0.12s;
+  }
+  .reveal [data-reveal-node="4"] {
+    transition-delay: 0.18s;
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-node] {
+    transform: scale(1.18);
+  }
+  .reveal [data-reveal-rotate] {
+    transition: transform 0.7s var(--ease-brand);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .reveal [data-reveal-hover]:hover [data-reveal-rotate] {
+    transform: rotate(-40deg);
+  }
+
+  /* ---- masked word reveal: heading text split into .reveal-word > span by RevealWords ---- */
+  .reveal .reveal-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding: 0 0.05em 0.16em;
+    margin: 0 -0.05em -0.16em;
+  }
+  .reveal .reveal-word > span {
+    display: inline-block;
+    will-change: transform;
+  }
+
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-done) .reveal-word > span {
+    transition: transform var(--reveal-dur-word) var(--ease-reveal-out);
+    transition-delay: calc(var(--d, 0ms) + var(--w, 0) * 90ms);
+  }
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-in) .reveal-word > span {
+    transform: translateY(115%) rotate(6deg);
+  }
+
+  /* ---- clip-path wipe: taglines, lead paragraphs ---- */
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-done) [data-reveal-clip] {
+    transition:
+      opacity 0.9s ease,
+      transform 1s var(--ease-reveal-out),
+      clip-path var(--reveal-dur-clip) var(--ease-reveal-in-out);
+    transition-delay: calc(var(--d, 0ms) + 340ms);
+  }
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-in) [data-reveal-clip] {
+    opacity: 0;
+    transform: translateY(16px);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  /* ---- line draw: dividers, rules ---- */
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-done) [data-reveal-line] {
+    transition: transform var(--reveal-dur-line) var(--ease-reveal-in-out);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-in) [data-reveal-line] {
+    transform: scaleX(0);
+  }
+
+  /* ---- spring pop-in: icons, images (stroke-dashoffset handled inline by the hook) ---- */
+  .reveal.reveal-js [data-reveal-icon] > * {
+    transform-origin: 50% 100%;
+  }
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-done) [data-reveal-icon] > * {
+    transition:
+      opacity 0.55s ease,
+      transform var(--reveal-dur-icon) var(--ease-reveal-spring);
+    transition-delay: calc(var(--d, 0ms) + 160ms);
+  }
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-in) [data-reveal-icon] > * {
+    opacity: 0;
+    transform: translateY(20px) scale(0.78) rotate(-7deg);
+  }
+
+  /* ---- staggered fade-up: body text, cards, list items, buttons ----
+     data-reveal-fade is the primary tier (+300ms); data-reveal-fade-secondary (e.g. a
+     description under a title) follows 90ms behind it (+390ms). */
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-done) [data-reveal-fade] {
+    transition:
+      opacity 0.7s ease,
+      transform var(--reveal-dur-text) var(--ease-reveal-out);
+    transition-delay: calc(var(--d, 0ms) + 300ms);
+  }
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-done) [data-reveal-fade-secondary] {
+    transition:
+      opacity 0.7s ease,
+      transform var(--reveal-dur-text) var(--ease-reveal-out);
+    transition-delay: calc(var(--d, 0ms) + 390ms);
+  }
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-in) [data-reveal-fade],
+  .reveal.reveal-js [data-reveal-unit]:not(.reveal-in) [data-reveal-fade-secondary] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  /* a unit can also BE the fade target (e.g. a standalone card, list item or button) */
+  .reveal.reveal-js [data-reveal-unit][data-reveal-fade]:not(.reveal-done) {
+    transition:
+      opacity 0.7s ease,
+      transform var(--reveal-dur-text) var(--ease-reveal-out);
+    transition-delay: var(--d, 0ms);
+  }
+  .reveal.reveal-js [data-reveal-unit][data-reveal-fade]:not(.reveal-in) {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  /* ---- decorative background marks ---- */
+  .reveal [data-reveal-mark] {
+    opacity: 0.75;
+  }
+  .reveal.reveal-js [data-reveal-mark] {
+    opacity: 0;
+    transition:
+      opacity var(--reveal-dur-mark) var(--ease-brand),
+      transform var(--reveal-dur-mark) var(--ease-brand);
+  }
+  .reveal.reveal-js [data-reveal-mark][data-on="1"] {
+    opacity: 0.75;
+  }
+  @media (max-width: 980px) {
+    .reveal [data-reveal-mark],
+    .reveal.reveal-js [data-reveal-mark][data-on="1"] {
+      opacity: 0.5;
+    }
+    .reveal.reveal-js [data-reveal-mark]:not([data-on="1"]) {
+      opacity: 0;
+    }
+  }
+}
+
+/*
+ * "What We Do" cards: fill with colour on hover/focus via a circle clip-path wipe. Hover is
+ * pure CSS (no JS). Sizing is ordinary Tailwind utilities on the card markup (same compact
+ * scale as every other card on the site); this layer only holds the fill effect itself.
+ */
+@layer components {
+  .svc-card {
+    --svc-icon-bg: var(--color-secondary-tint);
+    --svc-icon-fg: var(--color-secondary);
+    --svc-go-bg: transparent;
+    --svc-go-fg: var(--color-secondary);
+    --svc-go-bd: var(--color-secondary);
+
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .svc-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(165deg, var(--color-secondary), var(--color-secondary-hover));
+    clip-path: circle(0% at 18% 100%);
+    transition: clip-path 550ms var(--ease-brand);
+  }
+  .svc-icon {
+    background: var(--svc-icon-bg);
+    color: var(--svc-icon-fg);
+    transition:
+      background 300ms ease,
+      color 300ms ease;
+  }
+  .svc-go {
+    background: var(--svc-go-bg);
+    color: var(--svc-go-fg);
+    border-color: var(--svc-go-bd);
+    transition:
+      background 300ms ease,
+      color 300ms ease,
+      border-color 300ms ease;
+  }
+
+  /* featured (default): a touch of colour, relaxes while a sibling card is hovered */
+  .svc-card--featured {
+    --svc-icon-bg: var(--color-secondary);
+    --svc-icon-fg: var(--color-primary);
+    --svc-go-bg: var(--color-secondary);
+    --svc-go-fg: var(--color-primary);
+    --svc-go-bd: var(--color-secondary);
+    border-color: var(--color-secondary) !important;
+  }
+  .svc-grid:hover .svc-card--featured:not(:hover) {
+    --svc-icon-bg: var(--color-secondary-tint);
+    --svc-icon-fg: var(--color-secondary);
+    --svc-go-bg: transparent;
+    --svc-go-fg: var(--color-secondary);
+    border-color: var(--color-border) !important;
+  }
+
+  /* hover / focus: full fill */
+  .svc-card:hover,
+  .svc-card:focus-visible {
+    --svc-icon-bg: var(--color-primary);
+    --svc-icon-fg: var(--color-secondary);
+    --svc-go-bg: var(--color-primary);
+    --svc-go-fg: var(--color-secondary);
+    --svc-go-bd: var(--color-primary);
+    border-color: var(--color-secondary) !important;
+    outline: none;
+  }
+  .svc-card:hover::before,
+  .svc-card:focus-visible::before {
+    clip-path: circle(150% at 18% 100%);
+  }
+  .svc-card:hover .svc-card-title,
+  .svc-card:focus-visible .svc-card-title {
+    color: var(--color-primary);
+  }
+  .svc-card:hover .svc-card-text,
+  .svc-card:focus-visible .svc-card-text {
+    color: color-mix(in srgb, var(--color-primary) 92%, transparent);
+  }
+  .svc-card:hover .svc-go svg,
+  .svc-card:focus-visible .svc-go svg {
+    transform: translateX(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .svc-card,
+    .svc-card *,
+    .svc-card::before {
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 

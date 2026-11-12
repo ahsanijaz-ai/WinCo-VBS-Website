@@ -1,49 +1,66 @@
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import type { HomePage } from "@/content";
-import { serviceIcons } from "@/lib/service-icons";
+import type { HomePage, ServiceIcon } from "@/content";
+import { Reveal, RevealFade } from "@/components/ui/Reveal";
+
+import { ServiceCard } from "./what-we-do/ServiceCard";
+import type { ServiceIconName } from "./what-we-do/icons";
+
+const HEADING_ID = "home-what-we-do";
+
+/** Maps the site's Lucide-based icon names to this section's traced illustration set. */
+const ICON_MAP: Record<ServiceIcon, ServiceIconName> = {
+  briefcase: "briefcase",
+  megaphone: "megaphone",
+  "trending-up": "trend",
+  "monitor-smartphone": "devices",
+};
+
+/** Index of the card shown in the raised/featured state by default (Marketing & Digital Presence). */
+const FEATURED_INDEX = 1;
 
 /**
- * "What We Do": four cards, each a link to its group on /services, then "View All Services".
- * One column on phones, two from 640 px, four from 1024 px.
+ * "What We Do": four illustrated cards, same compact scale as every other card on the site,
+ * that fill with colour on hover/focus, then "View All Services". Heading, cards and button
+ * reveal one after another as the section scrolls into view.
  */
 export function WhatWeDoSection({ whatWeDo }: { whatWeDo: HomePage["whatWeDo"] }) {
   return (
-    <Section tone="alt" aria-labelledby="home-what-we-do">
-      <SectionHeading id="home-what-we-do" title={whatWeDo.title} />
+    <Section tone="alt" aria-labelledby={HEADING_ID}>
+      <Reveal className="contents">
+        <RevealFade as="div">
+          <SectionHeading
+            id={HEADING_ID}
+            title={whatWeDo.title}
+            titleClassName="text-section-heading font-extrabold tracking-tight"
+          />
+        </RevealFade>
 
-      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {whatWeDo.cards.map(({ title, description, href, icon }) => {
-          const Icon = icon ? serviceIcons[icon] : null;
-          return (
-            <li key={title} className="flex">
-              <Link
+        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {whatWeDo.cards.map(({ title, description, href, icon }, index) => (
+            <RevealFade key={title} as="li" className="flex">
+              <ServiceCard
+                title={title}
+                description={description}
                 href={href ?? "/services"}
-                className="group bg-primary border-border rounded-card ease-brand hover:border-secondary flex w-full flex-col border p-6 transition duration-(--motion-base) hover:-translate-y-1 hover:shadow-md active:scale-[0.98] active:duration-(--motion-fast)"
-              >
-                {Icon && (
-                  <span className="bg-secondary-tint text-secondary rounded-card flex size-12 items-center justify-center">
-                    <Icon aria-hidden="true" className="size-6" />
-                  </span>
-                )}
-                <h3 className="mt-5">{title}</h3>
-                <p className="mt-2 flex-1">{description}</p>
-                <ArrowRight
-                  aria-hidden="true"
-                  className="text-secondary ease-brand mt-6 size-5 transition duration-(--motion-base) group-hover:translate-x-1"
-                />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+                icon={icon ? ICON_MAP[icon] : "briefcase"}
+                featured={index === FEATURED_INDEX}
+              />
+            </RevealFade>
+          ))}
+        </ul>
 
-      <ButtonLink href={whatWeDo.button.href} variant={whatWeDo.button.variant} className="mt-10">
-        {whatWeDo.button.label}
-      </ButtonLink>
+        <RevealFade as="div">
+          <ButtonLink
+            href={whatWeDo.button.href}
+            variant={whatWeDo.button.variant}
+            className="mt-10"
+          >
+            {whatWeDo.button.label}
+          </ButtonLink>
+        </RevealFade>
+      </Reveal>
     </Section>
   );
 }

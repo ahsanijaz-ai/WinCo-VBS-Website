@@ -4,6 +4,7 @@ import { ContactDetails } from "@/components/sections/contact/ContactDetails";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { Hero } from "@/components/sections/Hero";
 import { contactPage } from "@/content";
+import { Reveal, RevealFade } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
   title: contactPage.seo.title,
@@ -18,14 +19,17 @@ export default function ContactPage() {
       <Hero hero={hero} />
 
       <Section tone="alt" aria-label={form.title}>
-        <div className="grid gap-10 lg:grid-cols-5 lg:gap-12">
-          <div className="lg:col-span-2">
+        <Reveal className="grid gap-10 lg:grid-cols-5 lg:gap-12">
+          <RevealFade as="div" className="lg:col-span-2">
             <ContactDetails intro={intro} details={details} whatsappButton={whatsappButton} />
-          </div>
-          <div className="bg-primary border-border rounded-card border p-5 sm:p-6 md:p-8 lg:col-span-3">
+          </RevealFade>
+          <RevealFade
+            as="div"
+            className="bg-primary border-border rounded-card border p-5 sm:p-6 md:p-8 lg:col-span-3"
+          >
             <ContactForm form={form} />
-          </div>
-        </div>
+          </RevealFade>
+        </Reveal>
       </Section>
     </>
   );
