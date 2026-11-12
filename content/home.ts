@@ -112,6 +112,12 @@ export const homePage: HomePage = {
     title: "Ready to Work Smarter?",
     description:
       "Let's discuss how WinCo VBS can help your business become more organized, efficient, and prepared for growth.",
-    button: { label: "Schedule a Free Consultation", href: "/contact", variant: "primary" },
+    // Goes straight to the inquiry form (id="inquiry-form" on the Contact page). This button is
+    // also the consultation button in the header, the mobile menu and the footer.
+    button: {
+      label: "Schedule a Free Consultation",
+      href: "/contact#inquiry-form",
+      variant: "primary",
+    },
   },
 };
