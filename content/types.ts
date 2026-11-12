@@ -199,16 +199,14 @@ export type InquiryForm = {
 export type GetInTouch = {
   /** Drafted heading, not in the client copy: needs client approval. */
   title: string;
+  /** The button on each card shows the email address or the phone number from site settings. */
   emailCard: {
     title: string;
-    buttonLabel: string;
+    description: string;
   };
   whatsappCard: {
     title: string;
-    /** Small line under the title, e.g. "WhatsApp & Direct Call". */
-    eyebrow: string;
-    whatsappLabel: string;
-    callLabel: string;
+    description: string;
   };
 };
 

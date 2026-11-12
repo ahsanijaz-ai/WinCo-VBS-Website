@@ -27,12 +27,10 @@ export const contactPage: ContactPage = {
   // Heading and card labels are drafted for the new section and need client approval.
   getInTouch: {
     title: "Get in Touch",
-    emailCard: { title: "Email Us", buttonLabel: "Send an Email" },
+    emailCard: { title: "Email Us", description: "Send us an email anytime." },
     whatsappCard: {
       title: "Chat on WhatsApp",
-      eyebrow: "WhatsApp & Direct Call",
-      whatsappLabel: "WhatsApp",
-      callLabel: "Call",
+      description: "Get in touch with our team directly.",
     },
   },
   details: [
