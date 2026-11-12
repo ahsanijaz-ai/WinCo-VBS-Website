@@ -1,7 +1,8 @@
-import { AlertCircle, ChevronDown, type LucideIcon } from "lucide-react";
+import { AlertCircle, type LucideIcon } from "lucide-react";
 import type { HTMLInputAutoCompleteAttribute, HTMLInputTypeAttribute } from "react";
 import type { InquiryField } from "@/content";
 import { cn } from "@/lib/cn";
+import { SelectField, type SelectOption } from "@/components/sections/contact/SelectField";
 
 /** Browser settings per field: keyboard type and autofill, so phones show the right keyboard. */
 export type FieldControl =
@@ -12,7 +13,7 @@ export type FieldControl =
       inputMode?: "text" | "email" | "tel";
       maxLength: number;
     }
-  | { kind: "select"; options: readonly string[]; autoComplete?: HTMLInputAutoCompleteAttribute }
+  | { kind: "select"; options: readonly SelectOption[] }
   | { kind: "textarea"; maxLength: number };
 
 type FormFieldProps = {
@@ -49,6 +50,7 @@ export function FormField({
 }: FormFieldProps) {
   const id = `inquiry-${field.name}`;
   const errorId = `${id}-error`;
+  const labelId = `${id}-label`;
   const shared = {
     id,
     name: field.name,
@@ -73,7 +75,7 @@ export function FormField({
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="text-ink mb-2 block font-semibold">
+      <label id={labelId} htmlFor={id} className="text-ink mb-2 block font-semibold">
         {field.label}
         {field.required && (
           <span aria-hidden="true" className="text-secondary">
@@ -96,29 +98,17 @@ export function FormField({
         )}
 
         {control.kind === "select" && (
-          <>
-            <select
-              {...shared}
-              autoComplete={control.autoComplete}
-              className={cn(
-                shared.className,
-                "appearance-none pr-12",
-                // Empty choice shows in the same grey as the other fields' hints.
-                "has-[option[value='']:checked]:text-[color-mix(in_oklab,var(--color-text)_80%,white)]",
-              )}
-            >
-              <option value="">{field.placeholder}</option>
-              {control.options.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              aria-hidden="true"
-              className="text-secondary pointer-events-none absolute top-1/2 right-4 size-5 -translate-y-1/2"
-            />
-          </>
+          <SelectField
+            id={id}
+            name={field.name}
+            labelId={labelId}
+            options={control.options}
+            placeholder={field.placeholder}
+            icon={Icon}
+            defaultValue={defaultValue}
+            invalid={Boolean(error)}
+            describedBy={error ? errorId : undefined}
+          />
         )}
 
         {control.kind === "textarea" && (
@@ -131,7 +121,7 @@ export function FormField({
           />
         )}
 
-        {tile}
+        {control.kind !== "select" && tile}
       </div>
 
       {error && (

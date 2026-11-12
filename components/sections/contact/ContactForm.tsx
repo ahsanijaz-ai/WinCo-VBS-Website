@@ -17,7 +17,8 @@ import { FormField, type FieldControl } from "@/components/sections/contact/Form
 import { InquirySuccess } from "@/components/sections/contact/InquirySuccess";
 import { buttonClassName } from "@/components/ui/button-styles";
 import { RevealWords } from "@/components/ui/Reveal";
-import { countries, type InquiryFieldName, type InquiryForm } from "@/content";
+import { countries, servicesPage, type InquiryFieldName, type InquiryForm } from "@/content";
+import { serviceIcons } from "@/lib/service-icons";
 import { HONEYPOT_FIELD, INQUIRY_LIMITS, type InquiryState } from "@/lib/inquiry-schema";
 
 const controls = (serviceOptions: string[]): Record<InquiryFieldName, FieldControl> => ({
@@ -36,8 +37,18 @@ const controls = (serviceOptions: string[]): Record<InquiryFieldName, FieldContr
     maxLength: INQUIRY_LIMITS.short,
   },
   phone: { kind: "input", type: "tel", autoComplete: "tel", inputMode: "tel", maxLength: 30 },
-  country: { kind: "select", options: countries, autoComplete: "country-name" },
-  service: { kind: "select", options: serviceOptions },
+  country: { kind: "select", options: countries.map((name) => ({ value: name, label: name })) },
+  service: {
+    kind: "select",
+    options: serviceOptions.map((label, index) => ({
+      value: label,
+      label,
+      // Same icons as the service groups (Home cards), message bubble for "General Inquiry / Other".
+      icon: servicesPage.groups[index]
+        ? serviceIcons[servicesPage.groups[index].icon]
+        : MessageSquareMore,
+    })),
+  },
   message: { kind: "textarea", maxLength: INQUIRY_LIMITS.message },
 });
 
