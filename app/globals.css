@@ -47,6 +47,20 @@
   /* A bare "transition" class gets our timing, not Tailwind's 150 ms default */
   --default-transition-duration: 200ms;
   --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Entrance: fade up 8 px once on page load (Contact hero). Use as motion-safe:animate-fade-up. */
+  --animate-fade-up: fade-up var(--motion-enter) ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 :root {
@@ -54,6 +68,9 @@
   --motion-fast: 170ms;
   --motion-base: 200ms;
   --motion-slow: 240ms;
+  /* Two task-specific durations, still inside the 170 to 240 ms rule */
+  --motion-enter: 220ms; /* entrance fade-up */
+  --motion-hover: 180ms; /* CTA hover lift and arrow slide */
 
   /* Scroll-reveal: content entering the viewport, not UI feedback, so it runs slower and with
      its own easing curves. One generic engine (components/ui/Reveal.tsx) drives every section. */
