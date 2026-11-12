@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Section } from "@/components/layout/Section";
 import { ContactDetails } from "@/components/sections/contact/ContactDetails";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
+import { EnvelopeIllustration } from "@/components/sections/contact/EnvelopeIllustration";
 import { Hero } from "@/components/sections/Hero";
 import { contactPage } from "@/content";
 import { Reveal, RevealFade } from "@/components/ui/Reveal";
@@ -16,7 +17,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <Hero hero={hero} />
+      <Hero hero={hero} align="center" illustration={<EnvelopeIllustration />} animated />
 
       <Section tone="alt" fullScreen={false} aria-label={form.title}>
         <Reveal className="grid gap-10 lg:grid-cols-5 lg:gap-12">
