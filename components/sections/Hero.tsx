@@ -49,8 +49,9 @@ function HighlightedTitle({ title }: { title: string }) {
  * - The content's `tagline` is not shown in the hero; it appears in the footer on every page.
  * - Primary buttons get an arrow that slides 4 px on hover.
  * - The last word of each sentence in the heading is coloured (see HighlightedTitle).
- * - Background: a soft Teal glow top left, a dot grid top right (from 1024 px) and layered
- *   Primary Blue and Teal waves bottom right, all behind the content and aria-hidden.
+ * - Background: a soft blue glow top left, a dot grid top right (from 1024 px) and layered
+ *   waves bottom right, all behind the content and aria-hidden. The strong Teal heading word is
+ *   the screen's one accent (brand rule 2), so the Teal wave is only a soft 25 % tint.
  * - Text never waits for an animation.
  */
 export function Hero({ hero }: HeroProps) {
@@ -62,9 +63,9 @@ export function Hero({ hero }: HeroProps) {
       aria-labelledby={titleId}
       className="from-primary to-primary-alt relative isolate flex min-h-[calc(100svh-var(--header-h))] items-center overflow-hidden bg-linear-to-b"
     >
-      {/* Background decoration only: teal glow, dot grid and layered brand waves. */}
+      {/* Background decoration only: blue glow, dot grid and layered waves (the Teal one is a soft tint). */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="bg-accent/15 absolute -top-40 -left-40 size-[28rem] rounded-full blur-3xl" />
+        <div className="bg-secondary/10 absolute -top-40 -left-40 size-[28rem] rounded-full blur-3xl" />
 
         <svg
           className="text-secondary/30 absolute top-24 right-8 hidden lg:block"
@@ -98,7 +99,10 @@ export function Hero({ hero }: HeroProps) {
             className="fill-secondary/[0.12]"
             d="M120 400C310 372 455 328 600 255S755 168 800 158V400Z"
           />
-          <path className="fill-accent" d="M300 400C455 372 565 330 655 282S762 192 800 176V400Z" />
+          <path
+            className="fill-accent/25"
+            d="M300 400C455 372 565 330 655 282S762 192 800 176V400Z"
+          />
           <path
             className="fill-secondary"
             d="M210 400C420 390 565 352 685 302S772 250 800 244V400Z"
