@@ -27,7 +27,7 @@ const FEATURED_INDEX = 1;
  */
 export function WhatWeDoSection({ whatWeDo }: { whatWeDo: HomePage["whatWeDo"] }) {
   return (
-    <Section tone="alt" aria-labelledby={HEADING_ID}>
+    <Section tone="alt" fullScreen={false} aria-labelledby={HEADING_ID}>
       <Reveal className="contents">
         <RevealFade as="div">
           <SectionHeading

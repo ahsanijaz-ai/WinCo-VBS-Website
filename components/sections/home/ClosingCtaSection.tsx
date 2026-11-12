@@ -6,7 +6,7 @@ import { Reveal, RevealClip, RevealFade, RevealWords } from "@/components/ui/Rev
 /** "Ready to Work Smarter?": a tinted panel with the consultation button, just above the footer. Reveals as it scrolls into view. */
 export function ClosingCtaSection({ cta }: { cta: CallToAction }) {
   return (
-    <Section aria-labelledby="home-closing-cta">
+    <Section fullScreen={false} aria-labelledby="home-closing-cta">
       <Reveal
         asUnit
         className="bg-secondary-tint rounded-card px-6 py-12 text-center sm:px-12 md:py-16"

@@ -24,7 +24,12 @@ const ICON_KEYS: readonly WhyUsIconKey[] = ["tailored", "guidance", "support", "
  */
 export function WhyUsSection({ whyUs }: { whyUs: HomePage["whyUs"] }) {
   return (
-    <Section tone="default" className="relative overflow-hidden" aria-labelledby={HEADING_ID}>
+    <Section
+      tone="default"
+      fullScreen={false}
+      className="relative overflow-hidden"
+      aria-labelledby={HEADING_ID}
+    >
       {/* decorative background mark, echoing the hero's brand waves */}
       <svg
         data-reveal-mark=""

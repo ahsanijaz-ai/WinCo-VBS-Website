@@ -45,7 +45,7 @@ const CARD_HEIGHT = ["lg:h-[260px]", "lg:h-[300px]", "lg:h-[345px]", "lg:h-[395p
  */
 export function HowWeWorkSection({ howWeWork }: { howWeWork: HomePage["howWeWork"] }) {
   return (
-    <Section tone="alt" aria-labelledby="home-how-we-work">
+    <Section tone="alt" fullScreen={false} aria-labelledby="home-how-we-work">
       <Reveal className="contents">
         <RevealFade as="div">
           <SectionHeading

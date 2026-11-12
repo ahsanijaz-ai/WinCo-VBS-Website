@@ -18,7 +18,7 @@ export default function ContactPage() {
     <>
       <Hero hero={hero} />
 
-      <Section tone="alt" aria-label={form.title}>
+      <Section tone="alt" fullScreen={false} aria-label={form.title}>
         <Reveal className="grid gap-10 lg:grid-cols-5 lg:gap-12">
           <RevealFade as="div" className="lg:col-span-2">
             <ContactDetails intro={intro} details={details} whatsappButton={whatsappButton} />
