@@ -115,7 +115,7 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 ## Spacing and shape
 
-- Corner radius: 8 px. One exception: the Contact hero button is a pill (fully rounded) with a Primary Blue gradient and the arrow in a light circle (`<Hero buttonStyle="pill" />`). Every other button keeps 8 px. The Contact "Get in Touch" cards also follow their design: 24 px card corners, 16 px icon tiles and pill buttons.
+- Corner radius: 8 px. One exception: the Contact hero button is a pill (fully rounded) with a Primary Blue gradient and the arrow in a light circle (`<Hero buttonStyle="pill" />`). Every other button keeps 8 px. The Contact "Get in Touch" cards also follow their design: 24 px card corners, 16 px icon tiles and pill buttons. The Contact form follows its design too: a 24 px card, 12 px field corners with a small icon tile inside each field, and a 16 px-corner "Send Inquiry" button. Field borders stay `--color-input-border` (3:1), placeholders stay at least 4.5:1, labels always stay visible above the field, and focus shows a Primary Blue border with a soft glow instead of the global outline.
 - Side gutters: 16 px on phones.
 - Content max width: about 1200 px.
 - Touch targets: at least 44 x 44 px.
