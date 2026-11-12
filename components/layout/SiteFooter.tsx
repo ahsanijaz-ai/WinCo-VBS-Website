@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { RollLabel } from "@/components/ui/RollLabel";
 import { homePage, servicesPage, site } from "@/content";
 import { navItems } from "@/lib/nav-items";
 import { Reveal, RevealFade } from "@/components/ui/Reveal";
@@ -155,7 +156,7 @@ export function SiteFooter() {
               </ul>
               <ButtonLink href={cta.href} className="mt-5 w-full sm:w-full sm:whitespace-nowrap">
                 <CalendarDays aria-hidden="true" className="size-5" />
-                {cta.label}
+                <RollLabel text={cta.label} />
               </ButtonLink>
             </FooterColumn>
           </RevealFade>

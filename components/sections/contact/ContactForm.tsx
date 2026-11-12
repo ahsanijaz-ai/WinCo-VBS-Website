@@ -5,6 +5,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { submitInquiry } from "@/app/contact/actions";
 import { FormField, type FieldControl } from "@/components/sections/contact/FormField";
 import { buttonClassName } from "@/components/ui/button-styles";
+import { RollLabel } from "@/components/ui/RollLabel";
 import type { InquiryFieldName, InquiryForm } from "@/content";
 import { HONEYPOT_FIELD, INQUIRY_LIMITS, type InquiryState } from "@/lib/inquiry-schema";
 
@@ -108,7 +109,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
           disabled={pending}
           className={buttonClassName("primary", "disabled:cursor-wait disabled:opacity-70")}
         >
-          {pending ? "Sending..." : form.submitLabel}
+          <RollLabel text={pending ? "Sending..." : form.submitLabel} />
         </button>
       </div>
     </form>

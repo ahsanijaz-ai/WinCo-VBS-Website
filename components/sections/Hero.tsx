@@ -1,7 +1,8 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { RollLabel } from "@/components/ui/RollLabel";
 import type { Hero as HeroContent } from "@/content";
 import { cn } from "@/lib/cn";
 
@@ -141,7 +142,10 @@ export function Hero({ hero }: HeroProps) {
                       variant === "primary" && "shadow-secondary/30 shadow-lg",
                     )}
                   >
-                    {label}
+                    {variant === "secondary" && (
+                      <MessageCircle aria-hidden="true" className="size-5" />
+                    )}
+                    <RollLabel text={label} />
                     {variant === "primary" && (
                       <ArrowRight
                         aria-hidden="true"

@@ -456,6 +456,41 @@
 }
 
 /*
+ * Shared roll-up letter label (RollLabel, components/ui/RollLabel.tsx): every button site-wide
+ * uses this, via the `btn-roll` class in button-styles.ts. The nav links in navbar.css reuse the
+ * same .roll-char/.roll-char-inner classes, just with their own trigger and shadow colour, so
+ * there is one implementation, not several. Default shadow colour is `currentColor`, so where a
+ * button's text colour doesn't change on hover (every CTA button) the roll is pure motion, no
+ * mismatched colour; `.nav-item` overrides it for the colour-flip effect on nav links.
+ */
+@layer components {
+  .roll-char {
+    display: inline-block;
+    height: 1.2em;
+    overflow: hidden;
+    position: relative;
+    vertical-align: bottom;
+  }
+  .roll-char-inner {
+    display: block;
+    transform: translateY(0);
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    text-shadow: 0 1.2em 0 currentColor;
+  }
+  .btn-roll:hover .roll-char-inner,
+  .btn-roll:focus-visible .roll-char-inner {
+    transform: translateY(-1.2em);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .roll-char-inner {
+      transition-duration: 1ms !important;
+      transition-delay: 0ms !important;
+    }
+  }
+}
+
+/*
  * Reduced motion: colour and opacity fades stay at 170 ms, but slides and scaling
  * stop animating. The final state (open menu, X icon, underline) appears instantly.
  */

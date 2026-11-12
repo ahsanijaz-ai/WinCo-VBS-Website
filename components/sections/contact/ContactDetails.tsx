@@ -1,5 +1,6 @@
 import { Globe, Mail, MapPin, MessageCircle, Phone, type LucideIcon } from "lucide-react";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { RollLabel } from "@/components/ui/RollLabel";
 import type { ContactIcon, ContactPage } from "@/content";
 
 const icons: Record<ContactIcon, LucideIcon> = {
@@ -70,7 +71,7 @@ export function ContactDetails({ intro, details, whatsappButton }: ContactDetail
         rel="noopener noreferrer"
       >
         <MessageCircle aria-hidden="true" className="size-5" />
-        {whatsappButton.label}
+        <RollLabel text={whatsappButton.label} />
       </ButtonLink>
     </div>
   );

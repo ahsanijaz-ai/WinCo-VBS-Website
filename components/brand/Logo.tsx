@@ -44,6 +44,7 @@ export function Logo({ className, tone = "light" }: LogoProps) {
             alt={alt}
             width={87}
             height={40}
+            loading="eager"
             className="h-10 w-auto md:hidden"
           />
           <Image
@@ -51,6 +52,7 @@ export function Logo({ className, tone = "light" }: LogoProps) {
             alt={alt}
             width={176}
             height={24}
+            loading="eager"
             className="hidden h-6 w-auto md:block xl:h-9"
           />
         </>
