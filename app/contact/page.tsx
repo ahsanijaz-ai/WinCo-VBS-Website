@@ -3,6 +3,7 @@ import { Section } from "@/components/layout/Section";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { EnvelopeIllustration } from "@/components/sections/contact/EnvelopeIllustration";
 import { GetInTouchSection } from "@/components/sections/contact/GetInTouchSection";
+import { SectionDecor } from "@/components/sections/contact/SectionDecor";
 import { Hero } from "@/components/sections/Hero";
 import { contactPage } from "@/content";
 
@@ -27,8 +28,13 @@ export default function ContactPage() {
 
       <GetInTouchSection intro={intro} getInTouch={getInTouch} details={details} />
 
-      <Section aria-label={form.title}>
-        <div className="bg-primary border-border rounded-card mx-auto max-w-3xl border p-5 shadow-sm sm:p-6 md:p-8">
+      <Section
+        tone="alt"
+        aria-label={form.title}
+        className="relative isolate overflow-hidden pb-[calc(var(--section-y)+4rem)]"
+      >
+        <SectionDecor />
+        <div className="bg-primary/90 border-primary shadow-secondary/10 mx-auto max-w-4xl rounded-3xl border p-6 shadow-xl backdrop-blur-sm sm:p-10">
           <ContactForm form={form} />
         </div>
       </Section>
