@@ -1,7 +1,7 @@
 "use client";
 
 import { CalendarDays, X } from "lucide-react";
-import Link from "next/link";
+import { PageLink } from "@/components/ui/PageLink";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/brand/Logo";
@@ -155,7 +155,7 @@ export function MobileMenu({ consultation }: MobileMenuProps) {
                     open ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0",
                   )}
                 >
-                  <Link
+                  <PageLink
                     href={href}
                     onClick={() => setOpenOn(null)}
                     aria-current={active ? "page" : undefined}
@@ -174,7 +174,7 @@ export function MobileMenu({ consultation }: MobileMenuProps) {
                     >
                       {label}
                     </span>
-                  </Link>
+                  </PageLink>
                 </li>
               );
             })}
