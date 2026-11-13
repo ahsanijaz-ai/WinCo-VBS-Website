@@ -601,6 +601,84 @@
 }
 
 /*
+ * About hero "team" illustration: plays once on page load, about 1 s, then the two people bob
+ * gently twice and stop (under 5 s in total, so no pause control is needed). Decorative, so it
+ * runs slower than the 170-240 ms UI feedback, like the scroll reveal. Nothing moves with
+ * reduced motion: the illustration just appears.
+ */
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    .team-blob {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: team-blob-in 500ms var(--ease-brand) both;
+    }
+    .team-back :is(circle, path) {
+      /* backwards, not both: once drawn, the dash pattern is dropped so the outline is solid */
+      animation:
+        team-draw 700ms var(--ease-brand) 150ms backwards,
+        team-fill-in 300ms ease-out 650ms both;
+    }
+    .team-back {
+      animation: team-bob 2400ms ease-in-out 1300ms 2;
+    }
+    .team-front {
+      animation:
+        team-rise 450ms var(--ease-brand) 350ms both,
+        team-bob 2400ms ease-in-out 1100ms 2;
+    }
+  }
+
+  @keyframes team-blob-in {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes team-draw {
+    from {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes team-fill-in {
+    from {
+      fill-opacity: 0;
+    }
+    to {
+      fill-opacity: 1;
+    }
+  }
+  @keyframes team-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes team-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+}
+
+/*
  * Reduced motion: colour and opacity fades stay at 170 ms, but slides and scaling
  * stop animating. The final state (open menu, X icon, underline) appears instantly.
  */
