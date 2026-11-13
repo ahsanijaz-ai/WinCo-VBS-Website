@@ -20,57 +20,61 @@ const FEATURED_INDEX = 1;
  * label, then one tile per service group, each a link to its group further down the page.
  *
  * - Under 1024 px: a row of four small tiles (number and glyph; the title is for screen readers),
- *   so the hero stays about one screen tall on phones.
- * - From 1024 px: a 2 x 2 grid with the right column set 32 px lower, and the group titles shown.
- * - On short laptop windows (`short:`, 760 px high or less): compact tiles, glyph beside the
- *   title, no offset, so the hero still fits the first screen.
+ *   so the hero stays one screen tall on phones and tablets.
+ * - From 1024 px: a stacked list of four rows (glyph, number and title, arrow), like a small
+ *   table of contents. About 330 px tall at every width, so it is always shorter than the hero
+ *   text and never makes the hero taller than the first screen.
  * - Hover and keyboard focus use the Home card fill (`.svc-card` in globals.css), so the two
  *   pages feel the same. The tiles fade up one after another on load (220 ms each, 60 ms apart),
  *   and appear at once with reduced motion.
  */
 export function GroupTiles({ label, groups }: GroupTilesProps) {
   return (
-    <div className="lg:ml-auto lg:max-w-md">
-      <p id="services-tiles-label" className="text-ink mb-3 text-sm font-semibold lg:mb-4">
+    <div className="lg:ml-auto lg:w-full lg:max-w-md">
+      <p id="services-tiles-label" className="text-ink low:mb-2 mb-3 text-sm font-semibold">
         {label}
       </p>
       <ul
         aria-labelledby="services-tiles-label"
-        className="svc-grid short:gap-3 short:pb-0 grid grid-cols-4 gap-3 lg:grid-cols-2 lg:gap-4 lg:pb-8 xl:gap-5"
+        className="svc-grid grid grid-cols-4 gap-3 lg:grid-cols-1"
       >
         {groups.map(({ id, title, icon }, index) => (
           <li
             key={id}
             style={{ "--fade-y": "12px", animationDelay: `${index * 60}ms` } as CSSProperties}
-            className={cn(
-              "motion-safe:animate-fade-up flex",
-              index % 2 === 1 && "short:translate-y-0 lg:translate-y-8",
-            )}
+            className="motion-safe:animate-fade-up flex"
           >
             <PageLink
               href={`#${id}`}
               className={cn(
-                "svc-card border-border bg-primary short:flex-row short:items-center short:gap-3 short:p-3 flex w-full flex-col rounded-2xl border p-2.5 shadow-sm sm:p-3 lg:p-4 xl:p-5",
+                "svc-card border-border bg-primary low:p-2 flex w-full flex-col rounded-2xl border p-2.5 shadow-sm sm:p-3",
+                "lg:flex-row lg:items-center lg:gap-4 lg:p-3 lg:pr-4",
                 "ease-brand transition duration-(--motion-base) hover:-translate-y-1 hover:shadow-lg",
                 index === FEATURED_INDEX && "svc-card--featured",
               )}
             >
-              <span className="short:hidden flex items-start justify-between gap-2">
+              <span
+                aria-hidden="true"
+                className="svc-card-title text-ink/45 low:hidden text-xs font-bold tabular-nums lg:hidden"
+              >
+                {twoDigits(index)}
+              </span>
+              <span className="svc-icon low:mt-0 low:max-w-10 mx-auto mt-1 flex aspect-square w-full max-w-16 shrink-0 items-center justify-center rounded-xl p-2 lg:mx-0 lg:mt-0 lg:size-12">
+                <ServiceGlyph icon={icon} />
+              </span>
+              <span className="sr-only lg:not-sr-only lg:flex lg:min-w-0 lg:flex-1 lg:flex-col">
                 <span
                   aria-hidden="true"
-                  className="svc-card-title text-ink/45 text-xs font-bold tabular-nums lg:text-sm"
+                  className="svc-card-title text-ink/45 text-xs font-bold tabular-nums"
                 >
                   {twoDigits(index)}
                 </span>
-                <span className="svc-go hidden size-8 shrink-0 items-center justify-center rounded-full border p-1.5 lg:flex">
-                  <ArrowDown aria-hidden="true" strokeWidth={1.8} className="size-full" />
+                <span className="svc-card-title text-ink text-sm leading-5 font-semibold xl:text-base xl:leading-6">
+                  {title}
                 </span>
               </span>
-              <span className="svc-icon short:mt-0 short:size-11 short:shrink-0 short:p-2 mx-auto mt-1 flex aspect-square w-full max-w-16 items-center justify-center rounded-xl p-2 lg:mx-0 lg:mt-4 lg:size-14 lg:p-2.5 xl:mt-6 xl:size-16">
-                <ServiceGlyph icon={icon} />
-              </span>
-              <span className="svc-card-title text-ink short:mt-0 short:text-sm short:leading-5 sr-only lg:not-sr-only lg:mt-3 lg:text-sm lg:leading-5 lg:font-semibold xl:mt-4 xl:text-base xl:leading-6">
-                {title}
+              <span className="svc-go hidden size-8 shrink-0 items-center justify-center rounded-full border p-1.5 lg:flex">
+                <ArrowDown aria-hidden="true" strokeWidth={1.8} className="size-full" />
               </span>
             </PageLink>
           </li>

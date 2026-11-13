@@ -145,8 +145,13 @@ export function Hero({
         </svg>
       </div>
 
-      <Container className="short:py-10 pt-16 pb-32 sm:pb-36 md:pt-20 lg:pb-20">
-        <div className={cn("grid gap-12", twoColumns && "lg:grid-cols-12 lg:items-center")}>
+      <Container className="short:py-10 low:pt-4 low:pb-16 pt-16 pb-32 sm:pb-36 md:pt-20 lg:pb-20">
+        <div
+          className={cn(
+            "low:gap-6 grid grid-cols-1 gap-12",
+            twoColumns && "lg:grid-cols-12 lg:items-center",
+          )}
+        >
           <div
             className={cn(
               "max-w-2xl",
@@ -173,7 +178,7 @@ export function Hero({
 
             <p
               className={cn(
-                "mt-6 max-w-[65ch] text-lg leading-7 md:text-xl md:leading-8",
+                "low:mt-4 low:text-base low:leading-6 mt-6 max-w-[65ch] text-lg leading-7 md:text-xl md:leading-8",
                 centered && "mx-auto",
                 fadeUp,
               )}
@@ -184,7 +189,7 @@ export function Hero({
             {buttons && (
               <div
                 className={cn(
-                  "mt-10 flex flex-col gap-4 sm:flex-row",
+                  "low:mt-6 mt-10 flex flex-col gap-4 sm:flex-row",
                   centered && "sm:justify-center",
                 )}
               >

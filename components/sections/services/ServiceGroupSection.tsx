@@ -56,7 +56,7 @@ export function ServiceGroupSection({ group, index, discussLabel }: ServiceGroup
       aria-labelledby={headingId}
       className="scroll-mt-(--subnav-h) focus:outline-none"
     >
-      <Reveal className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+      <Reveal className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
         <RevealUnit className="lg:sticky lg:top-[calc(var(--header-h)+var(--subnav-h)+2rem)] lg:col-span-5 lg:self-start">
           <div className="flex items-end justify-between gap-6">
             <RevealIcon>
@@ -77,7 +77,7 @@ export function ServiceGroupSection({ group, index, discussLabel }: ServiceGroup
             id={headingId}
             standalone={false}
             text={title}
-            className="text-section-heading mt-8 font-extrabold tracking-tight"
+            className="text-section-heading mt-8 font-extrabold tracking-tight max-[359px]:text-3xl"
           />
           <RevealClip standalone={false} className="text-secondary mt-3 text-lg font-semibold">
             {subtitle}

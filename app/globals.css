@@ -6,6 +6,8 @@
  * content still fits on the first screen.
  */
 @custom-variant short (@media (min-width: 1024px) and (max-height: 760px));
+/* `low:` = the same for phones and tablets: under 1024 px wide and 700 px or less high (iPhone SE). */
+@custom-variant low (@media (max-width: 1023px) and (max-height: 700px));
 
 /*
  * Design tokens. This is the only file that defines colours, motion and layout values.
