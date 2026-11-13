@@ -41,7 +41,7 @@ export function AboutStorySection({ about }: { about: TextBlock }) {
       <Reveal as="div" className="grid gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <RevealClip as="div" standalone>
-            <h2 className="text-secondary text-sm font-bold tracking-[0.25em] uppercase sm:text-base">
+            <h2 className="text-secondary text-sm font-extrabold tracking-[0.25em] uppercase sm:text-base">
               {about.title}
             </h2>
           </RevealClip>
