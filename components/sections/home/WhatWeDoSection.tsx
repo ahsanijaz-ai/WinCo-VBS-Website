@@ -1,21 +1,12 @@
 import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { ButtonLink } from "@/components/ui/ButtonLink";
-import type { HomePage, ServiceIcon } from "@/content";
+import type { HomePage } from "@/content";
 import { Reveal, RevealFade } from "@/components/ui/Reveal";
 
 import { ServiceCard } from "./what-we-do/ServiceCard";
-import type { ServiceIconName } from "./what-we-do/icons";
 
 const HEADING_ID = "home-what-we-do";
-
-/** Maps the site's Lucide-based icon names to this section's traced illustration set. */
-const ICON_MAP: Record<ServiceIcon, ServiceIconName> = {
-  briefcase: "briefcase",
-  megaphone: "megaphone",
-  "trending-up": "trend",
-  "monitor-smartphone": "devices",
-};
 
 /** Index of the card shown in the raised/featured state by default (Marketing & Digital Presence). */
 const FEATURED_INDEX = 1;
@@ -44,7 +35,7 @@ export function WhatWeDoSection({ whatWeDo }: { whatWeDo: HomePage["whatWeDo"] }
                 title={title}
                 description={description}
                 href={href ?? "/services"}
-                icon={icon ? ICON_MAP[icon] : "briefcase"}
+                icon={icon ?? "briefcase"}
                 featured={index === FEATURED_INDEX}
               />
             </RevealFade>

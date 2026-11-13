@@ -2,13 +2,14 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-import { WhatWeDoIcon, type ServiceIconName } from "./icons";
+import { ServiceGlyph } from "@/components/brand/ServiceGlyph";
+import type { ServiceIcon } from "@/content";
 
 type ServiceCardProps = {
   title: string;
   description: string;
   href: string;
-  icon: ServiceIconName;
+  icon: ServiceIcon;
   /** Shown in the raised/featured state by default. */
   featured?: boolean;
 };
@@ -28,7 +29,7 @@ export function ServiceCard({ title, description, href, icon, featured }: Servic
       )}
     >
       <div className="svc-icon flex size-16 shrink-0 items-center justify-center rounded-xl p-2.5">
-        <WhatWeDoIcon name={icon} />
+        <ServiceGlyph icon={icon} />
       </div>
       <h3 className="svc-card-title mt-5">{title}</h3>
       <p className="svc-card-text mt-2 flex-1">{description}</p>
