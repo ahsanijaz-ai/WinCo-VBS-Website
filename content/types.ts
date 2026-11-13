@@ -123,6 +123,8 @@ export type SiteSettings = {
   address: {
     city: string;
     country: string;
+    /** Two-letter ISO code for structured data, e.g. "BB". Not shown on the page. */
+    countryCode: string;
   };
   serviceArea: string;
   location: string;
