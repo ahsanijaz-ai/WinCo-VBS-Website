@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { ClosingCtaSection } from "@/components/sections/home/ClosingCtaSection";
+import { ClosingCtaSection } from "@/components/sections/ClosingCtaSection";
 import { HowWeWorkSection } from "@/components/sections/home/HowWeWorkSection";
 import { IntroSection } from "@/components/sections/home/IntroSection";
 import { WhatWeDoSection } from "@/components/sections/home/WhatWeDoSection";
@@ -20,7 +20,7 @@ export default function HomePage() {
       <WhatWeDoSection whatWeDo={homePage.whatWeDo} />
       <WhyUsSection whyUs={homePage.whyUs} />
       <HowWeWorkSection howWeWork={homePage.howWeWork} />
-      <ClosingCtaSection cta={homePage.closingCta} />
+      <ClosingCtaSection cta={homePage.closingCta} headingId="home-closing-cta" />
     </>
   );
 }

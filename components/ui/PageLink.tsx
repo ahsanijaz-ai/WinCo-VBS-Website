@@ -12,7 +12,7 @@ type PageLinkProps = ComponentProps<typeof Link> & { href: string };
  *
  * Next.js keeps the scroll position when the target page is the current one, so such a link
  * would do nothing. Here, a plain left click on a link to the current path:
- * - with a `#id` (e.g. `/contact#inquiry-form`) scrolls to that element,
+ * - with a `#id` (e.g. `/contact#inquiry-form`, or just `#inquiry-form`) scrolls to that element,
  * - without one, scrolls back to the top.
  * The scroll is smooth, or instant with reduced motion. Keyboard focus moves to the target
  * (the element, or the main content) so screen-reader and keyboard users land there too.
@@ -26,7 +26,9 @@ export function PageLink({ href, onClick, ...props }: PageLinkProps) {
     onClick?.(event);
     const plainClick =
       event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
-    const [path, hash] = href.split("#");
+    const [rawPath, hash] = href.split("#");
+    // A bare "#id" points at the current page.
+    const path = rawPath || pathname;
     if (event.defaultPrevented || !plainClick || path !== pathname) return;
 
     const target = hash ? document.getElementById(hash) : null;

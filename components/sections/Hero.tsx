@@ -25,6 +25,12 @@ type HeroProps = {
    * arrow in a light circle on the right. Default keeps the standard 8 px button.
    */
   buttonStyle?: "default" | "pill";
+  /**
+   * Optional decorative or navigational block in the right-hand column (Services: the four
+   * group tiles). Takes the place of `image`; from 1024 px it sits beside the text, below that
+   * it follows the buttons.
+   */
+  aside?: ReactNode;
 };
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -63,7 +69,8 @@ function HighlightedTitle({ title }: { title: string }) {
  * - Background runs edge to edge; content sits in the same Container as the header, so left
  *   edges line up on every page. Heading and text stop at 672 px so lines stay readable.
  * - `size="tall"` (Home) uses a larger heading; `compact` is for the other pages.
- * - With an image, the layout becomes two columns from 1024 px (text 7 of 12, image 5 of 12).
+ * - With an image or an `aside`, the layout becomes two columns from 1024 px (text 7 of 12,
+ *   image or aside 5 of 12).
  * - The content's `tagline` is not shown in the hero; it appears in the footer on every page.
  * - Primary buttons get an arrow that slides 4 px on hover.
  * - The last word of each sentence in the heading is coloured (see HighlightedTitle).
@@ -78,11 +85,13 @@ export function Hero({
   illustration,
   animated = false,
   buttonStyle = "default",
+  aside,
 }: HeroProps) {
   const { title, description, buttons, size, image } = hero;
   const titleId = "hero-title";
   const centered = align === "center";
   const fadeUp = animated && "motion-safe:animate-fade-up";
+  const twoColumns = Boolean(image ?? aside);
 
   return (
     <section
@@ -136,13 +145,18 @@ export function Hero({
         </svg>
       </div>
 
-      <Container className="pt-16 pb-32 sm:pb-36 md:pt-20 lg:pb-20">
-        <div className={cn("grid gap-12", image && "lg:grid-cols-12 lg:items-center")}>
+      <Container className="short:py-10 low:pt-4 low:pb-16 pt-16 pb-32 sm:pb-36 md:pt-20 lg:pb-20">
+        <div
+          className={cn(
+            "low:gap-6 grid grid-cols-1 gap-12",
+            twoColumns && "lg:grid-cols-12 lg:items-center",
+          )}
+        >
           <div
             className={cn(
               "max-w-2xl",
               centered && "mx-auto max-w-4xl text-center",
-              image && "lg:col-span-7",
+              twoColumns && "lg:col-span-7",
             )}
           >
             {illustration && (
@@ -164,7 +178,7 @@ export function Hero({
 
             <p
               className={cn(
-                "mt-6 max-w-[65ch] text-lg leading-7 md:text-xl md:leading-8",
+                "low:mt-4 low:text-base low:leading-6 mt-6 max-w-[65ch] text-lg leading-7 md:text-xl md:leading-8",
                 centered && "mx-auto",
                 fadeUp,
               )}
@@ -175,7 +189,7 @@ export function Hero({
             {buttons && (
               <div
                 className={cn(
-                  "mt-10 flex flex-col gap-4 sm:flex-row",
+                  "low:mt-6 mt-10 flex flex-col gap-4 sm:flex-row",
                   centered && "sm:justify-center",
                 )}
               >
@@ -224,6 +238,8 @@ export function Hero({
               </div>
             )}
           </div>
+
+          {!image && aside && <div className="lg:col-span-5">{aside}</div>}
 
           {image && (
             <div className="lg:col-span-5">

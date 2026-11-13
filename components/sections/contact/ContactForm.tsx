@@ -11,7 +11,7 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useSyncExternalStore } from "react";
 import { submitInquiry } from "@/app/contact/actions";
 import { FormField, type FieldControl } from "@/components/sections/contact/FormField";
 import { InquirySuccess } from "@/components/sections/contact/InquirySuccess";
@@ -69,12 +69,31 @@ const fullWidth: InquiryFieldName[] = ["message"];
 
 const initialState: InquiryState = { status: "idle" };
 
+/** The query string never changes while the form is on screen, so there is nothing to subscribe to. */
+const subscribeToNothing = () => () => {};
+
+/**
+ * The service group named in the link, e.g. `/contact?service=marketing-digital-presence`
+ * (the "Discuss" buttons on the Services page), as its dropdown label; `undefined` if none.
+ * Empty during server rendering, then read from the address bar in the browser.
+ */
+function usePreselectedService(): string | undefined {
+  const search = useSyncExternalStore(
+    subscribeToNothing,
+    () => window.location.search,
+    () => "",
+  );
+  const id = new URLSearchParams(search).get("service");
+  return servicesPage.groups.find((group) => group.id === id)?.title;
+}
+
 /** The inquiry form on the contact page. Fields, labels and messages come from content/contact.ts. */
 export function ContactForm({ form }: { form: InquiryForm }) {
   const [state, formAction, pending] = useActionState(submitInquiry, initialState);
   const formRef = useRef<HTMLFormElement>(null);
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const fieldControls = controls(form.serviceOptions);
+  const preselectedService = usePreselectedService();
 
   // After a successful submit the form is replaced, so move focus to the success heading.
   useEffect(() => {
@@ -112,12 +131,16 @@ export function ContactForm({ form }: { form: InquiryForm }) {
       <div className="grid gap-5 md:grid-cols-2">
         {form.fields.map((field) => (
           <FormField
-            key={field.name}
+            // The Service dropdown sets its value once, so give it a new key when the
+            // preselected service is known (after hydration) to start it with that value.
+            key={field.name === "service" ? `service-${preselectedService ?? ""}` : field.name}
             field={field}
             control={fieldControls[field.name]}
             icon={fieldIcons[field.name]}
             error={errors[field.name]}
-            defaultValue={values[field.name]}
+            defaultValue={
+              values[field.name] ?? (field.name === "service" ? preselectedService : undefined)
+            }
             className={fullWidth.includes(field.name) ? "md:col-span-2" : undefined}
           />
         ))}

@@ -124,26 +124,43 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 Every UI-feedback animation (hover, press, menu) lasts between 170 and 240 ms. Use the tokens, never a hard-coded duration.
 
-| Token             | Value  | Typical use                                                     |
-| ----------------- | ------ | --------------------------------------------------------------- |
-| `--motion-fast`   | 170 ms | Touch press, small feedback                                     |
-| `--motion-base`   | 200 ms | Nav hover underline, icon lift, hamburger                       |
-| `--motion-slow`   | 240 ms | Mobile menu open, header shadow on scroll                       |
-| `--motion-enter`  | 220 ms | Contact hero fade-up on page load                               |
-| `--motion-hover`  | 180 ms | Call-to-action hover lift and arrow slide (Contact hero button) |
-| `--motion-reveal` | 650 ms | Scroll-reveal of page content (see below)                       |
+| Token            | Value      | Typical use                                                     |
+| ---------------- | ---------- | --------------------------------------------------------------- |
+| `--motion-fast`  | 170 ms     | Touch press, small feedback                                     |
+| `--motion-base`  | 200 ms     | Nav hover underline, icon lift, hamburger                       |
+| `--motion-slow`  | 240 ms     | Mobile menu open, header shadow on scroll                       |
+| `--motion-enter` | 220 ms     | Contact hero fade-up on page load                               |
+| `--motion-hover` | 180 ms     | Call-to-action hover lift and arrow slide (Contact hero button) |
+| `--reveal-*`     | 780–950 ms | Scroll reveal of page content (see below)                       |
 
 Easing: one curve for UI feedback, stored as `--ease-brand: cubic-bezier(0.22, 1, 0.36, 1)`. Use the token, never write the curve in a component. The two exceptions are the Contact hero fade-up and the call-to-action hover, which use plain `ease-out` as specified for them.
 
 ### Scroll reveal
 
-Page content (headings, cards, list items) slides in from the left and fades in once as it scrolls into view, via the shared `Reveal` component (`components/ui/Reveal.tsx`) and `useReveal` hook. This is content entering the page, not UI feedback, so it intentionally runs slower and with its own easing:
+Page content reveals as it scrolls into view, through the shared `Reveal` family in `components/ui/Reveal.tsx`: one `<Reveal>` per section, with the pieces below inside it. This is content entering the page, not UI feedback, so it runs slower than 170-240 ms and has its own tokens in `app/globals.css`.
 
-- Duration: `--motion-reveal` (650 ms), not the 170-240 ms UI-feedback tokens.
-- Easing: `--ease-reveal: cubic-bezier(0.16, 1, 0.3, 1)`, a slower decelerate curve distinct from `--ease-brand`.
-- Items in a list reveal one after another (a ~130 ms stagger per item), not all at once.
-- The Hero is exempt: text never waits for animation, it shows immediately.
-- Respects `prefers-reduced-motion` the same way as everything else below.
+| Piece         | What it does                                                | Token                                                  |
+| ------------- | ----------------------------------------------------------- | ------------------------------------------------------ |
+| `RevealWords` | Heading words rise from behind a mask, one after another    | `--reveal-dur-word` 850 ms                             |
+| `RevealClip`  | Subtitle or lead paragraph wipes in from left to right      | `--reveal-dur-clip` 900 ms                             |
+| `RevealLine`  | Divider draws in from the left                              | `--reveal-dur-line` 900 ms                             |
+| `RevealIcon`  | Icon springs in; strokes of an outlined SVG draw themselves | `--reveal-dur-icon` 780 ms, `--reveal-dur-draw` 950 ms |
+| `RevealFade`  | Text, cards, rows and buttons fade up                       | `--reveal-dur-text` 780 ms                             |
+
+- Blocks entering together start one after another, `--reveal-stagger` (110 ms) apart, in page order.
+- Easing: `--ease-reveal-out`, `--ease-reveal-in-out` and `--ease-reveal-spring`, not `--ease-brand`.
+- After `--reveal-settle` (1700 ms) the entrance transitions are removed, so hover is never delayed.
+- A block replays its entrance if it fully leaves the screen and comes back.
+- Without JavaScript, or with reduced motion, nothing is hidden: content shows in its final state at once.
+- The hero is exempt: its text never waits for an animation.
+
+### Hover on content
+
+Two content hovers run longer than 240 ms on purpose: they are decorative fills, not feedback. Home, Contact and Services all use them, so reuse these rather than adding new ones.
+
+- Card fill: a circle wipe from the bottom-left, 550 ms on `--ease-brand` (`.svc-card` and `.contact-card` in globals.css). Keyboard focus shows the same fill.
+- Row polish (`RevealUnit` with `hoverGroup`): the divider turns Primary Blue, the text turns Primary Blue and shifts 3 px, the icon lifts (350-600 ms).
+- Hover rules written in plain CSS go inside `@media (hover: hover)`, so a tap on a phone never leaves a card or row looking hovered. Keyboard focus rules stay outside it.
 
 - Animate mostly `transform` and `opacity`. Fades of colour, background colour and shadow are allowed too. Never animate width, height, top or margin.
 - Nav and UI animations are plain CSS, no JavaScript.
@@ -151,6 +168,7 @@ Page content (headings, cards, list items) slides in from the left and fades in 
 - Respect `prefers-reduced-motion`: swap slides and scales for a 170 ms fade, or nothing.
 - Text never waits for an animation. The hero shows immediately. One exception: on the Contact page the illustration, heading and description fade up 8 px once on load (`motion-safe:animate-fade-up`, 220 ms, no stagger), so the text is in place within 220 ms.
 - Contact hero button hover: lift 2 px with a slightly stronger shadow, and the arrow slides 4 px, in 180 ms ease-out (`ctaLiftClassName` in `components/ui/button-styles.ts`). Hover devices only; touch screens keep the press feedback. The navbar consultation button has its own magnetic hover (`NavCta`, see `components/layout/navbar.css`).
+- Services: the four hero tiles fade up 12 px one after another on load (220 ms each, 60 ms apart, only without reduced motion); the hero text itself shows at once. Each service group uses the same scroll reveal as Home: the glyph pops in, the heading rises word by word, the subtitle wipes in, and the six rows fade up with their dividers and outlined icons drawing in. Rows and tiles use the content hovers above. The group navigator changes colour in 200 ms, and its progress bar follows the scroll directly, with no transition.
 - Contact "Get in Touch" and form sections use the same scroll reveal as Home: the wave pops in (`RevealIcon`), the heading rises word by word with its last word in strong Teal (`RevealWords` with `lastWordClassName`), the subtitle wipes in (`RevealClip`), the two cards fade up one after another (`RevealFade`) with their icons popping in, and the location line follows. The form card fades up with its heading rising word by word. On top of that, the two cards use the Home card hover: they fill with their own colour (Primary Blue or deep Teal) in a circle wipe from the bottom-left (550 ms, `.contact-card` in globals.css), the icon tile, title and text turn white and the pill flips to white with the card colour as text. Keyboard focus inside a card shows the same fill. Cards also lift 4 px with a stronger shadow (200 ms, brand curve), and the Email and WhatsApp buttons grow to 1.02 and darken slightly on hover (180 ms ease-out) and shrink to 0.98 when pressed.
 - About page: the same building blocks as Contact. A centred animated hero with a team illustration (on load the blob grows in, the back person's outline draws itself, the front person rises, then both bob gently twice and stop, under 5 s in total so no pause control is needed; on hover the blob swells, the two people lift and lean toward each other and the back person tints, 240 ms on hover devices only; nothing moves with reduced motion) and the pill button; the story with the heading in the Home section heading size (`text-section-heading`, like "Why WinCo VBS?"), the first paragraph as a lead statement with a single Primary Blue bar that fills as you scroll down through it and empties as you scroll back up (`ScrollProgressBar`, transform only, full and still with reduced motion) and the other paragraphs as alternating cards (light blue with a blue icon and Teal divider, then white with a Teal icon and blue divider; on phones the icon sits above the text); Mission and Vision cards with the `.contact-card` colour fill on hover (blue, deep Teal); "Our Approach" with a small brand mark (two slanted bars, Primary Blue and Teal), the heading in the Home section heading size with its last word in strong Teal, a thin divider and the two paragraphs with rounded icon tiles (blue target, Teal handshake) on soft blue corner waves; and a closing tagline band on the wave background. Sections are as tall as their content, like Home, and use the Home scroll reveal.
 

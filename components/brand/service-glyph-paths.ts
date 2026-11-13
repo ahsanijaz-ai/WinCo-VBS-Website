@@ -1,6 +1,7 @@
 /* Traced from the approved icon sheet. Do not hand-edit; regenerate from source art.
    blue = fill layer (currentColor), accent = detail layer (secondary-hover token). */
-import type { ServiceIconName } from "./icons";
+/** Names of the traced glyphs; ServiceGlyph maps the content's icon names onto these. */
+export type GlyphName = "briefcase" | "megaphone" | "trend" | "devices";
 
 export interface IconPaths {
   readonly viewBox: string;
@@ -8,7 +9,7 @@ export interface IconPaths {
   readonly accent: string;
 }
 
-export const iconPaths: Record<ServiceIconName, IconPaths> = {
+export const iconPaths: Record<GlyphName, IconPaths> = {
   briefcase: {
     viewBox: "230.8 31.3 339.3 339.3",
     accent:

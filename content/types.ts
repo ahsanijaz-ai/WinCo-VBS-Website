@@ -89,6 +89,8 @@ export type ServiceGroup = {
   subtitle: string;
   intro: string;
   icon: ServiceIcon;
+  /** Label above the list, from the copy: "Our Services" (or "Our Solutions" for Technology). */
+  listLabel: string;
   services: Service[];
   /** Optional line after the list, e.g. "Technology solutions are scoped and quoted..." */
   note?: string;

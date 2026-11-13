@@ -3,17 +3,26 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import type { CallToAction } from "@/content";
 import { Reveal, RevealClip, RevealFade, RevealWords } from "@/components/ui/Reveal";
 
-/** "Ready to Work Smarter?": a tinted panel with the consultation button, just above the footer. Reveals as it scrolls into view. */
-export function ClosingCtaSection({ cta }: { cta: CallToAction }) {
+type ClosingCtaSectionProps = {
+  cta: CallToAction;
+  /** Id of the heading, unique per page (e.g. `home-closing-cta`); it labels the section. */
+  headingId: string;
+};
+
+/**
+ * The closing call to action just above the footer, shared by every page: a tinted panel with
+ * the heading, a short line and one button. Reveals as it scrolls into view.
+ */
+export function ClosingCtaSection({ cta, headingId }: ClosingCtaSectionProps) {
   return (
-    <Section fullScreen={false} aria-labelledby="home-closing-cta">
+    <Section fullScreen={false} aria-labelledby={headingId}>
       <Reveal
         asUnit
         className="bg-secondary-tint rounded-card px-6 py-12 text-center sm:px-12 md:py-16"
       >
         <RevealWords
           as="h2"
-          id="home-closing-cta"
+          id={headingId}
           standalone={false}
           className="mx-auto max-w-2xl"
           text={cta.title}
