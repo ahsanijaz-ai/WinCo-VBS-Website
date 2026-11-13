@@ -1,47 +1,52 @@
 "use client";
 
-import { PageLink } from "@/components/ui/PageLink";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import type { ComponentType, SVGProps } from "react";
 import { cn } from "@/lib/cn";
 import { isActivePath } from "@/lib/nav-items";
+import { PageLink } from "@/components/ui/PageLink";
+import { RollLabel } from "@/components/ui/RollLabel";
 
 type NavLinkProps = {
   href: string;
   label: string;
-  /** The icon element, already sized. It sits left of the label and is decorative. */
-  icon: ReactNode;
+  /** The bespoke animated icon for this item (see nav-icons.tsx). */
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
 /**
- * One main-navigation link: icon, label and an underline that slides in.
- * It is a client component only because it reads the current path to mark the active page.
+ * One desktop nav link: an icon hidden until hover/focus (visible at rest when active), the
+ * same roll-up letter label every button on the site uses (RollLabel), and a dot under the
+ * label on the active route. The sliding pill behind the row is owned by the parent `NavList`,
+ * not this component. Styled by navbar.css (imported once in SiteHeader.tsx) plus the shared
+ * roll-letter rules in app/globals.css.
  */
-export function NavLink({ href, label, icon }: NavLinkProps) {
-  const active = isActivePath(usePathname(), href);
+export function NavLink({ href, label, icon: Icon }: NavLinkProps) {
+  const pathname = usePathname();
+  const active = isActivePath(pathname, href);
 
   return (
+    // PageLink: clicking the current page's own link scrolls back to the top (with reduced
+    // motion and keyboard focus handled) instead of doing nothing.
     <PageLink
       href={href}
+      data-nav-item
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group text-ink relative inline-flex min-h-11 items-center gap-2 px-2 text-base font-medium whitespace-nowrap xl:px-3",
-        "ease-brand hover:text-secondary transition duration-(--motion-base)",
-        "active:scale-[0.97] active:duration-(--motion-fast)",
-        active && "text-secondary font-semibold",
+        "nav-item btn-roll",
+        "relative inline-flex min-h-11 items-center px-3 text-base font-medium whitespace-nowrap xl:px-4",
+        "ease-brand transition-colors duration-(--motion-base)",
+        active ? "text-secondary font-semibold" : "text-ink hover:text-secondary",
       )}
     >
-      {icon}
-      <span>{label}</span>
-      <span
-        aria-hidden="true"
-        className={cn(
-          "bg-accent absolute inset-x-2 bottom-1 h-0.5 origin-left scale-x-0 opacity-0 xl:inset-x-3",
-          "ease-brand transition duration-(--motion-base)",
-          "group-hover:scale-x-100 group-hover:opacity-100",
-          active && "scale-x-100 opacity-100",
-        )}
-      />
+      <span aria-hidden="true" className={cn("nav-icon-wrap", active && "nav-icon-wrap--active")}>
+        <Icon className="size-full" />
+      </span>
+
+      <span className="relative inline-flex">
+        <RollLabel text={label} />
+        {active && <span className="nav-active-dot" />}
+      </span>
     </PageLink>
   );
 }
