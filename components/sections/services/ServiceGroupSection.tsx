@@ -45,7 +45,8 @@ type ServiceGroupSectionProps = {
  *   `scroll-margin-top` (group navigator) keep it clear of both sticky bars.
  */
 export function ServiceGroupSection({ group, index, discussLabel }: ServiceGroupSectionProps) {
-  const { id, title, subtitle, intro, icon, services, note } = group;
+  const { id, title, subtitle, intro, icon, listLabel, services, note } = group;
+  const listLabelId = `${id}-list-label`;
   const headingId = `${id}-title`;
 
   return (
@@ -108,7 +109,12 @@ export function ServiceGroupSection({ group, index, discussLabel }: ServiceGroup
         </RevealUnit>
 
         <div className="lg:col-span-7">
-          <ol>
+          <RevealFade as="div">
+            <p id={listLabelId} className="text-ink mb-3 font-semibold">
+              {listLabel}
+            </p>
+          </RevealFade>
+          <ol aria-labelledby={listLabelId}>
             {services.map(({ name, description }, serviceIndex) => {
               const Icon = serviceRowIcons[name] ?? fallbackServiceIcon;
               return (
