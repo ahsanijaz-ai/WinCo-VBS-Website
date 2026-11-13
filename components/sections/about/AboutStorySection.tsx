@@ -1,6 +1,7 @@
 import { ChartColumnIncreasing, Laptop, Layers, Settings, type LucideIcon } from "lucide-react";
 import { Section } from "@/components/layout/Section";
 import { Reveal, RevealClip, RevealFade, RevealIcon } from "@/components/ui/Reveal";
+import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 import type { TextBlock } from "@/content";
 import { cn } from "@/lib/cn";
 
@@ -27,7 +28,7 @@ function StoryDecor() {
 
 /**
  * "About WinCo VBS": the heading as a small spaced eyebrow, the first paragraph as a large lead
- * statement with a Primary Blue bar, and the other paragraphs as cards beside it from 1024 px.
+ * statement with a Primary Blue bar that fills as you scroll through it (ScrollProgressBar), and the other paragraphs as cards beside it from 1024 px.
  * The cards alternate: light blue with a blue icon and a Teal divider, then white with a Teal
  * icon and a blue divider. On phones the icon sits above the text and the divider is hidden, so
  * the text gets the full card width. Text is the client copy, unchanged. Reveals like the Home sections.
@@ -45,8 +46,9 @@ export function AboutStorySection({ about }: { about: TextBlock }) {
               {about.title}
             </h2>
           </RevealClip>
-          <RevealFade as="div" className="mt-6">
-            <p className="border-secondary text-ink border-l-4 pl-6 text-xl leading-relaxed font-bold sm:text-2xl lg:text-[1.75rem] lg:leading-snug">
+          <RevealFade as="div" className="relative mt-6">
+            <ScrollProgressBar className="absolute inset-y-0 left-0 w-1" />
+            <p className="text-ink pl-6 text-xl leading-relaxed font-bold sm:text-2xl lg:text-[1.75rem] lg:leading-snug">
               {lead}
             </p>
           </RevealFade>
