@@ -12,7 +12,8 @@ import {
 import type { ContactIcon, ContactPage } from "@/content";
 import { site } from "@/content";
 import { cn } from "@/lib/cn";
-import { SectionDecor } from "@/components/sections/contact/SectionDecor";
+import { HeadingWave } from "@/components/sections/HeadingWave";
+import { SectionDecor } from "@/components/sections/SectionDecor";
 
 const placeIcons: Record<ContactIcon, LucideIcon> = {
   mail: Mail,
@@ -46,24 +47,6 @@ const pillClass =
   "mt-8 min-h-14 gap-3 rounded-full px-5 text-base sm:px-8 sm:text-lg shadow-lg " +
   "duration-(--motion-hover) ease-[ease-out] motion-safe:hover:not-active:scale-[1.02] active:scale-[0.98] " +
   "contact-card-pill bg-(--card-pill-bg) text-(color:--card-pill-fg) hover:bg-[color-mix(in_oklab,var(--card-pill-bg)_88%,var(--color-ink))]";
-
-/** Small brand wave above the heading, Primary Blue fading into Teal. */
-function HeadingWave() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 120 24" className="mx-auto mb-4 h-5 w-24 sm:h-6 sm:w-28">
-      <defs>
-        <linearGradient id="git-wave" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stopColor="var(--color-secondary)" />
-          <stop offset="1" stopColor="var(--color-accent)" />
-        </linearGradient>
-      </defs>
-      <path
-        fill="url(#git-wave)"
-        d="M2 16C22 4 38 4 58 12s38 8 60-6c-14 18-40 20-60 12S20 10 2 16Z"
-      />
-    </svg>
-  );
-}
 
 type GetInTouchSectionProps = Pick<ContactPage, "intro" | "getInTouch" | "details">;
 
