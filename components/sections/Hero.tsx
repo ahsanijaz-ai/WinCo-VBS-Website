@@ -145,7 +145,7 @@ export function Hero({
         </svg>
       </div>
 
-      <Container className="pt-16 pb-32 sm:pb-36 md:pt-20 lg:pb-20">
+      <Container className="short:py-10 pt-16 pb-32 sm:pb-36 md:pt-20 lg:pb-20">
         <div className={cn("grid gap-12", twoColumns && "lg:grid-cols-12 lg:items-center")}>
           <div
             className={cn(

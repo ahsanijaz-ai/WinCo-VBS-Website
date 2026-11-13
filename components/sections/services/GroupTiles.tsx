@@ -22,6 +22,8 @@ const FEATURED_INDEX = 1;
  * - Under 1024 px: a row of four small tiles (number and glyph; the title is for screen readers),
  *   so the hero stays about one screen tall on phones.
  * - From 1024 px: a 2 x 2 grid with the right column set 32 px lower, and the group titles shown.
+ * - On short laptop windows (`short:`, 760 px high or less): compact tiles, glyph beside the
+ *   title, no offset, so the hero still fits the first screen.
  * - Hover and keyboard focus use the Home card fill (`.svc-card` in globals.css), so the two
  *   pages feel the same. The tiles fade up one after another on load (220 ms each, 60 ms apart),
  *   and appear at once with reduced motion.
@@ -34,7 +36,7 @@ export function GroupTiles({ label, groups }: GroupTilesProps) {
       </p>
       <ul
         aria-labelledby="services-tiles-label"
-        className="svc-grid grid grid-cols-4 gap-3 lg:grid-cols-2 lg:gap-4 lg:pb-8 xl:gap-5"
+        className="svc-grid short:gap-3 short:pb-0 grid grid-cols-4 gap-3 lg:grid-cols-2 lg:gap-4 lg:pb-8 xl:gap-5"
       >
         {groups.map(({ id, title, icon }, index) => (
           <li
@@ -42,18 +44,18 @@ export function GroupTiles({ label, groups }: GroupTilesProps) {
             style={{ "--fade-y": "12px", animationDelay: `${index * 60}ms` } as CSSProperties}
             className={cn(
               "motion-safe:animate-fade-up flex",
-              index % 2 === 1 && "lg:translate-y-8",
+              index % 2 === 1 && "short:translate-y-0 lg:translate-y-8",
             )}
           >
             <PageLink
               href={`#${id}`}
               className={cn(
-                "svc-card border-border bg-primary flex w-full flex-col rounded-2xl border p-2.5 shadow-sm sm:p-3 lg:p-4 xl:p-5",
+                "svc-card border-border bg-primary short:flex-row short:items-center short:gap-3 short:p-3 flex w-full flex-col rounded-2xl border p-2.5 shadow-sm sm:p-3 lg:p-4 xl:p-5",
                 "ease-brand transition duration-(--motion-base) hover:-translate-y-1 hover:shadow-lg",
                 index === FEATURED_INDEX && "svc-card--featured",
               )}
             >
-              <span className="flex items-start justify-between gap-2">
+              <span className="short:hidden flex items-start justify-between gap-2">
                 <span
                   aria-hidden="true"
                   className="svc-card-title text-ink/45 text-xs font-bold tabular-nums lg:text-sm"
@@ -64,10 +66,10 @@ export function GroupTiles({ label, groups }: GroupTilesProps) {
                   <ArrowDown aria-hidden="true" strokeWidth={1.8} className="size-full" />
                 </span>
               </span>
-              <span className="svc-icon mx-auto mt-1 flex aspect-square w-full max-w-16 items-center justify-center rounded-xl p-2 lg:mx-0 lg:mt-4 lg:size-14 lg:p-2.5 xl:mt-6 xl:size-16">
+              <span className="svc-icon short:mt-0 short:size-11 short:shrink-0 short:p-2 mx-auto mt-1 flex aspect-square w-full max-w-16 items-center justify-center rounded-xl p-2 lg:mx-0 lg:mt-4 lg:size-14 lg:p-2.5 xl:mt-6 xl:size-16">
                 <ServiceGlyph icon={icon} />
               </span>
-              <span className="svc-card-title text-ink sr-only lg:not-sr-only lg:mt-3 lg:text-sm lg:leading-5 lg:font-semibold xl:mt-4 xl:text-base xl:leading-6">
+              <span className="svc-card-title text-ink short:mt-0 short:text-sm short:leading-5 sr-only lg:not-sr-only lg:mt-3 lg:text-sm lg:leading-5 lg:font-semibold xl:mt-4 xl:text-base xl:leading-6">
                 {title}
               </span>
             </PageLink>

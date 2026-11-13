@@ -1,6 +1,13 @@
 @import "tailwindcss";
 
 /*
+ * `short:` = a laptop-width window that is not very tall (1024 px+ wide, 760 px or less high),
+ * e.g. a laptop zoomed to 150-175 % or a small browser window. Heroes tighten up there, so their
+ * content still fits on the first screen.
+ */
+@custom-variant short (@media (min-width: 1024px) and (max-height: 760px));
+
+/*
  * Design tokens. This is the only file that defines colours, motion and layout values.
  * Components use the utilities these tokens create (bg-secondary, max-w-site, ease-brand)
  * or the CSS variables below. See docs/brand.md for the rules.
