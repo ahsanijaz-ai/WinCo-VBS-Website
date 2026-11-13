@@ -10,6 +10,7 @@ import { aboutPage } from "@/content";
 export const metadata: Metadata = {
   title: aboutPage.seo.title,
   description: aboutPage.seo.description,
+  alternates: { canonical: "/about" },
 };
 
 /** About page: hero, the story, Mission with Vision, Our Approach, then the closing tagline. */
