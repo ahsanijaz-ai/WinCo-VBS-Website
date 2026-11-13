@@ -124,14 +124,14 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 Every UI-feedback animation (hover, press, menu) lasts between 170 and 240 ms. Use the tokens, never a hard-coded duration.
 
-| Token             | Value  | Typical use                                                                    |
-| ----------------- | ------ | ------------------------------------------------------------------------------ |
-| `--motion-fast`   | 170 ms | Touch press, small feedback                                                    |
-| `--motion-base`   | 200 ms | Nav hover underline, icon lift, hamburger                                      |
-| `--motion-slow`   | 240 ms | Mobile menu open, header shadow on scroll                                      |
-| `--motion-enter`  | 220 ms | Contact hero fade-up on page load                                              |
-| `--motion-hover`  | 180 ms | Call-to-action hover lift and arrow slide (navbar button, Contact hero button) |
-| `--motion-reveal` | 650 ms | Scroll-reveal of page content (see below)                                      |
+| Token             | Value  | Typical use                                                     |
+| ----------------- | ------ | --------------------------------------------------------------- |
+| `--motion-fast`   | 170 ms | Touch press, small feedback                                     |
+| `--motion-base`   | 200 ms | Nav hover underline, icon lift, hamburger                       |
+| `--motion-slow`   | 240 ms | Mobile menu open, header shadow on scroll                       |
+| `--motion-enter`  | 220 ms | Contact hero fade-up on page load                               |
+| `--motion-hover`  | 180 ms | Call-to-action hover lift and arrow slide (Contact hero button) |
+| `--motion-reveal` | 650 ms | Scroll-reveal of page content (see below)                       |
 
 Easing: one curve for UI feedback, stored as `--ease-brand: cubic-bezier(0.22, 1, 0.36, 1)`. Use the token, never write the curve in a component. The two exceptions are the Contact hero fade-up and the call-to-action hover, which use plain `ease-out` as specified for them.
 
@@ -150,7 +150,7 @@ Page content (headings, cards, list items) slides in from the left and fades in 
 - Use Tailwind's `hover:` classes for hover effects. In Tailwind v4 they only apply on devices that can hover, so phones don't get stuck hover states. If you write hover styles in plain CSS, wrap them in `@media (hover: hover)`.
 - Respect `prefers-reduced-motion`: swap slides and scales for a 170 ms fade, or nothing.
 - Text never waits for an animation. The hero shows immediately. One exception: on the Contact page the illustration, heading and description fade up 8 px once on load (`motion-safe:animate-fade-up`, 220 ms, no stagger), so the text is in place within 220 ms.
-- Call-to-action hover (navbar button, Contact hero button): lift 2 px with a slightly stronger shadow, and the arrow slides 4 px if there is one, in 180 ms ease-out (`ctaLiftClassName` in `components/ui/button-styles.ts`). Hover devices only; touch screens keep the press feedback.
+- Contact hero button hover: lift 2 px with a slightly stronger shadow, and the arrow slides 4 px, in 180 ms ease-out (`ctaLiftClassName` in `components/ui/button-styles.ts`). Hover devices only; touch screens keep the press feedback. The navbar consultation button has its own magnetic hover (`NavCta`, see `components/layout/navbar.css`).
 - Contact "Get in Touch" and form sections use the same scroll reveal as Home: the wave pops in (`RevealIcon`), the heading rises word by word with its last word in strong Teal (`RevealWords` with `lastWordClassName`), the subtitle wipes in (`RevealClip`), the two cards fade up one after another (`RevealFade`) with their icons popping in, and the location line follows. The form card fades up with its heading rising word by word. On top of that, the two cards use the Home card hover: they fill with their own colour (Primary Blue or deep Teal) in a circle wipe from the bottom-left (550 ms, `.contact-card` in globals.css), the icon tile, title and text turn white and the pill flips to white with the card colour as text. Keyboard focus inside a card shows the same fill. Cards also lift 4 px with a stronger shadow (200 ms, brand curve), and the Email and WhatsApp buttons grow to 1.02 and darken slightly on hover (180 ms ease-out) and shrink to 0.98 when pressed.
 
 ## Icons
