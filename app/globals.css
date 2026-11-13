@@ -604,7 +604,7 @@
  * About hero "team" illustration: plays once on page load, about 1 s, then the two people bob
  * gently twice and stop (under 5 s in total, so no pause control is needed). Decorative, so it
  * runs slower than the 170-240 ms UI feedback, like the scroll reveal. Nothing moves with
- * reduced motion: the illustration just appears.
+ * reduced motion: the illustration just appears. On hover it reacts too (see below).
  */
 @layer components {
   @media (prefers-reduced-motion: no-preference) {
@@ -626,6 +626,43 @@
       animation:
         team-rise 450ms var(--ease-brand) 350ms both,
         team-bob 2400ms ease-in-out 1100ms 2;
+    }
+  }
+
+  /*
+   * Hover: the blob swells a little, the two people lift and lean toward each other (a greeting)
+   * and the back person's fill tints, 240 ms on the brand curve. Hover devices only, never with
+   * reduced motion. It moves inner groups (.team-h-*), so it never fights the load animation,
+   * which holds its end state on the outer groups.
+   */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .team-h-blob,
+    .team-h-back,
+    .team-h-front {
+      transform-box: fill-box;
+      transition: transform var(--motion-slow) var(--ease-brand);
+    }
+    .team-h-blob {
+      transform-origin: center;
+    }
+    .team-h-back,
+    .team-h-front {
+      transform-origin: 50% 100%;
+    }
+    .team-h-back :is(circle, path) {
+      transition: fill var(--motion-slow) var(--ease-brand);
+    }
+    .team-art:hover .team-h-blob {
+      transform: scale(1.05);
+    }
+    .team-art:hover .team-h-back {
+      transform: translateY(-3px) rotate(-4deg);
+    }
+    .team-art:hover {
+      --team-back-fill: var(--color-secondary-tint);
+    }
+    .team-art:hover .team-h-front {
+      transform: translateY(-5px) rotate(3deg);
     }
   }
 
