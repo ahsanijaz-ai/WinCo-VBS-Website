@@ -1,10 +1,10 @@
-import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 import type { CtaButton } from "@/content";
 import { buttonClassName } from "@/components/ui/button-styles";
+import { PageLink } from "@/components/ui/PageLink";
 import { RollLabel } from "@/components/ui/RollLabel";
 
-type ButtonLinkProps = ComponentPropsWithoutRef<typeof Link> & {
+type ButtonLinkProps = ComponentPropsWithoutRef<typeof PageLink> & {
   variant?: CtaButton["variant"];
 };
 
@@ -13,7 +13,8 @@ type ButtonLinkProps = ComponentPropsWithoutRef<typeof Link> & {
  * Full width on phones and automatic width from 640 px; pass `className` to override.
  * A plain text label rolls up on hover/focus (see RollLabel); pass an icon plus the label as
  * separate children (icon first) and wrap the label in `<RollLabel>` yourself to keep the roll
- * when there's also an icon.
+ * when there's also an icon. Built on PageLink, so a button to the current page scrolls to its
+ * target instead of doing nothing.
  */
 export function ButtonLink({
   variant = "primary",
@@ -22,8 +23,8 @@ export function ButtonLink({
   ...props
 }: ButtonLinkProps) {
   return (
-    <Link className={buttonClassName(variant, className)} {...props}>
+    <PageLink className={buttonClassName(variant, className)} {...props}>
       {typeof children === "string" ? <RollLabel text={children} /> : children}
-    </Link>
+    </PageLink>
   );
 }

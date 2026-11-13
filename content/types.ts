@@ -108,6 +108,8 @@ export type FooterHeadings = {
 export type SiteSettings = {
   name: string;
   shortName: string;
+  /** The line that goes with the logo, e.g. under it on the form success panel. */
+  logoLine: string;
   tagline: string;
   email: string;
   /** Shown to visitors, e.g. "+1 (246) 269-0471". */
@@ -184,6 +186,8 @@ export type InquiryField = {
   name: InquiryFieldName;
   label: string;
   required: boolean;
+  /** Hint inside the empty field. Drafted, not in the client copy. The label always stays visible. */
+  placeholder: string;
 };
 
 export type InquiryForm = {
@@ -192,12 +196,32 @@ export type InquiryForm = {
   /** Options for the "Service Interested In" dropdown. */
   serviceOptions: string[];
   submitLabel: string;
+  /** Heading of the success panel. Drafted, not in the client copy. */
+  successTitle: string;
   successMessage: string;
+  /** Small line under the message, next to a clock icon. Drafted, not in the client copy. */
+  successNote: string;
+};
+
+/** The "Get in Touch" section under the Contact hero: heading, intro and two contact cards. */
+export type GetInTouch = {
+  /** Drafted heading, not in the client copy: needs client approval. */
+  title: string;
+  /** The button on each card shows the email address or the phone number from site settings. */
+  emailCard: {
+    title: string;
+    description: string;
+  };
+  whatsappCard: {
+    title: string;
+    description: string;
+  };
 };
 
 export type ContactPage = Page & {
+  /** Shown as the subtitle of the Get in Touch section. */
   intro: string[];
+  getInTouch: GetInTouch;
   details: ContactDetail[];
-  whatsappButton: CtaButton;
   form: InquiryForm;
 };

@@ -18,6 +18,8 @@
   --color-secondary-tint: #edf1fc;
   --color-accent: #2ec4b6; /* Teal */
   --color-accent-strong: #229288; /* Teal darkened for large text: 3.8:1 on white */
+  --color-accent-deep: #1b7a71; /* Teal deep enough for white button text: 5.2:1 */
+  --color-accent-tint: #e6f7f5; /* Pale Teal for icon tiles */
   --color-border: #d9e2ef;
   --color-input-border: #7b8798; /* form field borders: 3.65:1 on white, WCAG 1.4.11 */
   --color-ink: #0f1e2e; /* Slate */
@@ -47,6 +49,23 @@
   /* A bare "transition" class gets our timing, not Tailwind's 150 ms default */
   --default-transition-duration: 200ms;
   --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /*
+   * Entrance: fade up once (Contact). Use as motion-safe:animate-fade-up. The distance is
+   * --fade-y: 8 px by default (hero), 12 px for sections revealed on scroll.
+   */
+  --animate-fade-up: fade-up var(--motion-enter) ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(var(--fade-y, 8px));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 :root {
@@ -54,6 +73,9 @@
   --motion-fast: 170ms;
   --motion-base: 200ms;
   --motion-slow: 240ms;
+  /* Two task-specific durations, still inside the 170 to 240 ms rule */
+  --motion-enter: 220ms; /* entrance fade-up */
+  --motion-hover: 180ms; /* CTA hover lift and arrow slide */
 
   /* Scroll-reveal: content entering the viewport, not UI feedback, so it runs slower and with
      its own easing curves. One generic engine (components/ui/Reveal.tsx) drives every section. */
@@ -450,6 +472,94 @@
     .svc-card,
     .svc-card *,
     .svc-card::before {
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/*
+ * Contact "Get in Touch" cards: the same hover fill as the Home "What We Do" cards (a circle
+ * wipe from the bottom-left, 550 ms on the brand curve), in each card's own colour. On the
+ * filled card the icon tile, title and text turn white, and the pill button flips to white with
+ * the card colour as its text. Colours run through variables that the card markup reads, so no
+ * utility class has to be overridden. Keyboard focus inside the card shows the fill too.
+ */
+@layer components {
+  .contact-card {
+    --card-tile-bg: var(--card-tint);
+    --card-tile-fg: var(--card-colour);
+    --card-title: var(--color-ink);
+    --card-text: var(--color-text);
+    --card-pill-bg: var(--card-colour);
+    --card-pill-fg: var(--color-primary);
+
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .contact-card--blue {
+    --card-colour: var(--color-secondary);
+    --card-tint: var(--color-secondary-tint);
+    --card-fill: linear-gradient(165deg, var(--color-secondary), var(--color-secondary-hover));
+  }
+  .contact-card--teal {
+    --card-colour: var(--color-accent-deep);
+    --card-tint: var(--color-accent-tint);
+    --card-fill: linear-gradient(
+      165deg,
+      var(--color-accent-deep),
+      color-mix(in oklab, var(--color-accent-deep) 70%, var(--color-ink))
+    );
+  }
+  .contact-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--card-fill);
+    clip-path: circle(0% at 18% 100%);
+    transition: clip-path 550ms var(--ease-brand);
+  }
+  .contact-card-tile,
+  .contact-card-pill {
+    transition:
+      background-color 300ms ease,
+      color 300ms ease,
+      scale var(--motion-hover) ease-out,
+      box-shadow var(--motion-hover) ease-out;
+  }
+  .contact-card-title,
+  .contact-card-text {
+    transition: color 300ms ease;
+  }
+
+  .contact-card:focus-within {
+    --card-tile-bg: var(--color-primary);
+    --card-title: var(--color-primary);
+    --card-text: color-mix(in srgb, var(--color-primary) 92%, transparent);
+    --card-pill-bg: var(--color-primary);
+    --card-pill-fg: var(--card-colour);
+  }
+  .contact-card:focus-within::before {
+    clip-path: circle(150% at 18% 100%);
+  }
+  @media (hover: hover) {
+    .contact-card:hover {
+      --card-tile-bg: var(--color-primary);
+      --card-title: var(--color-primary);
+      --card-text: color-mix(in srgb, var(--color-primary) 92%, transparent);
+      --card-pill-bg: var(--color-primary);
+      --card-pill-fg: var(--card-colour);
+    }
+    .contact-card:hover::before {
+      clip-path: circle(150% at 18% 100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-card::before,
+    .contact-card * {
       transition-duration: 0.01ms !important;
     }
   }

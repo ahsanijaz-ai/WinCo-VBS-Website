@@ -38,6 +38,8 @@ These colours come from the client's brand colour palette (Primary Blue, Teal, L
 | `--color-input-border`    | `#7B8798` | (neutral)        | part of 30%   | Form field borders (needs 3:1 on white)                                  |
 | `--color-accent`          | `#2EC4B6` | Teal             | 10%           | Badges, step numbers, one highlight per screen                           |
 | `--color-accent-strong`   | `#229288` | (Teal, darkened) | part of 10%   | Large text only (24 px+ or 18.7 px bold): the coloured hero heading word |
+| `--color-accent-deep`     | `#1B7A71` | (Teal, deep)     | part of 10%   | Teal buttons with white text (5.2:1), e.g. the Contact WhatsApp pill     |
+| `--color-accent-tint`     | `#E6F7F5` | (neutral)        | part of 10%   | Pale Teal behind Teal icons                                              |
 | `--color-ink`             | `#0F1E2E` | Slate            | not counted   | Headings                                                                 |
 | `--color-text`            | `#3A4A63` | (neutral)        | not counted   | Body text                                                                |
 | `--color-navy`            | `#0B3A6E` | Deep Navy        | dark surfaces | Footer background                                                        |
@@ -80,6 +82,7 @@ Text needs 4.5:1 against its background, large text 3:1. Focus rings and other U
 | Light border `#D9E2EF` on white                       | ~1.3:1          | Decorative only, never for form fields           |
 | Error `#B42318` text on white or `#F4F7FB`            | ~6.6:1 / ~6.1:1 | Pass                                             |
 | Strong Teal `#229288` large text on white / `#F4F7FB` | ~3.8:1 / ~3.5:1 | Pass for large text only, fails body text        |
+| White on deep Teal `#1B7A71` (buttons)                | ~5.2:1          | Pass                                             |
 | Teal `#2EC4B6` text on white                          | ~2.2:1          | Fail, never do this                              |
 | Light Blue `#38BDF8` text on white                    | ~2.1:1          | Fail, never do this                              |
 
@@ -112,7 +115,7 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 ## Spacing and shape
 
-- Corner radius: 8 px.
+- Corner radius: 8 px. One exception: the Contact hero button is a pill (fully rounded) with a Primary Blue gradient and the arrow in a light circle (`<Hero buttonStyle="pill" />`). Every other button keeps 8 px. The Contact "Get in Touch" cards also follow their design: 24 px card corners, 16 px icon tiles and pill buttons. The Contact form follows its design too: a 24 px card, 12 px field corners with a small icon tile inside each field, and a 16 px-corner "Send Inquiry" button. Field borders stay `--color-input-border` (3:1), placeholders stay at least 4.5:1, labels always stay visible above the field, and focus shows a Primary Blue border with a soft glow instead of the global outline. After a successful submit the form is replaced by a success panel: the logo with "Virtual Business Solutions" between two lines, then a blue-to-Teal tinted panel with a deep Teal check in a pale Teal circle, the heading, the confirmation from the copy and a short note. Focus moves to its heading. Country and Service use a custom dropdown (`SelectField`): the field shows the icon tile, a divider, the value and a chevron that flips when open. The list opens in a rounded panel at most 288 px tall that always stays inside the form (it opens upward when there is more room above), with option icons for services and a Primary Blue bar, light tint and check badge on the chosen option. It keeps full keyboard support (arrows, Home, End, Page Up/Down, Enter, Space, Escape, type-to-jump) and submits through a hidden input like a normal select.
 - Side gutters: 16 px on phones.
 - Content max width: about 1200 px.
 - Touch targets: at least 44 x 44 px.
@@ -121,18 +124,20 @@ The logo is a blue-to-cyan "W" mark, navy "WinCo" and a teal-to-blue "VBS". The 
 
 Every UI-feedback animation (hover, press, menu) lasts between 170 and 240 ms. Use the tokens, never a hard-coded duration.
 
-| Token             | Value  | Typical use                               |
-| ----------------- | ------ | ----------------------------------------- |
-| `--motion-fast`   | 170 ms | Touch press, small feedback               |
-| `--motion-base`   | 200 ms | Nav hover underline, icon lift, hamburger |
-| `--motion-slow`   | 240 ms | Mobile menu open, header shadow on scroll |
-| `--motion-reveal` | 650 ms | Scroll-reveal of page content (see below) |
+| Token             | Value  | Typical use                                                     |
+| ----------------- | ------ | --------------------------------------------------------------- |
+| `--motion-fast`   | 170 ms | Touch press, small feedback                                     |
+| `--motion-base`   | 200 ms | Nav hover underline, icon lift, hamburger                       |
+| `--motion-slow`   | 240 ms | Mobile menu open, header shadow on scroll                       |
+| `--motion-enter`  | 220 ms | Contact hero fade-up on page load                               |
+| `--motion-hover`  | 180 ms | Call-to-action hover lift and arrow slide (Contact hero button) |
+| `--motion-reveal` | 650 ms | Scroll-reveal of page content (see below)                       |
 
-Easing: one curve for UI feedback, stored as `--ease-brand: cubic-bezier(0.22, 1, 0.36, 1)`. Use the token, never write the curve in a component.
+Easing: one curve for UI feedback, stored as `--ease-brand: cubic-bezier(0.22, 1, 0.36, 1)`. Use the token, never write the curve in a component. The two exceptions are the Contact hero fade-up and the call-to-action hover, which use plain `ease-out` as specified for them.
 
 ### Scroll reveal
 
-Page content (headings, cards, list items) slides in from the left and fades in once as it scrolls into view, via the shared `Reveal` component (`components/sections/home/Reveal.tsx`) and `useReveal` hook. This is content entering the page, not UI feedback, so it intentionally runs slower and with its own easing:
+Page content (headings, cards, list items) slides in from the left and fades in once as it scrolls into view, via the shared `Reveal` component (`components/ui/Reveal.tsx`) and `useReveal` hook. This is content entering the page, not UI feedback, so it intentionally runs slower and with its own easing:
 
 - Duration: `--motion-reveal` (650 ms), not the 170-240 ms UI-feedback tokens.
 - Easing: `--ease-reveal: cubic-bezier(0.16, 1, 0.3, 1)`, a slower decelerate curve distinct from `--ease-brand`.
@@ -144,7 +149,9 @@ Page content (headings, cards, list items) slides in from the left and fades in 
 - Nav and UI animations are plain CSS, no JavaScript.
 - Use Tailwind's `hover:` classes for hover effects. In Tailwind v4 they only apply on devices that can hover, so phones don't get stuck hover states. If you write hover styles in plain CSS, wrap them in `@media (hover: hover)`.
 - Respect `prefers-reduced-motion`: swap slides and scales for a 170 ms fade, or nothing.
-- Text never waits for an animation. The hero shows immediately.
+- Text never waits for an animation. The hero shows immediately. One exception: on the Contact page the illustration, heading and description fade up 8 px once on load (`motion-safe:animate-fade-up`, 220 ms, no stagger), so the text is in place within 220 ms.
+- Contact hero button hover: lift 2 px with a slightly stronger shadow, and the arrow slides 4 px, in 180 ms ease-out (`ctaLiftClassName` in `components/ui/button-styles.ts`). Hover devices only; touch screens keep the press feedback. The navbar consultation button has its own magnetic hover (`NavCta`, see `components/layout/navbar.css`).
+- Contact "Get in Touch" and form sections use the same scroll reveal as Home: the wave pops in (`RevealIcon`), the heading rises word by word with its last word in strong Teal (`RevealWords` with `lastWordClassName`), the subtitle wipes in (`RevealClip`), the two cards fade up one after another (`RevealFade`) with their icons popping in, and the location line follows. The form card fades up with its heading rising word by word. On top of that, the two cards use the Home card hover: they fill with their own colour (Primary Blue or deep Teal) in a circle wipe from the bottom-left (550 ms, `.contact-card` in globals.css), the icon tile, title and text turn white and the pill flips to white with the card colour as text. Keyboard focus inside a card shows the same fill. Cards also lift 4 px with a stronger shadow (200 ms, brand curve), and the Email and WhatsApp buttons grow to 1.02 and darken slightly on hover (180 ms ease-out) and shrink to 0.98 when pressed.
 
 ## Icons
 

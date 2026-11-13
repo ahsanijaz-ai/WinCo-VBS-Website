@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { contactPage } from "@/content";
+import { contactPage, countries } from "@/content";
 import type { InquiryFieldName } from "@/content";
 
 /** Name of the hidden honeypot field. People never see it; bots fill it in. */
@@ -40,9 +40,14 @@ export const inquirySchema = z.object({
     .regex(/^[0-9+()\-.\s]*$/, { error: "Please use only numbers, spaces and + ( ) -." })
     .optional()
     .default(""),
-  country: optionalText(INQUIRY_LIMITS.short),
+  country: z
+    .union([z.enum(countries), z.literal("")], { error: "Please choose a country from the list." })
+    .optional()
+    .default(""),
   service: z
-    .union([z.enum(contactPage.form.serviceOptions as [string, ...string[]]), z.literal("")])
+    .union([z.enum(contactPage.form.serviceOptions as [string, ...string[]]), z.literal("")], {
+      error: "Please choose a service from the list.",
+    })
     .optional()
     .default(""),
   message: optionalText(INQUIRY_LIMITS.message),

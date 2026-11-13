@@ -1,5 +1,6 @@
 import { CalendarDays, Mail, MapPin, MessageCircle, type LucideIcon } from "lucide-react";
 import Link from "next/link";
+import { PageLink } from "@/components/ui/PageLink";
 import type { ReactNode } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/ButtonLink";
@@ -121,9 +122,9 @@ export function SiteFooter() {
               <ul>
                 {navItems.map(({ href, label }) => (
                   <li key={href}>
-                    <Link href={href} className={linkClass}>
+                    <PageLink href={href} className={linkClass}>
                       {label}
-                    </Link>
+                    </PageLink>
                   </li>
                 ))}
               </ul>

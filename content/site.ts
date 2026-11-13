@@ -3,6 +3,7 @@ import type { SiteSettings } from "./types";
 export const site: SiteSettings = {
   name: "WinCo Virtual Business Solutions",
   shortName: "WinCo VBS",
+  logoLine: "Virtual Business Solutions",
   tagline: "Your Business, Organized and Optimized.",
   email: "wincovbs@gmail.com",
   phoneDisplay: "+1 (246) 269-0471",

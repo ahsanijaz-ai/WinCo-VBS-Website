@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useRef, type PointerEvent } from "react";
 import { cn } from "@/lib/cn";
+import { PageLink } from "@/components/ui/PageLink";
 import { RollLabel } from "@/components/ui/RollLabel";
 
 type NavCtaProps = {
@@ -18,7 +18,8 @@ const MAX_PULL = 7;
  * it, and a calendar icon whose rings lift and whose checkmark pops in on hover. The label uses
  * the same shared `RollLabel` every button on the site uses. Scoped to the header only; the
  * shared `ButtonLink` used everywhere else on the site is untouched. Styled by navbar.css,
- * imported once in SiteHeader.tsx.
+ * imported once in SiteHeader.tsx. Built on PageLink, so on the Contact page it scrolls smoothly
+ * to the form (its href is /contact#inquiry-form) instead of jumping.
  */
 export function NavCta({ href, label, className }: NavCtaProps) {
   const ref = useRef<HTMLAnchorElement>(null);
@@ -47,7 +48,7 @@ export function NavCta({ href, label, className }: NavCtaProps) {
   };
 
   return (
-    <Link
+    <PageLink
       ref={ref}
       href={href}
       onPointerMove={onPointerMove}
@@ -92,6 +93,6 @@ export function NavCta({ href, label, className }: NavCtaProps) {
       </svg>
 
       <RollLabel text={label} />
-    </Link>
+    </PageLink>
   );
 }

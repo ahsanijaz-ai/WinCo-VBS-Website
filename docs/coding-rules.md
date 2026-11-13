@@ -67,6 +67,7 @@ docs/                these guides
 - Every section after the hero uses the shared `Section`, which also fills the screen below the header by default, with its content centred. So the next section or the footer only shows after scrolling. Taller content makes the section grow. Use `fullScreen={false}` only for special cases.
 - Server components by default. Add `"use client"` only to components that need state, effects or browser events (mobile menu, form). Keep those components small.
 - Navigation uses `next/link` to real routes (`/`, `/about`, `/services`, `/contact`). No hash links for the main nav.
+- Site navigation links (navbar, mobile menu, logo, footer Quick Links) use `PageLink` from `components/ui/PageLink.tsx`, not plain `next/link`. Clicking the page you are already on then scrolls back to the top (smoothly, or instantly with reduced motion) instead of doing nothing. `ButtonLink` is built on `PageLink` too. A link with a `#id` on the current page scrolls to that element instead. Every "Schedule a Free Consultation" button points to `/contact#inquiry-form`, the Contact form section, so it always lands on the form.
 - Images use `next/image` with `width`, `height` (or `fill` plus `sizes`) and real alt text. Only the hero image loads early, with `loading="eager"` or `fetchPriority="high"`. Next.js 16 deprecated `priority`, so don't use it.
 - Fonts use `next/font`. No `<link>` to Google Fonts.
 - Each page sets its own title and description from its content file (`generateMetadata` or `metadata`).

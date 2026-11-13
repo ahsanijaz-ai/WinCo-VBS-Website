@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentType, SVGProps } from "react";
 import { cn } from "@/lib/cn";
 import { isActivePath } from "@/lib/nav-items";
+import { PageLink } from "@/components/ui/PageLink";
 import { RollLabel } from "@/components/ui/RollLabel";
 
 type NavLinkProps = {
@@ -25,16 +25,11 @@ export function NavLink({ href, label, icon: Icon }: NavLinkProps) {
   const pathname = usePathname();
   const active = isActivePath(pathname, href);
 
-  // Clicking the current page's own link doesn't navigate (same URL), so it would otherwise do
-  // nothing if the visitor has scrolled down. Scroll back to the top (the hero) instead.
-  const onClick = () => {
-    if (pathname === href) window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
-    <Link
+    // PageLink: clicking the current page's own link scrolls back to the top (with reduced
+    // motion and keyboard focus handled) instead of doing nothing.
+    <PageLink
       href={href}
-      onClick={onClick}
       data-nav-item
       aria-current={active ? "page" : undefined}
       className={cn(
@@ -52,6 +47,6 @@ export function NavLink({ href, label, icon: Icon }: NavLinkProps) {
         <RollLabel text={label} />
         {active && <span className="nav-active-dot" />}
       </span>
-    </Link>
+    </PageLink>
   );
 }

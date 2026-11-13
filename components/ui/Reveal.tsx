@@ -245,6 +245,8 @@ type RevealWordsProps = {
   text: string;
   /** This heading is its own top-level unit (default). Set `false` to nest it inside a `RevealUnit`. */
   standalone?: boolean;
+  /** Optional class for the last word only, e.g. `text-accent-strong` for "Get in [Touch]". */
+  lastWordClassName?: string;
 };
 
 /** Masked word reveal for headings: each word rises from behind a mask, one after another. */
@@ -254,6 +256,7 @@ export function RevealWords({
   className,
   text,
   standalone = true,
+  lastWordClassName,
 }: RevealWordsProps) {
   const Tag = as as ElementType;
   const words = text.split(" ");
@@ -262,7 +265,12 @@ export function RevealWords({
       {words.map((word, i) => (
         <Fragment key={`${word}-${i}`}>
           <span className="reveal-word">
-            <span style={{ "--w": i } as CSSProperties}>{word}</span>
+            <span
+              className={i === words.length - 1 ? lastWordClassName : undefined}
+              style={{ "--w": i } as CSSProperties}
+            >
+              {word}
+            </span>
           </span>
           {i < words.length - 1 ? " " : null}
         </Fragment>
