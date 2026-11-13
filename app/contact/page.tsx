@@ -3,7 +3,7 @@ import { Section } from "@/components/layout/Section";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { EnvelopeIllustration } from "@/components/sections/contact/EnvelopeIllustration";
 import { GetInTouchSection } from "@/components/sections/contact/GetInTouchSection";
-import { SectionDecor } from "@/components/sections/contact/SectionDecor";
+import { SectionDecor } from "@/components/sections/SectionDecor";
 import { Hero } from "@/components/sections/Hero";
 import { Reveal, RevealFade } from "@/components/ui/Reveal";
 import { contactPage } from "@/content";
