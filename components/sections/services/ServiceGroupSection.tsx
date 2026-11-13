@@ -1,6 +1,10 @@
 import { Ruler } from "lucide-react";
 import { ServiceGlyph } from "@/components/brand/ServiceGlyph";
 import { Section } from "@/components/layout/Section";
+import {
+  fallbackServiceIcon,
+  serviceRowIcons,
+} from "@/components/sections/services/service-row-icons";
 import { twoDigits } from "@/components/sections/services/two-digits";
 import {
   Reveal,
@@ -27,6 +31,8 @@ type ServiceGroupSectionProps = {
  * - Right: the services as numbered rows, not cards, so 24 services never read as one long
  *   grid of identical boxes. Each row's divider draws in and the rows fade up one after another;
  *   on hover the divider turns Primary Blue and the text shifts 3 px, like the Why Us points.
+ *   From 640 px each row also shows an outlined icon whose strokes draw in with the row and
+ *   which lifts on hover (the same Reveal icon effect as Why Us).
  * - Groups alternate white and light grey. The `id` is the anchor the Home cards and the hero
  *   tiles link to; `scroll-padding-top` (header) plus
  *   `scroll-margin-top` (group navigator) keep it clear of both sticky bars.
@@ -81,32 +87,45 @@ export function ServiceGroupSection({ group, index }: ServiceGroupSectionProps) 
 
         <div className="lg:col-span-7">
           <ol>
-            {services.map(({ name, description }, serviceIndex) => (
-              <RevealUnit key={name} as="li" hoverGroup className="cursor-default">
-                <RevealLine className="bg-border h-px w-full" />
-                <div className="grid grid-cols-[2.5rem_1fr] gap-x-3 py-6 sm:grid-cols-[3rem_1fr] sm:gap-x-4">
-                  <RevealFade
-                    as="span"
-                    standalone={false}
-                    className="text-secondary pt-1 text-sm font-bold tabular-nums"
-                  >
-                    <span aria-hidden="true">{twoDigits(serviceIndex)}</span>
-                  </RevealFade>
-                  <div>
+            {services.map(({ name, description }, serviceIndex) => {
+              const Icon = serviceRowIcons[name] ?? fallbackServiceIcon;
+              return (
+                <RevealUnit key={name} as="li" hoverGroup className="cursor-default">
+                  <RevealLine className="bg-border h-px w-full" />
+                  <div className="grid grid-cols-[2.5rem_1fr] gap-x-3 py-6 sm:grid-cols-[3rem_1fr_auto] sm:gap-x-4">
                     <RevealFade
-                      as="h3"
+                      as="span"
                       standalone={false}
-                      className="text-lg leading-7 text-pretty sm:text-xl"
+                      className="text-secondary pt-1 text-sm font-bold tabular-nums"
                     >
-                      {name}
+                      <span aria-hidden="true">{twoDigits(serviceIndex)}</span>
                     </RevealFade>
-                    <RevealFade as="p" standalone={false} secondary className="mt-1.5 text-pretty">
-                      {description}
-                    </RevealFade>
+                    <div>
+                      <RevealFade
+                        as="h3"
+                        standalone={false}
+                        className="text-lg leading-7 text-pretty sm:text-xl"
+                      >
+                        {name}
+                      </RevealFade>
+                      <RevealFade
+                        as="p"
+                        standalone={false}
+                        secondary
+                        className="mt-1.5 text-pretty"
+                      >
+                        {description}
+                      </RevealFade>
+                    </div>
+                    <RevealIcon className="hidden sm:block">
+                      <span className="bg-secondary-tint text-secondary flex size-12 items-center justify-center rounded-xl">
+                        <Icon aria-hidden="true" strokeWidth={1.75} className="size-6" />
+                      </span>
+                    </RevealIcon>
                   </div>
-                </div>
-              </RevealUnit>
-            ))}
+                </RevealUnit>
+              );
+            })}
           </ol>
 
           {note && (
