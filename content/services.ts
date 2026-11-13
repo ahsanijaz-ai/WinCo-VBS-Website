@@ -22,6 +22,7 @@ export const servicesPage: ServicesPage = {
       intro:
         "We help businesses manage essential responsibilities, improve organization, and reduce administrative pressure.",
       icon: "briefcase",
+      listLabel: "Our Services",
       services: [
         {
           name: "Virtual Administrative Assistance",
@@ -59,6 +60,7 @@ export const servicesPage: ServicesPage = {
       intro:
         "We help businesses establish and maintain a professional digital presence that supports customer engagement and business growth.",
       icon: "megaphone",
+      listLabel: "Our Services",
       services: [
         {
           name: "Social Media Management",
@@ -93,6 +95,7 @@ export const servicesPage: ServicesPage = {
       intro:
         "We help businesses identify opportunities, improve workflows, and develop practical strategies for more efficient operations.",
       icon: "trending-up",
+      listLabel: "Our Services",
       services: [
         {
           name: "Business & Marketing Plans",
@@ -127,6 +130,7 @@ export const servicesPage: ServicesPage = {
       intro:
         "We help businesses modernize operations through practical digital solutions, coordinating specialist technical expertise based on project requirements.",
       icon: "monitor-smartphone",
+      listLabel: "Our Solutions",
       services: [
         {
           name: "Website & E-Commerce Development",
