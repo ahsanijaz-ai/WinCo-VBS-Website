@@ -1,9 +1,10 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { ctaLiftClassName } from "@/components/ui/button-styles";
+import { RollLabel } from "@/components/ui/RollLabel";
 import type { Hero as HeroContent } from "@/content";
 import { cn } from "@/lib/cn";
 
@@ -206,7 +207,10 @@ export function Hero({
                           "from-secondary shadow-secondary/35 min-h-14 gap-3 rounded-full bg-linear-to-br to-[color-mix(in_oklab,var(--color-secondary)_72%,var(--color-secondary-hover))] py-2 pr-2 pl-5 whitespace-nowrap sm:gap-4 sm:pl-7",
                       )}
                     >
-                      {label}
+                      {variant === "secondary" && (
+                        <MessageCircle aria-hidden="true" className="size-5" />
+                      )}
+                      <RollLabel text={label} />
                       {pill ? (
                         <span className="bg-primary/15 flex size-9 shrink-0 items-center justify-center rounded-full sm:size-10">
                           {arrow}
