@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ComponentPropsWithoutRef, MouseEvent } from "react";
+import type { ComponentProps, MouseEvent } from "react";
 
-type PageLinkProps = ComponentPropsWithoutRef<typeof Link> & { href: string };
+/** Same props as next/link (including `ref`, passed straight through), with a string `href`. */
+type PageLinkProps = ComponentProps<typeof Link> & { href: string };
 
 /**
  * A `next/link` for site navigation that also handles links to the page you are already on.
