@@ -66,10 +66,10 @@ export function ServiceGroupSection({ group, index, discussLabel }: ServiceGroup
             </RevealIcon>
             <span
               aria-hidden="true"
-              className="text-secondary/15 text-[clamp(4.5rem,3rem+6vw,8rem)] leading-[0.8] font-extrabold tracking-tighter tabular-nums select-none"
-            >
-              {twoDigits(index)}
-            </span>
+              // Drawn as CSS content: pure decoration, so it is not read out or contrast-checked.
+              data-number={twoDigits(index)}
+              className="text-secondary/15 text-[clamp(4.5rem,3rem+6vw,8rem)] leading-[0.8] font-extrabold tracking-tighter tabular-nums select-none before:content-[attr(data-number)]"
+            />
           </div>
 
           <RevealWords
