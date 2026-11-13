@@ -17,6 +17,7 @@ import { FormField, type FieldControl } from "@/components/sections/contact/Form
 import { InquirySuccess } from "@/components/sections/contact/InquirySuccess";
 import { buttonClassName } from "@/components/ui/button-styles";
 import { RevealWords } from "@/components/ui/Reveal";
+import { RollLabel } from "@/components/ui/RollLabel";
 import { countries, servicesPage, type InquiryFieldName, type InquiryForm } from "@/content";
 import { serviceIcons } from "@/lib/service-icons";
 import { HONEYPOT_FIELD, INQUIRY_LIMITS, type InquiryState } from "@/lib/inquiry-schema";
@@ -144,7 +145,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
           )}
         >
           <Send aria-hidden="true" className="size-5" />
-          {pending ? "Sending..." : form.submitLabel}
+          <RollLabel text={pending ? "Sending..." : form.submitLabel} />
         </button>
       </div>
     </form>
