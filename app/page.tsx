@@ -10,6 +10,7 @@ import { homePage } from "@/content";
 export const metadata: Metadata = {
   title: homePage.seo.title,
   description: homePage.seo.description,
+  alternates: { canonical: "/" },
 };
 
 export default function HomePage() {

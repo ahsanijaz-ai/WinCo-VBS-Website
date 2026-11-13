@@ -46,6 +46,18 @@ No pnpm yet? Run `npm i -g pnpm@10`.
 Listed in `.env.example`. Put real values in `.env.local` (never committed) and in Vercel
 project settings. Use separate keys for preview and production.
 
+`NEXT_PUBLIC_SITE_URL` is the live address (e.g. `https://www.example.com`). The sitemap,
+`robots.txt`, canonical links and the business data for Google all use it. Leave it empty until
+the domain is bought: Vercel's own address is used instead. On go-live, set it for Production
+in Vercel and redeploy. Preview deploys always tell search engines not to crawl.
+
+## SEO files
+
+- `app/sitemap.ts`: the four pages, taken from `lib/nav-items.ts`.
+- `app/robots.ts`: allows everything except `/dev/`, and blocks all crawling on previews.
+- `lib/structured-data.ts`: business data (schema.org JSON-LD) from `content/site.ts`, printed
+  on every page by the root layout. Social links appear once they are filled in `site.ts`.
+
 ## Folders
 
 ```
@@ -54,6 +66,7 @@ components/ui        Button and other small pieces
 components/layout    Container, Section, SiteHeader
 components/sections  Hero and page sections
 components/brand     Logo
+components/seo       JsonLd (structured data)
 content/             all page text as typed files (one per page)
 lib/                 cn.ts, nav-items.ts, zod schemas, email
 public/brand/        logos

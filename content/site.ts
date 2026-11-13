@@ -12,6 +12,7 @@ export const site: SiteSettings = {
   address: {
     city: "Bridgetown",
     country: "Barbados",
+    countryCode: "BB",
   },
   serviceArea: "All around the world, internationally",
   location: "Barbados | Caribbean | Serving Clients Around the World (Internationally)",

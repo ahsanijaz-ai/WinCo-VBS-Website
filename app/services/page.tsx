@@ -9,6 +9,7 @@ import { servicesPage } from "@/content";
 export const metadata: Metadata = {
   title: servicesPage.seo.title,
   description: servicesPage.seo.description,
+  alternates: { canonical: "/services" },
 };
 
 /**

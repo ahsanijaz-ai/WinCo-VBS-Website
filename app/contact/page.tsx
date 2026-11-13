@@ -11,6 +11,7 @@ import { contactPage } from "@/content";
 export const metadata: Metadata = {
   title: contactPage.seo.title,
   description: contactPage.seo.description,
+  alternates: { canonical: "/contact" },
 };
 
 /** Contact page: hero, Get in Touch (email and WhatsApp cards), then the inquiry form. */
