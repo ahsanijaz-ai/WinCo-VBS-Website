@@ -4,6 +4,7 @@ import { ServiceGlyph } from "@/components/brand/ServiceGlyph";
 import { PageLink } from "@/components/ui/PageLink";
 import type { ServiceGroup } from "@/content";
 import { cn } from "@/lib/cn";
+import { twoDigits } from "@/components/sections/services/two-digits";
 
 type GroupTilesProps = {
   groups: Pick<ServiceGroup, "id" | "title" | "icon">[];
@@ -11,9 +12,6 @@ type GroupTilesProps = {
 
 /** The tile shown filled by default, like the featured card on Home (Marketing). */
 const FEATURED_INDEX = 1;
-
-/** Two digits, so the tiles read 01 to 04 like the group numbers further down the page. */
-export const groupNumber = (index: number) => String(index + 1).padStart(2, "0");
 
 /**
  * The Services hero's right-hand block: one tile per service group, each a link to its group
@@ -48,7 +46,7 @@ export function GroupTiles({ groups }: GroupTilesProps) {
                 aria-hidden="true"
                 className="svc-card-title text-ink/45 text-xs font-bold tabular-nums lg:text-sm"
               >
-                {groupNumber(index)}
+                {twoDigits(index)}
               </span>
               <span className="svc-go hidden size-8 shrink-0 items-center justify-center rounded-full border p-1.5 lg:flex">
                 <ArrowDown aria-hidden="true" strokeWidth={1.8} className="size-full" />
