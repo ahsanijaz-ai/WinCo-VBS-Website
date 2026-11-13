@@ -28,7 +28,8 @@ type ServiceGroupSectionProps = {
  *   grid of identical boxes. Each row's divider draws in and the rows fade up one after another;
  *   on hover the divider turns Primary Blue and the text shifts 3 px, like the Why Us points.
  * - Groups alternate white and light grey. The `id` is the anchor the Home cards and the hero
- *   tiles link to; `scroll-padding-top` on the page keeps it clear of the sticky bars.
+ *   tiles link to; `scroll-padding-top` (header) plus
+ *   `scroll-margin-top` (group navigator) keep it clear of both sticky bars.
  */
 export function ServiceGroupSection({ group, index }: ServiceGroupSectionProps) {
   const { id, title, subtitle, intro, icon, services, note } = group;
@@ -40,10 +41,10 @@ export function ServiceGroupSection({ group, index }: ServiceGroupSectionProps) 
       tabIndex={-1}
       tone={index % 2 === 1 ? "alt" : "default"}
       aria-labelledby={headingId}
-      className="focus:outline-none"
+      className="scroll-mt-(--subnav-h) focus:outline-none"
     >
       <Reveal className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-        <RevealUnit className="lg:sticky lg:top-[calc(var(--header-h)+var(--subnav-h,0px)+2rem)] lg:col-span-5 lg:self-start">
+        <RevealUnit className="lg:sticky lg:top-[calc(var(--header-h)+var(--subnav-h)+2rem)] lg:col-span-5 lg:self-start">
           <div className="flex items-end justify-between gap-6">
             <RevealIcon>
               <span className="bg-secondary-tint text-secondary flex size-16 items-center justify-center rounded-xl p-2.5 sm:size-20 sm:p-3">

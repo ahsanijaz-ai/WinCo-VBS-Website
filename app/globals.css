@@ -96,6 +96,7 @@
   --gutter: 1rem; /* page side padding: 16 px */
   --section-y: 4rem; /* top and bottom padding of a section: 64 px */
   --header-h: 4rem; /* header height: 64 px */
+  --subnav-h: 3.5rem; /* Services group navigator under the header: 56 px */
 }
 
 @media (min-width: 768px) {
