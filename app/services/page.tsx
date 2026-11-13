@@ -25,7 +25,12 @@ export default function ServicesPage() {
       <div>
         <GroupNav groups={groups} />
         {groups.map((group, index) => (
-          <ServiceGroupSection key={group.id} group={group} index={index} />
+          <ServiceGroupSection
+            key={group.id}
+            group={group}
+            index={index}
+            discussLabel={closingCta.button.label}
+          />
         ))}
       </div>
       <ClosingCtaSection cta={closingCta} headingId="services-closing-cta" />

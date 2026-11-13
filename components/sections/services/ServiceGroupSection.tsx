@@ -1,4 +1,4 @@
-import { Ruler } from "lucide-react";
+import { ArrowRight, Ruler } from "lucide-react";
 import { ServiceGlyph } from "@/components/brand/ServiceGlyph";
 import { Section } from "@/components/layout/Section";
 import {
@@ -15,19 +15,26 @@ import {
   RevealUnit,
   RevealWords,
 } from "@/components/ui/Reveal";
+import { ButtonLink } from "@/components/ui/ButtonLink";
+import { RollLabel } from "@/components/ui/RollLabel";
 import type { ServiceGroup } from "@/content";
 
 type ServiceGroupSectionProps = {
   group: ServiceGroup;
   /** Position on the page, from 0. Sets the big number (01 to 04) and the background. */
   index: number;
+  /** Text of the group's button, from the content file (the page's closing button text). */
+  discussLabel: string;
 };
 
 /**
  * One service group as a "chapter": the group on the left, its six services on the right.
  *
  * - Left: a large soft number, the glyph, the title (rises word by word), the subtitle
- *   (wipes in) and the intro. From 1024 px it stays in view while the services scroll past.
+ *   (wipes in), the intro and a button to the Contact form with this group already chosen in
+ *   the Service dropdown (`?service=<id>`). From 1024 px it stays in view while the services
+ *   scroll past. The button's accessible name adds the group, so the four buttons differ for
+ *   screen readers; `data-analytics` and `data-service` are for the click counting in task 3.2.
  * - Right: the services as numbered rows, not cards, so 24 services never read as one long
  *   grid of identical boxes. Each row's divider draws in and the rows fade up one after another;
  *   on hover the divider turns Primary Blue and the text shifts 3 px, like the Why Us points.
@@ -37,7 +44,7 @@ type ServiceGroupSectionProps = {
  *   tiles link to; `scroll-padding-top` (header) plus
  *   `scroll-margin-top` (group navigator) keep it clear of both sticky bars.
  */
-export function ServiceGroupSection({ group, index }: ServiceGroupSectionProps) {
+export function ServiceGroupSection({ group, index, discussLabel }: ServiceGroupSectionProps) {
   const { id, title, subtitle, intro, icon, services, note } = group;
   const headingId = `${id}-title`;
 
@@ -82,6 +89,21 @@ export function ServiceGroupSection({ group, index }: ServiceGroupSectionProps) 
             className="mt-4 max-w-[52ch] text-lg leading-8"
           >
             {intro}
+          </RevealFade>
+          <RevealFade as="div" standalone={false} secondary className="mt-8">
+            <ButtonLink
+              href={`/contact?service=${id}#inquiry-form`}
+              aria-label={`${discussLabel}: ${title}`}
+              data-analytics="services-discuss"
+              data-service={id}
+              className="group shadow-secondary/30 shadow-lg"
+            >
+              <RollLabel text={discussLabel} />
+              <ArrowRight
+                aria-hidden="true"
+                className="ease-brand size-5 transition duration-(--motion-base) group-hover:translate-x-1"
+              />
+            </ButtonLink>
           </RevealFade>
         </RevealUnit>
 
