@@ -3,6 +3,7 @@
 import { Plus } from "lucide-react";
 import { useId, useState } from "react";
 import { ServiceItemCard } from "@/components/sections/services/ServiceItemCard";
+import { RevealFade } from "@/components/ui/Reveal";
 import type { Service } from "@/content";
 import { cn } from "@/lib/cn";
 
@@ -27,12 +28,13 @@ export function ServiceList({ services, iconScale }: ServiceListProps) {
     <>
       <ul id={gridId} className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {services.map((service, index) => (
-          <li
+          <RevealFade
             key={service.title}
+            as="li"
             className={cn(index >= MOBILE_VISIBLE && !open && "max-sm:hidden")}
           >
             <ServiceItemCard service={service} iconScale={iconScale} />
-          </li>
+          </RevealFade>
         ))}
       </ul>
 

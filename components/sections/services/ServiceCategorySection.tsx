@@ -21,7 +21,6 @@ type ServiceCategorySectionProps = {
 export function ServiceCategorySection({ group }: ServiceCategorySectionProps) {
   const { id, title, subtitle, intro, cta, bestFor, listLabel, services, note, iconScale } = group;
   const headingId = `${id}-heading`;
-  const listLabelId = `${id}-list-label`;
 
   return (
     <Section id={id} tabIndex={-1} aria-labelledby={headingId} className="scroll-mt-(--header-h)">
@@ -85,9 +84,9 @@ export function ServiceCategorySection({ group }: ServiceCategorySectionProps) {
         </RevealUnit>
 
         <div>
-          <p id={listLabelId} className="text-ink mb-3 text-sm font-semibold">
+          <RevealFade as="p" className="text-ink mb-3 text-sm font-semibold">
             {listLabel}
-          </p>
+          </RevealFade>
           <ServiceList services={services} iconScale={iconScale} />
 
           {note && (
