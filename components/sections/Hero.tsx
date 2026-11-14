@@ -1,6 +1,7 @@
 import { ArrowRight, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { ctaLiftClassName } from "@/components/ui/button-styles";
@@ -21,8 +22,9 @@ type HeroProps = {
    */
   animated?: boolean;
   /**
-   * `pill` (Contact): primary buttons become fully rounded with a Primary Blue gradient and the
-   * arrow in a light circle on the right. Default keeps the standard 8 px button.
+   * `pill` (About, Contact): primary buttons become fully rounded with a Primary Blue gradient,
+   * a chat icon on the left and the arrow in a light circle on the right. Default keeps the
+   * standard 8 px button with no leading icon on a primary button.
    */
   buttonStyle?: "default" | "pill";
   /**
@@ -31,6 +33,11 @@ type HeroProps = {
    * it follows the buttons.
    */
   aside?: ReactNode;
+  /**
+   * A large, low-opacity brand "W" mark in the background on the right (About). Hidden below
+   * 768 px so it never competes with the text on phones.
+   */
+  backgroundMark?: boolean;
 };
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
@@ -86,6 +93,7 @@ export function Hero({
   animated = false,
   buttonStyle = "default",
   aside,
+  backgroundMark = false,
 }: HeroProps) {
   const { title, description, buttons, size, image } = hero;
   const titleId = "hero-title";
@@ -103,23 +111,32 @@ export function Hero({
         <div className="bg-secondary/10 absolute -top-40 -left-40 size-[28rem] rounded-full blur-3xl" />
 
         <svg
-          className="text-secondary/30 absolute top-24 right-8 hidden lg:block"
-          width="120"
-          height="72"
-          viewBox="0 0 120 72"
+          className={cn(
+            "text-secondary/30 absolute hidden lg:block",
+            centered ? "top-16 left-1/2 -translate-x-1/2" : "top-24 right-8",
+          )}
+          width="90"
+          height="54"
+          viewBox="0 0 90 54"
         >
           {[0, 1, 2].map((row) =>
             [0, 1, 2, 3, 4, 5].map((col) => (
               <circle
                 key={`${row}-${col}`}
-                cx={6 + col * 22}
-                cy={6 + row * 28}
-                r="2"
+                cx={5 + col * 16.5}
+                cy={5 + row * 21}
+                r="1.5"
                 fill="currentColor"
               />
             )),
           )}
         </svg>
+
+        {backgroundMark && (
+          <div className="absolute top-1/2 -right-[6%] hidden w-[46%] max-w-2xl -translate-y-1/2 md:block">
+            <LogoMark />
+          </div>
+        )}
 
         <svg
           className="absolute right-0 bottom-0 h-[22%] w-full sm:h-[32%] lg:h-[62%] lg:w-[62%]"
@@ -149,14 +166,14 @@ export function Hero({
         <div
           className={cn(
             "low:gap-6 grid grid-cols-1 gap-12",
-            twoColumns && "lg:grid-cols-12 lg:items-center",
+            twoColumns && !centered && "lg:grid-cols-12 lg:items-center",
           )}
         >
           <div
             className={cn(
               "max-w-2xl",
               centered && "mx-auto max-w-4xl text-center",
-              twoColumns && "lg:col-span-7",
+              twoColumns && !centered && "lg:col-span-7",
             )}
           >
             {illustration && (
@@ -221,7 +238,7 @@ export function Hero({
                           "from-secondary shadow-secondary/35 min-h-14 gap-3 rounded-full bg-linear-to-br to-[color-mix(in_oklab,var(--color-secondary)_72%,var(--color-secondary-hover))] py-2 pr-2 pl-5 whitespace-nowrap sm:gap-4 sm:pl-7",
                       )}
                     >
-                      {variant === "secondary" && (
+                      {(variant === "secondary" || pill) && (
                         <MessageCircle aria-hidden="true" className="size-5" />
                       )}
                       <RollLabel text={label} />
@@ -239,10 +256,14 @@ export function Hero({
             )}
           </div>
 
-          {!image && aside && <div className="lg:col-span-5">{aside}</div>}
+          {!image && aside && (
+            <div className={cn(centered ? "mx-auto w-full max-w-4xl" : "lg:col-span-5")}>
+              {aside}
+            </div>
+          )}
 
           {image && (
-            <div className="lg:col-span-5">
+            <div className={cn(centered ? "mx-auto w-full max-w-2xl" : "lg:col-span-5")}>
               <Image
                 src={image.src}
                 alt={image.alt}

@@ -11,7 +11,7 @@ export const aboutPage: AboutPage = {
     title: "About WinCo VBS",
     description:
       "Tailored business support, strategic guidance, and digital solutions for entrepreneurs, professionals, and organizations.",
-    size: "compact",
+    size: "tall",
     buttons: [{ label: "Let's Talk Business", href: "/contact", variant: "primary" }],
   },
   about: {

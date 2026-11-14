@@ -57,7 +57,6 @@ export function GetInTouchSection({ intro, getInTouch, details }: GetInTouchSect
 
   return (
     <Section
-      tone="alt"
       aria-labelledby="contact-get-in-touch"
       className="relative isolate overflow-hidden pb-[calc(var(--section-y)+4rem)]"
     >

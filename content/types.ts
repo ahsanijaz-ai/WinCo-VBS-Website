@@ -3,6 +3,8 @@
  * so a copy change touches one file and TypeScript catches missing fields.
  */
 
+import type { BrandIconName } from "@/components/brand/service-icons";
+
 /** A link shown as a button. `primary` is solid blue, `secondary` is the blue outline style. */
 export type CtaButton = {
   label: string;
@@ -37,7 +39,6 @@ export type Seo = {
 /** What every page file exports at minimum. */
 export type Page = {
   seo: Seo;
-  hero: Hero;
 };
 
 /** A section heading with an optional second line, e.g. "Why WinCo VBS?" / "Your Business. Our Focus." */
@@ -75,12 +76,20 @@ export type ProcessStep = {
 };
 
 export type Service = {
-  name: string;
+  icon: BrandIconName;
+  title: string;
   description: string;
 };
 
-/** Lucide icon names used by service groups. Icons are imported one by one in the UI. */
+/** Lucide icon names used by the Home "What We Do" cards. */
 export type ServiceIcon = "briefcase" | "megaphone" | "trending-up" | "monitor-smartphone";
+
+/** The problem card shown in "Find your path" that links to its group further down the page. */
+export type ProblemCard = {
+  icon: BrandIconName;
+  title: string;
+  description: string;
+};
 
 export type ServiceGroup = {
   /** Used as the anchor id on /services and as the form dropdown value. */
@@ -88,12 +97,17 @@ export type ServiceGroup = {
   title: string;
   subtitle: string;
   intro: string;
-  icon: ServiceIcon;
+  cta: CtaButton;
+  /** Short badges under the intro, e.g. "Founders", "Busy small teams". */
+  bestFor: string[];
   /** Label above the list, from the copy: "Our Services" (or "Our Solutions" for Technology). */
   listLabel: string;
   services: Service[];
   /** Optional line after the list, e.g. "Technology solutions are scoped and quoted..." */
   note?: string;
+  /** Detailed multi-colour icon sets (Business Strategy) read small at the default size. */
+  iconScale?: "default" | "large";
+  problem: ProblemCard;
 };
 
 export type SocialLink = {
@@ -142,6 +156,7 @@ export type SiteSettings = {
 /* ---------- Page shapes ---------- */
 
 export type HomePage = Page & {
+  hero: Hero;
   intro: TextBlock;
   whatWeDo: SectionHeading & {
     cards: ValuePoint[];
@@ -157,6 +172,7 @@ export type HomePage = Page & {
 };
 
 export type AboutPage = Page & {
+  hero: Hero;
   about: TextBlock;
   mission: TextBlock;
   vision: TextBlock;
@@ -166,10 +182,27 @@ export type AboutPage = Page & {
 };
 
 export type ServicesPage = Page & {
-  /** Line under the hero, e.g. "Explore our solutions below." */
-  intro: string;
+  hero: Hero;
+  /** The "Find your path" section right under the hero: one problem card per group. */
+  findYourPath: {
+    eyebrow: string;
+    heading: string;
+    seeServices: string;
+    unsure: {
+      text: string;
+      consultation: Link;
+      whatsapp: Link;
+      /** Short form shown on phones. */
+      mobile: Link;
+    };
+  };
   groups: ServiceGroup[];
   closingCta: CallToAction;
+};
+
+export type Link = {
+  label: string;
+  href: string;
 };
 
 export type ContactIcon = "mail" | "phone" | "map-pin" | "globe";
@@ -223,6 +256,7 @@ export type GetInTouch = {
 };
 
 export type ContactPage = Page & {
+  hero: Hero;
   /** Shown as the subtitle of the Get in Touch section. */
   intro: string[];
   getInTouch: GetInTouch;
