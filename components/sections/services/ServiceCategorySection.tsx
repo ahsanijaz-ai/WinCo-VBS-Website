@@ -54,11 +54,11 @@ export function ServiceCategorySection({ group }: ServiceCategorySectionProps) {
             <span className="text-text/70 text-xs font-semibold tracking-wide uppercase">
               Best for
             </span>
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-2 flex [scrollbar-width:none] flex-nowrap gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
               {bestFor.map((item) => (
                 <span
                   key={item}
-                  className="border-border bg-primary text-ink rounded-full border px-3 py-1 text-xs font-medium"
+                  className="border-border bg-primary text-ink shrink-0 rounded-full border px-3 py-1 text-xs font-medium whitespace-nowrap"
                 >
                   {item}
                 </span>
