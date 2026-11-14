@@ -26,7 +26,7 @@ export function ServiceCategorySection({ group }: ServiceCategorySectionProps) {
   return (
     <Section id={id} tabIndex={-1} aria-labelledby={headingId} className="scroll-mt-(--header-h)">
       <Reveal className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-[minmax(0,38fr)_minmax(0,62fr)] lg:gap-12">
-        <RevealUnit className="bg-primary border-border flex flex-col items-start rounded-3xl border p-7">
+        <RevealUnit className="bg-primary border-border flex flex-col items-start justify-center rounded-3xl border p-7">
           <RevealWords
             as="h2"
             id={headingId}
@@ -54,7 +54,7 @@ export function ServiceCategorySection({ group }: ServiceCategorySectionProps) {
             <span className="text-text/70 text-xs font-semibold tracking-wide uppercase">
               Best for
             </span>
-            <div className="mt-2 flex [scrollbar-width:none] flex-nowrap gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+            <div className="mt-2 flex [scrollbar-width:none] flex-nowrap gap-2 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-14px),transparent)] [&::-webkit-scrollbar]:hidden">
               {bestFor.map((item) => (
                 <span
                   key={item}
@@ -70,7 +70,7 @@ export function ServiceCategorySection({ group }: ServiceCategorySectionProps) {
             as="div"
             standalone={false}
             secondary
-            className="border-border mt-auto hidden w-full border-t pt-5 sm:block"
+            className="border-border mt-6 hidden w-full border-t pt-5 sm:block"
           >
             <PageLink
               href={site.whatsappUrl}
