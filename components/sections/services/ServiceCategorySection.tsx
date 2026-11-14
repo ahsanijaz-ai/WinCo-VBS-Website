@@ -50,11 +50,11 @@ export function ServiceCategorySection({ group }: ServiceCategorySectionProps) {
             </ButtonLink>
           </RevealFade>
 
-          <RevealFade as="div" standalone={false} secondary className="mt-6">
+          <RevealFade as="div" standalone={false} secondary className="mt-6 w-full min-w-0">
             <span className="text-text/70 text-xs font-semibold tracking-wide uppercase">
               Best for
             </span>
-            <div className="mt-2 flex [scrollbar-width:none] flex-nowrap gap-2 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-14px),transparent)] [&::-webkit-scrollbar]:hidden">
+            <div className="mt-2 flex min-w-0 [scrollbar-width:none] flex-nowrap gap-2 overflow-x-auto [mask-image:linear-gradient(to_right,black_calc(100%-14px),transparent)] [&::-webkit-scrollbar]:hidden">
               {bestFor.map((item) => (
                 <span
                   key={item}
