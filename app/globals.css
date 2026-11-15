@@ -105,7 +105,6 @@
   --gutter: 1rem; /* page side padding: 16 px */
   --section-y: 4rem; /* top and bottom padding of a section: 64 px */
   --header-h: 4rem; /* header height: 64 px */
-  --subnav-h: 3.5rem; /* Services group navigator under the header: 56 px */
 }
 
 @media (min-width: 768px) {
@@ -486,13 +485,6 @@
 
   /* hover: the same fill, only on devices that can hover, so a tap never leaves a card filled */
   @media (hover: hover) {
-    .svc-grid:hover .svc-card--featured:not(:hover) {
-      --svc-icon-bg: var(--color-secondary-tint);
-      --svc-icon-fg: var(--color-secondary);
-      --svc-go-bg: transparent;
-      --svc-go-fg: var(--color-secondary);
-      border-color: var(--color-border) !important;
-    }
     .svc-card:hover {
       --svc-icon-bg: var(--color-primary);
       --svc-icon-fg: var(--color-secondary);
@@ -624,12 +616,14 @@
   .roll-char {
     display: inline-block;
     height: 1.2em;
+    line-height: 1.2;
     overflow: hidden;
     position: relative;
     vertical-align: bottom;
   }
   .roll-char-inner {
     display: block;
+    line-height: 1.2;
     transform: translateY(0);
     transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
     text-shadow: 0 1.2em 0 currentColor;

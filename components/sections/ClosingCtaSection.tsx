@@ -10,16 +10,14 @@ type ClosingCtaSectionProps = {
 };
 
 /**
- * The closing call to action just above the footer, shared by every page: a tinted panel with
- * the heading, a short line and one button. Reveals as it scrolls into view.
+ * The closing call to action just above the footer, shared by every page: same background as
+ * every other section (no banding), with the heading, a short line and one button. Reveals as
+ * it scrolls into view.
  */
 export function ClosingCtaSection({ cta, headingId }: ClosingCtaSectionProps) {
   return (
     <Section fullScreen={false} aria-labelledby={headingId}>
-      <Reveal
-        asUnit
-        className="bg-secondary-tint rounded-card px-6 py-12 text-center sm:px-12 md:py-16"
-      >
+      <Reveal asUnit className="py-12 text-center md:py-16">
         <RevealWords
           as="h2"
           id={headingId}

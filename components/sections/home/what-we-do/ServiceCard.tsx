@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-import { ServiceGlyph } from "@/components/brand/ServiceGlyph";
+import { ServiceLineIcon } from "@/components/brand/ServiceLineIcon";
 import type { ServiceIcon } from "@/content";
 
 type ServiceCardProps = {
@@ -28,8 +28,8 @@ export function ServiceCard({ title, description, href, icon, featured }: Servic
         featured && "svc-card--featured",
       )}
     >
-      <div className="svc-icon flex size-16 shrink-0 items-center justify-center rounded-xl p-2.5">
-        <ServiceGlyph icon={icon} />
+      <div className="svc-icon flex size-16 shrink-0 items-center justify-center rounded-xl p-3">
+        <ServiceLineIcon icon={icon} />
       </div>
       <h3 className="svc-card-title mt-5">{title}</h3>
       <p className="svc-card-text mt-2 flex-1">{description}</p>

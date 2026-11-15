@@ -25,7 +25,7 @@ export function MissionVisionSection({
   ];
 
   return (
-    <Section tone="alt" fullScreen={false} aria-label={`${mission.title}, ${vision.title}`}>
+    <Section fullScreen={false} aria-label={`${mission.title}, ${vision.title}`}>
       <Reveal as="div" className="contents">
         <ul className="grid gap-6 md:grid-cols-2 lg:gap-8">
           {cards.map(({ block, icon: Icon, tone, id }) => (

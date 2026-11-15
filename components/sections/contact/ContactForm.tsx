@@ -20,6 +20,14 @@ import { RevealWords } from "@/components/ui/Reveal";
 import { RollLabel } from "@/components/ui/RollLabel";
 import { countries, servicesPage, type InquiryFieldName, type InquiryForm } from "@/content";
 import { serviceIcons } from "@/lib/service-icons";
+
+/** Same order as `servicesPage.groups`: admin, marketing, strategy, technology. */
+const SERVICE_DROPDOWN_ICONS = [
+  "briefcase",
+  "megaphone",
+  "trending-up",
+  "monitor-smartphone",
+] as const;
 import { HONEYPOT_FIELD, INQUIRY_LIMITS, type InquiryState } from "@/lib/inquiry-schema";
 
 const controls = (serviceOptions: string[]): Record<InquiryFieldName, FieldControl> => ({
@@ -45,8 +53,8 @@ const controls = (serviceOptions: string[]): Record<InquiryFieldName, FieldContr
       value: label,
       label,
       // Same icons as the service groups (Home cards), message bubble for "General Inquiry / Other".
-      icon: servicesPage.groups[index]
-        ? serviceIcons[servicesPage.groups[index].icon]
+      icon: SERVICE_DROPDOWN_ICONS[index]
+        ? serviceIcons[SERVICE_DROPDOWN_ICONS[index]]
         : MessageSquareMore,
     })),
   },

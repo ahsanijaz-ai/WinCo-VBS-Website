@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <Hero hero={homePage.hero} />
+      <Hero hero={homePage.hero} align="center" />
       <IntroSection intro={homePage.intro} />
       <WhatWeDoSection whatWeDo={homePage.whatWeDo} />
       <WhyUsSection whyUs={homePage.whyUs} />

@@ -18,7 +18,6 @@ type ClosingTaglineSectionProps = {
 export function ClosingTaglineSection({ tagline, button }: ClosingTaglineSectionProps) {
   return (
     <Section
-      tone="alt"
       fullScreen={false}
       aria-labelledby="about-closing"
       className="relative isolate overflow-hidden pb-[calc(var(--section-y)+4rem)]"

@@ -8,9 +8,6 @@ import { ServiceCard } from "./what-we-do/ServiceCard";
 
 const HEADING_ID = "home-what-we-do";
 
-/** Index of the card shown in the raised/featured state by default (Marketing & Digital Presence). */
-const FEATURED_INDEX = 1;
-
 /**
  * "What We Do": four illustrated cards, same compact scale as every other card on the site,
  * that fill with colour on hover/focus, then "View All Services". Heading, cards and button
@@ -18,7 +15,7 @@ const FEATURED_INDEX = 1;
  */
 export function WhatWeDoSection({ whatWeDo }: { whatWeDo: HomePage["whatWeDo"] }) {
   return (
-    <Section tone="alt" fullScreen={false} aria-labelledby={HEADING_ID}>
+    <Section fullScreen={false} aria-labelledby={HEADING_ID}>
       <Reveal className="contents">
         <RevealFade as="div">
           <SectionHeading
@@ -36,7 +33,7 @@ export function WhatWeDoSection({ whatWeDo }: { whatWeDo: HomePage["whatWeDo"] }
                 description={description}
                 href={href ?? "/services"}
                 icon={icon ?? "briefcase"}
-                featured={index === FEATURED_INDEX}
+                featured={index === whatWeDo.cards.length - 1}
               />
             </RevealFade>
           ))}
