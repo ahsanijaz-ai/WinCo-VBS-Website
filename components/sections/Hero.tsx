@@ -235,11 +235,15 @@ export function Hero({
                           variant === "primary" &&
                           cn(ctaLiftClassName, "hover:shadow-xl"),
                         pill &&
-                          "from-secondary shadow-secondary/35 min-h-14 gap-3 rounded-full bg-linear-to-br to-[color-mix(in_oklab,var(--color-secondary)_72%,var(--color-secondary-hover))] py-2 pr-2 pl-5 whitespace-nowrap sm:gap-4 sm:pl-7",
+                          "from-secondary shadow-secondary/35 min-h-14 gap-3 rounded-full bg-linear-to-br to-[color-mix(in_oklab,var(--color-secondary)_72%,var(--color-secondary-hover))] py-2 pr-2 pl-5 whitespace-nowrap max-[359px]:gap-2 max-[359px]:pl-4 max-[359px]:text-[15px] sm:gap-4 sm:pl-7",
                       )}
                     >
                       {(variant === "secondary" || pill) && (
-                        <MessageCircle aria-hidden="true" className="size-5" />
+                        <MessageCircle
+                          aria-hidden="true"
+                          // Under 360 px the pill drops this icon so the label fits on one line.
+                          className={cn("size-5", pill && "max-[359px]:hidden")}
+                        />
                       )}
                       <RollLabel text={label} />
                       {pill ? (
