@@ -1,4 +1,4 @@
-import { CalendarDays, Mail, MapPin, MessageCircle, type LucideIcon } from "lucide-react";
+import { CalendarDays, Mail, MapPin, MessageCircle, Phone, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { PageLink } from "@/components/ui/PageLink";
 import type { ReactNode } from "react";
@@ -84,7 +84,7 @@ export function SiteFooter() {
         className="absolute inset-0 -z-10 bg-[radial-gradient(40%_50%_at_8%_10%,color-mix(in_oklab,var(--color-light-blue)_14%,transparent),transparent_70%),radial-gradient(35%_45%_at_100%_100%,color-mix(in_oklab,var(--color-accent)_12%,transparent),transparent_70%)]"
       />
 
-      <div className="w-full px-(--gutter) pt-12 pb-6 md:pt-14 xl:px-16">
+      <div className="w-full px-(--gutter) pt-12 pb-[calc(1.5rem+var(--quick-bar-h))] md:pt-14 md:pb-6 xl:px-16">
         <Reveal className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
           <RevealFade as="div" className="lg:col-span-3">
             <Logo tone="dark" />
@@ -135,17 +135,33 @@ export function SiteFooter() {
             <FooterColumn as="section" id="footer-contact" title={labelOf("/contact")}>
               <ul>
                 <ContactRow icon={MessageCircle} label={site.footerLabels.whatsapp}>
-                  <a
-                    href={site.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={linkClass}
-                  >
-                    {site.phoneDisplay}
-                  </a>
+                  <div className="flex items-center gap-3">
+                    <a
+                      href={site.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-analytics="footer-whatsapp"
+                      className={linkClass}
+                    >
+                      {site.phoneDisplay}
+                    </a>
+                    {/* Tap to call the same number (WBS 2.10). */}
+                    <a
+                      href={`tel:${site.phoneE164}`}
+                      aria-label={`Call ${site.phoneDisplay}`}
+                      data-analytics="footer-call"
+                      className="border-primary/25 text-primary hover:border-accent hover:text-accent ease-brand inline-flex size-11 shrink-0 items-center justify-center rounded-full border transition duration-(--motion-base)"
+                    >
+                      <Phone aria-hidden="true" className="size-4" />
+                    </a>
+                  </div>
                 </ContactRow>
                 <ContactRow icon={Mail} label={site.footerLabels.email}>
-                  <a href={`mailto:${site.email}`} className={`${linkClass} break-all`}>
+                  <a
+                    href={`mailto:${site.email}`}
+                    data-analytics="footer-email"
+                    className={`${linkClass} break-all`}
+                  >
                     {site.email}
                   </a>
                 </ContactRow>
