@@ -9,6 +9,8 @@ import type { ServicesPage } from "@/content";
 const HEADING_ID = "find-your-path-heading";
 
 type FindYourPathSectionProps = {
+  /** The copy's line after the hero: "Explore our solutions below." */
+  intro: string;
   findYourPath: ServicesPage["findYourPath"];
   groups: ServicesPage["groups"];
 };
@@ -20,7 +22,7 @@ type FindYourPathSectionProps = {
  * Closes with a "Not sure which one fits?" bar (consultation and WhatsApp), with a lighter
  * one-line version on phones.
  */
-export function FindYourPathSection({ findYourPath, groups }: FindYourPathSectionProps) {
+export function FindYourPathSection({ intro, findYourPath, groups }: FindYourPathSectionProps) {
   const { eyebrow, heading, seeServices, unsure } = findYourPath;
 
   return (
@@ -34,11 +36,18 @@ export function FindYourPathSection({ findYourPath, groups }: FindYourPathSectio
             {eyebrow}
           </RevealFade>
           <RevealWords
-            as="h1"
+            as="h2"
             id={HEADING_ID}
             text={heading}
-            className="text-ink mt-[10px] mb-[30px] text-[40px] leading-[1.1] font-extrabold tracking-[-0.025em] max-md:mt-[6px] max-md:mb-[16px] max-md:text-[23px]"
+            className="text-ink mt-[10px] text-[40px] leading-[1.1] font-extrabold tracking-[-0.025em] max-md:mt-[6px] max-md:text-[23px]"
           />
+          <RevealFade
+            as="p"
+            secondary
+            className="mt-3 mb-[30px] text-lg leading-7 max-md:mt-2 max-md:mb-[16px] max-md:text-base"
+          >
+            {intro}
+          </RevealFade>
         </div>
 
         <ul className="grid grid-cols-4 gap-[20px] max-lg:grid-cols-2 max-md:grid-cols-1 max-md:gap-[10px]">
@@ -54,9 +63,9 @@ export function FindYourPathSection({ findYourPath, groups }: FindYourPathSectio
                   </span>
                 </RevealIcon>
                 <div>
-                  <h2 className="svc-card-title mt-[16px] mb-[8px] text-[18px] leading-[1.25] font-bold tracking-[-0.01em] max-md:mt-0 max-md:mb-[3px] max-md:text-[15.5px]">
+                  <h3 className="svc-card-title mt-[16px] mb-[8px] text-[18px] leading-[1.25] font-bold tracking-[-0.01em] max-md:mt-0 max-md:mb-[3px] max-md:text-[15.5px]">
                     {problem.title}
-                  </h2>
+                  </h3>
                   <p className="svc-card-text text-[13.5px] leading-[1.5] max-md:text-[12.5px] max-md:leading-[1.4]">
                     {problem.description}
                   </p>
