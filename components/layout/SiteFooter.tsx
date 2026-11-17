@@ -6,6 +6,7 @@ import { Logo } from "@/components/brand/Logo";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { RollLabel } from "@/components/ui/RollLabel";
 import { homePage, servicesPage, site } from "@/content";
+import { cn } from "@/lib/cn";
 import { navItems } from "@/lib/nav-items";
 import { Reveal, RevealFade } from "@/components/ui/Reveal";
 
@@ -41,20 +42,24 @@ function FooterColumn({
   );
 }
 
+/** A contact detail with its icon. Without a label, the icon lines up with the single line. */
 function ContactRow({
   icon: Icon,
   label,
   children,
 }: {
   icon: LucideIcon;
-  label: string;
+  label?: string;
   children: ReactNode;
 }) {
   return (
     <li className="border-primary/15 flex items-start gap-3 border-b py-2 first:pt-0">
-      <Icon aria-hidden="true" className="text-accent mt-2 size-5 shrink-0" />
+      <Icon
+        aria-hidden="true"
+        className={cn("text-accent size-5 shrink-0", label ? "mt-2" : "mt-3")}
+      />
       <div className="min-w-0">
-        <span className="text-primary/70 block pt-2 text-xs leading-4">{label}</span>
+        {label && <span className="text-primary/70 block pt-2 text-xs leading-4">{label}</span>}
         {children}
       </div>
     </li>
@@ -149,7 +154,7 @@ export function SiteFooter() {
                     {site.email}
                   </a>
                 </ContactRow>
-                <ContactRow icon={MapPin} label={site.serviceArea}>
+                <ContactRow icon={MapPin}>
                   <p className="flex min-h-11 items-center">
                     {site.address.city}, {site.address.country}
                   </p>
