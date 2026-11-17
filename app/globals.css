@@ -105,6 +105,8 @@
   --gutter: 1rem; /* page side padding: 16 px */
   --section-y: 4rem; /* top and bottom padding of a section: 64 px */
   --header-h: 4rem; /* header height: 64 px */
+  /* Phone quick-contact bar (QuickContactBar): 12 px + 48 px button + 12 px, plus the iPhone home bar */
+  --quick-bar-h: calc(4.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 @media (min-width: 768px) {
@@ -125,6 +127,10 @@
 @layer base {
   html {
     scroll-padding-top: var(--header-h);
+    /* Under 768 px the quick-contact bar covers the bottom of the screen; keep focus clear of it. */
+    @media (max-width: 767px) {
+      scroll-padding-bottom: var(--quick-bar-h);
+    }
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
