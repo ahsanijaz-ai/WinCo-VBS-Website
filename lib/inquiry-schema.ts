@@ -20,7 +20,7 @@ const optionalText = (max: number) =>
     .default("");
 
 /**
- * Rules for the contact form. The server action validates every submission with this schema,
+ * Rules for the contact form. `submitInquiry` (lib/submit-inquiry.ts) checks every submission with this schema,
  * and the field names match `InquiryFieldName` in content/types.ts.
  */
 export const inquirySchema = z.object({
@@ -57,13 +57,15 @@ export type Inquiry = z.infer<typeof inquirySchema>;
 
 export type InquiryFieldErrors = Partial<Record<InquiryFieldName, string>>;
 
-/** What the server action sends back to the form. */
+/** What `submitInquiry` sends back to the form. */
 export type InquiryState =
   | { status: "idle" }
   | {
       status: "error";
       fieldErrors: InquiryFieldErrors;
       values: Partial<Record<InquiryFieldName, string>>;
+      /** The fields were fine but the message could not be sent (network or Web3Forms error). */
+      sendFailed?: boolean;
     }
   | { status: "success" };
 

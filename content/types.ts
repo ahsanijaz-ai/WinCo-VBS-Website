@@ -240,6 +240,8 @@ export type InquiryForm = {
   successMessage: string;
   /** Small line under the message, next to a clock icon. Drafted, not in the client copy. */
   successNote: string;
+  /** Shown above the button when the inquiry could not be sent. Drafted, not in the client copy. */
+  sendError: string;
 };
 
 /** The "Get in Touch" section under the Contact hero: heading, intro and two contact cards. */
