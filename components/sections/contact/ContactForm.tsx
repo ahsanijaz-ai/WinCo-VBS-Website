@@ -122,7 +122,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
   const values = state.status === "error" ? state.values : {};
 
   return (
-    <form ref={formRef} action={formAction} className="grid gap-6">
+    <form ref={formRef} action={formAction} className="grid grid-cols-1 gap-6">
       <div>
         <RevealWords
           as="h2"
@@ -136,7 +136,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
         </p>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {form.fields.map((field) => (
           <FormField
             // The Service dropdown sets its value once, so give it a new key when the
