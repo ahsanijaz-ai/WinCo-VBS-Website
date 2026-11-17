@@ -74,7 +74,7 @@ export const contactPage: ContactPage = {
       {
         name: "country",
         label: "Country",
-        required: false,
+        required: true,
         placeholder: "Select your country",
       },
       {
@@ -86,7 +86,7 @@ export const contactPage: ContactPage = {
       {
         name: "message",
         label: "Tell Us About Your Business Needs",
-        required: false,
+        required: true,
         placeholder: "Share your requirements, goals, or any specific details...",
       },
     ],

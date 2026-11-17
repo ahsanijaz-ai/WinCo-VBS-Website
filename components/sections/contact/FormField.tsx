@@ -106,6 +106,7 @@ export function FormField({
             placeholder={field.placeholder}
             icon={Icon}
             defaultValue={defaultValue}
+            required={field.required}
             invalid={Boolean(error)}
             describedBy={error ? errorId : undefined}
           />
