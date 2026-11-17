@@ -84,22 +84,26 @@ function ContactRow({
 }
 
 /**
- * Decoration under the brand text: a dotted Teal world map sitting on the glowing top of a
- * globe, for the "all around the world" message. The globe spills past the column to the left
- * edge of the footer and under the services column, and fades out at the bottom.
+ * Decoration under the brand text: a bright dotted world map sitting on the glowing rim of a
+ * large globe, for the "All Around the World" message. The globe is about twice the map's
+ * width, so its curve spills to the footer's left edge and under the services column, and it
+ * fades out above the copyright line.
  */
 function WorldDecor() {
   return (
-    <div aria-hidden="true" className="pointer-events-none relative mt-4 select-none">
-      <div className="absolute top-0 right-[-90%] -bottom-16 left-[-40%] -z-10 overflow-hidden [mask-image:linear-gradient(to_bottom,black_55%,transparent)]">
-        <div className="border-light-blue/50 absolute top-[42%] left-[30%] aspect-square w-[95%] -translate-x-1/2 rounded-full border-t bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--color-light-blue)_10%,transparent),transparent)] shadow-[0_-18px_60px_-20px_var(--color-light-blue)]" />
+    <div
+      aria-hidden="true"
+      className="pointer-events-none relative mt-4 w-full max-w-[22rem] select-none"
+    >
+      <div className="absolute -inset-x-full -top-8 -bottom-14 -z-10 overflow-hidden [mask-image:linear-gradient(to_bottom,black_65%,transparent)]">
+        <div className="border-light-blue/70 absolute top-10 left-1/2 aspect-square w-[70%] -translate-x-1/2 rounded-full border-t-2 bg-[radial-gradient(ellipse_55%_30%_at_50%_0%,color-mix(in_oklab,var(--color-secondary)_55%,transparent),transparent_75%)] shadow-[0_-8px_36px_-6px_color-mix(in_oklab,var(--color-light-blue)_70%,transparent),inset_0_14px_36px_-12px_color-mix(in_oklab,var(--color-light-blue)_60%,transparent)]" />
       </div>
       <Image
         src="/brand/world-dots.svg"
         alt=""
-        width={101}
-        height={52}
-        className="h-auto w-full max-w-[20rem] drop-shadow-[0_0_6px_color-mix(in_oklab,var(--color-accent)_55%,transparent)]"
+        width={59}
+        height={31}
+        className="h-auto w-full drop-shadow-[0_0_4px_color-mix(in_oklab,var(--color-light-blue)_80%,transparent)]"
       />
     </div>
   );
