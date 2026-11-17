@@ -186,7 +186,7 @@ export function Hero({
               id={titleId}
               className={cn(
                 "font-bold",
-                size === "tall" && "text-[clamp(2.25rem,1.4rem+4vw,4rem)]",
+                size === "tall" && "low:text-[2rem] text-[clamp(2.25rem,1.4rem+4vw,4rem)]",
                 fadeUp,
               )}
             >
@@ -206,7 +206,7 @@ export function Hero({
             {buttons && (
               <div
                 className={cn(
-                  "low:mt-6 mt-10 flex flex-col gap-4 sm:flex-row",
+                  "low:mt-5 low:gap-3 mt-10 flex flex-col gap-4 sm:flex-row",
                   centered && "sm:justify-center",
                 )}
               >
