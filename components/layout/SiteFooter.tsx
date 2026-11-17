@@ -1,19 +1,40 @@
-import { CalendarDays, Mail, MapPin, MessageCircle, type LucideIcon } from "lucide-react";
+import { CalendarDays, Mail, MapPin } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { PageLink } from "@/components/ui/PageLink";
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 import { Logo } from "@/components/brand/Logo";
+import { WhatsAppIcon } from "@/components/brand/WhatsAppIcon";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { PageLink } from "@/components/ui/PageLink";
+import { Reveal, RevealFade } from "@/components/ui/Reveal";
 import { RollLabel } from "@/components/ui/RollLabel";
 import { homePage, servicesPage, site } from "@/content";
 import { navItems } from "@/lib/nav-items";
-import { Reveal, RevealFade } from "@/components/ui/Reveal";
 
 /** Footer link: white text, Teal on hover (brand rule 6: Primary Blue fails on navy). */
 const linkClass =
   "inline-flex min-h-11 items-center text-primary underline-offset-4 transition-colors duration-(--motion-base) ease-brand hover:text-accent hover:underline";
 
-const headingClass = "text-primary mb-4 text-lg font-semibold";
+const headingClass = "text-primary mb-3 text-xl font-bold tracking-tight 2xl:text-2xl";
+
+/**
+ * `text` with its `highlight` words large, extra bold and Teal (Teal on navy passes contrast,
+ * brand rule 4). Falls back to plain text if the words are not in the sentence.
+ */
+function HighlightedText({ text, highlight }: { text: string; highlight: string }) {
+  const start = highlight ? text.indexOf(highlight) : -1;
+  if (start === -1) return text;
+  const end = start + highlight.length;
+  return (
+    <>
+      {text.slice(0, start)}
+      <strong className="text-accent text-xl leading-tight font-extrabold 2xl:text-2xl">
+        {text.slice(start, end)}
+      </strong>
+      {text.slice(end)}
+    </>
+  );
+}
 
 const labelOf = (href: string) => navItems.find((item) => item.href === href)?.label ?? "";
 
@@ -41,34 +62,55 @@ function FooterColumn({
   );
 }
 
+/** A contact detail: a large Teal icon, then a small white label over the bold value. */
 function ContactRow({
   icon: Icon,
   label,
   children,
 }: {
-  icon: LucideIcon;
-  label: string;
+  icon: ComponentType<{ className?: string; "aria-hidden"?: true }>;
+  label?: string;
   children: ReactNode;
 }) {
   return (
-    <li className="border-primary/15 flex items-start gap-3 border-b py-2 first:pt-0">
-      <Icon aria-hidden="true" className="text-accent mt-2 size-5 shrink-0" />
-      <div className="min-w-0">
-        <span className="text-primary/70 block pt-2 text-xs leading-4">{label}</span>
+    <li className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0 2xl:gap-4">
+      <Icon aria-hidden={true} className="text-accent size-7 shrink-0 2xl:size-8" />
+      <div className="min-w-0 font-bold">
+        {label && <span className="text-primary block text-sm font-normal">{label}</span>}
         {children}
       </div>
     </li>
   );
 }
 
+/** Decoration under the brand text: a bright dotted world map for "All Around the World". */
+function WorldDecor() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none relative mt-4 w-full max-w-[22rem] select-none"
+    >
+      <Image
+        src="/brand/world-dots.svg"
+        alt=""
+        width={59}
+        height={31}
+        className="h-auto w-full drop-shadow-[0_0_4px_color-mix(in_oklab,var(--color-light-blue)_80%,transparent)]"
+      />
+    </div>
+  );
+}
+
 /**
- * Site footer on every page: Deep Navy, white text (docs/brand.md, rule 6).
+ * Site footer on every page: Deep Navy, white text (docs/brand.md, rule 6). Follows the
+ * client-approved footer mockup.
  *
  * - Content uses the full screen width with the page gutter (wider gutter from 1280 px),
  *   not the 1280 px page container, so the footer reads as one full-width band.
- * - Four columns from 1024 px (3, 3, 2 and 4 of 12): brand, services, quick links, contact.
- *   The contact column is widest so the consultation button stays on one line. Two columns from
- *   640 px, one on phones. Spacing is kept tight so the footer fits below the header on a laptop.
+ * - Four columns from 1024 px (brand and contact widest), two from 640 px, one on phones. Sizes
+ *   stay compact on laptops (and zoomed-in screens) and grow to the mockup sizes from 1536 px. The brand column has the large tagline, the sentence with
+ *   "All Around the World." in large Teal, and the dotted world map.
+ * - Contact rows: large Teal icons, small white labels, bold values, thin lines between rows.
  * - Focus rings inside the footer are Teal, because Primary Blue on navy is only about 1.7:1.
  * - Social links without a URL are hidden; their row hides too when none are left.
  */
@@ -78,18 +120,22 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-navy text-primary [&_:focus-visible]:outline-accent relative isolate overflow-hidden">
-      {/* Soft Light Blue glows, decoration only. */}
+      {/* Deeper navy at the top left, a soft lift at the bottom right. Decoration only. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(40%_50%_at_8%_10%,color-mix(in_oklab,var(--color-light-blue)_14%,transparent),transparent_70%),radial-gradient(35%_45%_at_100%_100%,color-mix(in_oklab,var(--color-accent)_12%,transparent),transparent_70%)]"
+        className="absolute inset-0 -z-20 bg-[linear-gradient(160deg,color-mix(in_oklab,var(--color-navy)_70%,var(--color-ink))_0%,var(--color-navy)_60%,color-mix(in_oklab,var(--color-navy)_88%,var(--color-light-blue))_100%)]"
       />
 
       <div className="w-full px-(--gutter) pt-12 pb-6 md:pt-14 xl:px-16">
-        <Reveal className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
-          <RevealFade as="div" className="lg:col-span-3">
-            <Logo tone="dark" />
-            <p className="mt-6 font-semibold">{site.tagline}</p>
-            <p className="text-primary/80 mt-2 max-w-[40ch]">{site.footerText}</p>
+        <Reveal className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_1.1fr_0.6fr_1.3fr] 2xl:gap-x-12">
+          <RevealFade as="div">
+            <Logo tone="dark" className="[&_img]:h-9 2xl:[&_img]:h-11" />
+            <p className="mt-3 max-w-[22ch] text-xl leading-tight font-bold tracking-tight 2xl:text-2xl">
+              {site.tagline}
+            </p>
+            <p className="mt-3 max-w-[36ch] text-base leading-7 2xl:text-lg">
+              <HighlightedText text={site.footerText} highlight={site.footerHighlight} />
+            </p>
             {socials.length > 0 && (
               <ul aria-label={site.footerHeadings.social} className="mt-6 flex flex-wrap gap-x-6">
                 {socials.map(({ name, href }) => (
@@ -101,14 +147,15 @@ export function SiteFooter() {
                 ))}
               </ul>
             )}
+            <WorldDecor />
           </RevealFade>
 
-          <RevealFade as="div" className="lg:col-span-3">
+          <RevealFade as="div">
             <FooterColumn id="footer-services" title={labelOf("/services")}>
-              <ul>
+              <ul className="pl-2 text-base 2xl:text-lg">
                 {servicesPage.groups.map(({ id, title }) => (
                   <li key={id}>
-                    <Link href={`/services#${id}`} className={linkClass}>
+                    <Link href={`/services#${id}`} className={`${linkClass} py-1 leading-6`}>
                       {title}
                     </Link>
                   </li>
@@ -117,9 +164,9 @@ export function SiteFooter() {
             </FooterColumn>
           </RevealFade>
 
-          <RevealFade as="div" className="lg:col-span-2">
+          <RevealFade as="div">
             <FooterColumn id="footer-quick-links" title={site.footerHeadings.quickLinks}>
-              <ul>
+              <ul className="pl-2 text-base 2xl:text-lg">
                 {navItems.map(({ href, label }) => (
                   <li key={href}>
                     <PageLink href={href} className={linkClass}>
@@ -131,40 +178,43 @@ export function SiteFooter() {
             </FooterColumn>
           </RevealFade>
 
-          <RevealFade as="div" className="lg:col-span-4">
+          <RevealFade as="div">
             <FooterColumn as="section" id="footer-contact" title={labelOf("/contact")}>
-              <ul>
-                <ContactRow icon={MessageCircle} label={site.footerLabels.whatsapp}>
+              <ul className="divide-primary/30 divide-y text-base 2xl:text-lg">
+                <ContactRow icon={WhatsAppIcon} label={site.footerLabels.whatsapp}>
                   <a
                     href={site.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={linkClass}
+                    className={`${linkClass} min-h-8`}
                   >
                     {site.phoneDisplay}
                   </a>
                 </ContactRow>
                 <ContactRow icon={Mail} label={site.footerLabels.email}>
-                  <a href={`mailto:${site.email}`} className={`${linkClass} break-all`}>
+                  <a href={`mailto:${site.email}`} className={`${linkClass} min-h-8 break-all`}>
                     {site.email}
                   </a>
                 </ContactRow>
-                <ContactRow icon={MapPin} label={site.serviceArea}>
+                <ContactRow icon={MapPin}>
                   <p className="flex min-h-11 items-center">
                     {site.address.city}, {site.address.country}
                   </p>
                 </ContactRow>
               </ul>
-              <ButtonLink href={cta.href} className="mt-5 w-full sm:w-full sm:whitespace-nowrap">
-                <CalendarDays aria-hidden="true" className="size-5" />
+              <ButtonLink
+                href={cta.href}
+                className="mt-5 w-full rounded-xl px-4 sm:w-full sm:whitespace-nowrap 2xl:min-h-13 2xl:text-lg"
+              >
+                <CalendarDays aria-hidden="true" className="size-5 2xl:size-6" />
                 <RollLabel text={cta.label} />
               </ButtonLink>
             </FooterColumn>
           </RevealFade>
         </Reveal>
 
-        <div className="border-primary/15 mt-10 border-t pt-6">
-          <p className="text-primary/80 text-sm">{site.copyright}</p>
+        <div className="border-primary/40 mt-8 border-t pt-5">
+          <p className="text-primary text-sm 2xl:text-base">{site.copyright}</p>
         </div>
       </div>
     </footer>

@@ -17,7 +17,8 @@ export const site: SiteSettings = {
   serviceArea: "All around the world, internationally",
   location: "Barbados | Caribbean | Serving Clients Around the World (Internationally)",
   footerText:
-    "Business support, strategic guidance, and digital solutions for businesses all around the world",
+    "Business support, strategic guidance, and digital solutions for businesses All Around the World.",
+  footerHighlight: "All Around the World.",
   footerHeadings: {
     quickLinks: "Quick Links",
     social: "Social Media",

@@ -143,6 +143,8 @@ export type SiteSettings = {
   serviceArea: string;
   location: string;
   footerText: string;
+  /** Words inside `footerText` shown bold in Teal, e.g. the worldwide reach. */
+  footerHighlight: string;
   footerHeadings: FooterHeadings;
   /** Labels before the email and WhatsApp number in the footer, as in the copy. */
   footerLabels: {
