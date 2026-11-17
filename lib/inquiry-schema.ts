@@ -41,12 +41,9 @@ export const inquirySchema = z.object({
     .optional()
     .default(""),
   country: z.enum(countries, { error: "Please choose your country from the list." }),
-  service: z
-    .union([z.enum(contactPage.form.serviceOptions as [string, ...string[]]), z.literal("")], {
-      error: "Please choose a service from the list.",
-    })
-    .optional()
-    .default(""),
+  service: z.enum(contactPage.form.serviceOptions as [string, ...string[]], {
+    error: "Please choose a service from the list.",
+  }),
   message: z
     .string()
     .trim()

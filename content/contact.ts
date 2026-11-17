@@ -80,7 +80,7 @@ export const contactPage: ContactPage = {
       {
         name: "service",
         label: "Service Interested In",
-        required: false,
+        required: true,
         placeholder: "Select a service",
       },
       {
