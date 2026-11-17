@@ -35,7 +35,12 @@ const CARD_TONE = [
 ] as const;
 
 /** Ascending card height from lg+, tallest on the final step, read clearly as a staircase. */
-const CARD_HEIGHT = ["lg:h-[260px]", "lg:h-[300px]", "lg:h-[345px]", "lg:h-[395px]"] as const;
+const CARD_HEIGHT = [
+  "lg:min-h-[260px]",
+  "lg:min-h-[300px]",
+  "lg:min-h-[345px]",
+  "lg:min-h-[395px]",
+] as const;
 
 /**
  * "How We Work": four illustrated steps. The heading, then each card, reveals one after another
