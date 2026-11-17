@@ -74,24 +74,25 @@ export const contactPage: ContactPage = {
       {
         name: "country",
         label: "Country",
-        required: false,
+        required: true,
         placeholder: "Select your country",
       },
       {
         name: "service",
         label: "Service Interested In",
-        required: false,
+        required: true,
         placeholder: "Select a service",
       },
       {
         name: "message",
         label: "Tell Us About Your Business Needs",
-        required: false,
+        required: true,
         placeholder: "Share your requirements, goals, or any specific details...",
       },
     ],
     // Same titles as the service groups, so the two lists can't drift apart.
     serviceOptions: [...servicesPage.groups.map((group) => group.title), "General Inquiry / Other"],
+    optionalLabel: "Optional",
     submitLabel: "Send Inquiry",
     successTitle: "Inquiry Sent Successfully",
     successMessage:

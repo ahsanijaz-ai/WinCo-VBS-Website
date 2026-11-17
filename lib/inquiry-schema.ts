@@ -40,17 +40,15 @@ export const inquirySchema = z.object({
     .regex(/^[0-9+()\-.\s]*$/, { error: "Please use only numbers, spaces and + ( ) -." })
     .optional()
     .default(""),
-  country: z
-    .union([z.enum(countries), z.literal("")], { error: "Please choose a country from the list." })
-    .optional()
-    .default(""),
-  service: z
-    .union([z.enum(contactPage.form.serviceOptions as [string, ...string[]]), z.literal("")], {
-      error: "Please choose a service from the list.",
-    })
-    .optional()
-    .default(""),
-  message: optionalText(INQUIRY_LIMITS.message),
+  country: z.enum(countries, { error: "Please choose your country from the list." }),
+  service: z.enum(contactPage.form.serviceOptions as [string, ...string[]], {
+    error: "Please choose a service from the list.",
+  }),
+  message: z
+    .string()
+    .trim()
+    .min(1, { error: "Please tell us a little about your business needs." })
+    .max(INQUIRY_LIMITS.message, { error: "Please keep this under 3000 characters." }),
 }) satisfies z.ZodType<Partial<Record<InquiryFieldName, string>>>;
 
 export type Inquiry = z.infer<typeof inquirySchema>;

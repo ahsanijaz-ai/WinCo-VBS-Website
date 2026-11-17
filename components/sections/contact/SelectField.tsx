@@ -21,6 +21,7 @@ type SelectFieldProps = {
   /** Icon in the tile at the left of the field. */
   icon: LucideIcon;
   defaultValue?: string;
+  required?: boolean;
   invalid?: boolean;
   describedBy?: string;
 };
@@ -46,6 +47,7 @@ export function SelectField({
   placeholder,
   icon: Icon,
   defaultValue = "",
+  required,
   invalid,
   describedBy,
 }: SelectFieldProps) {
@@ -172,6 +174,7 @@ export function SelectField({
         aria-controls={listId}
         aria-labelledby={`${labelId} ${id}`}
         aria-activedescendant={open ? `${listId}-${active}` : undefined}
+        aria-required={required || undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
         onClick={() => (open ? setOpen(false) : openList(selectedIndex))}
