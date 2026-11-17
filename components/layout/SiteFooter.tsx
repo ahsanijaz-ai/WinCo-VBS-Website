@@ -83,21 +83,13 @@ function ContactRow({
   );
 }
 
-/**
- * Decoration under the brand text: a bright dotted world map sitting on the glowing rim of a
- * large globe, for the "All Around the World" message. The globe is about twice the map's
- * width, so its curve spills to the footer's left edge and under the services column, and it
- * fades out above the copyright line.
- */
+/** Decoration under the brand text: a bright dotted world map for "All Around the World". */
 function WorldDecor() {
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none relative mt-4 w-full max-w-[22rem] select-none"
     >
-      <div className="absolute -inset-x-full -top-8 -bottom-14 -z-10 overflow-hidden [mask-image:linear-gradient(to_bottom,black_65%,transparent)]">
-        <div className="border-light-blue/70 absolute top-10 left-1/2 aspect-square w-[70%] -translate-x-1/2 rounded-full border-t-2 bg-[radial-gradient(ellipse_55%_30%_at_50%_0%,color-mix(in_oklab,var(--color-secondary)_55%,transparent),transparent_75%)] shadow-[0_-8px_36px_-6px_color-mix(in_oklab,var(--color-light-blue)_70%,transparent),inset_0_14px_36px_-12px_color-mix(in_oklab,var(--color-light-blue)_60%,transparent)]" />
-      </div>
       <Image
         src="/brand/world-dots.svg"
         alt=""
@@ -117,7 +109,7 @@ function WorldDecor() {
  *   not the 1280 px page container, so the footer reads as one full-width band.
  * - Four columns from 1024 px (brand and contact widest), two from 640 px, one on phones. Sizes
  *   stay compact on laptops (and zoomed-in screens) and grow to the mockup sizes from 1536 px. The brand column has the large tagline, the sentence with
- *   "All Around the World." in large Teal, and the dotted world map on a glowing globe.
+ *   "All Around the World." in large Teal, and the dotted world map.
  * - Contact rows: large Teal icons, small white labels, bold values, thin lines between rows.
  * - Focus rings inside the footer are Teal, because Primary Blue on navy is only about 1.7:1.
  * - Social links without a URL are hidden; their row hides too when none are left.
