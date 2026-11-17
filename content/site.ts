@@ -26,6 +26,10 @@ export const site: SiteSettings = {
     email: "Email",
     whatsapp: "WhatsApp",
   },
+  quickContact: {
+    whatsapp: "WhatsApp",
+    consultation: { label: "Free Consultation", href: "/contact#inquiry-form" },
+  },
   copyright: "© 2026 WinCo VBS. All rights reserved.",
   // TODO: real profile URLs from the client.
   socials: [

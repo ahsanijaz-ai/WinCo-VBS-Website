@@ -15,6 +15,7 @@ export const servicesPage: ServicesPage = {
       "From everyday business support to strategic improvements and technology, WinCo VBS provides flexible services designed to help your business operate more effectively.",
     size: "compact",
   },
+  intro: "Explore our solutions below.",
   findYourPath: {
     eyebrow: "What do you need help with?",
     heading: "Start with the problem. We'll match the service.",

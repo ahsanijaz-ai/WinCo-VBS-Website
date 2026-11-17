@@ -149,6 +149,11 @@ export type SiteSettings = {
     email: string;
     whatsapp: string;
   };
+  /** The quick-contact bar fixed to the bottom of the screen on phones, on every page. */
+  quickContact: {
+    whatsapp: string;
+    consultation: Link;
+  };
   copyright: string;
   socials: SocialLink[];
 };
@@ -183,6 +188,8 @@ export type AboutPage = Page & {
 
 export type ServicesPage = Page & {
   hero: Hero;
+  /** Line after the hero, from the copy: "Explore our solutions below." */
+  intro: string;
   /** The "Find your path" section right under the hero: one problem card per group. */
   findYourPath: {
     eyebrow: string;
