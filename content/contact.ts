@@ -97,5 +97,6 @@ export const contactPage: ContactPage = {
     successMessage:
       "Thank you for contacting WinCo VBS. We've received your inquiry and will be in touch as soon as possible.",
     successNote: "Our team will review your request shortly.",
+    sendError: `Sorry, your inquiry could not be sent. Please try again, or email us at ${site.email}.`,
   },
 };

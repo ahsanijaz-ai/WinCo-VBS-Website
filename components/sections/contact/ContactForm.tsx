@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  AlertCircle,
   Building2,
   Layers,
   Mail,
@@ -12,7 +13,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useActionState, useEffect, useRef, useSyncExternalStore } from "react";
-import { submitInquiry } from "@/app/contact/actions";
 import { FormField, type FieldControl } from "@/components/sections/contact/FormField";
 import { InquirySuccess } from "@/components/sections/contact/InquirySuccess";
 import { buttonClassName } from "@/components/ui/button-styles";
@@ -20,6 +20,7 @@ import { RevealWords } from "@/components/ui/Reveal";
 import { RollLabel } from "@/components/ui/RollLabel";
 import { countries, servicesPage, type InquiryFieldName, type InquiryForm } from "@/content";
 import { serviceIcons } from "@/lib/service-icons";
+import { submitInquiry } from "@/lib/submit-inquiry";
 
 /** Same order as `servicesPage.groups`: admin, marketing, strategy, technology. */
 const SERVICE_DROPDOWN_ICONS = [
@@ -108,10 +109,12 @@ export function ContactForm({ form }: { form: InquiryForm }) {
     if (state.status === "success") successHeadingRef.current?.focus();
   }, [state]);
 
-  // After a failed submit, move focus to the first field with an error.
+  // After a failed submit, move focus to the first field with an error, or to the send error.
   useEffect(() => {
     if (state.status !== "error") return;
-    formRef.current?.querySelector<HTMLElement>("[aria-invalid='true']")?.focus();
+    formRef.current
+      ?.querySelector<HTMLElement>("[aria-invalid='true'], #inquiry-send-error")
+      ?.focus();
   }, [state]);
 
   if (state.status === "success") {
@@ -120,6 +123,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
 
   const errors = state.status === "error" ? state.fieldErrors : {};
   const values = state.status === "error" ? state.values : {};
+  const sendFailed = state.status === "error" && state.sendFailed;
 
   return (
     <form ref={formRef} action={formAction} className="grid grid-cols-1 gap-6">
@@ -165,6 +169,18 @@ export function ContactForm({ form }: { form: InquiryForm }) {
           autoComplete="off"
         />
       </div>
+
+      {sendFailed && (
+        <p
+          id="inquiry-send-error"
+          role="alert"
+          tabIndex={-1}
+          className="text-error flex items-start gap-2 font-medium"
+        >
+          <AlertCircle aria-hidden="true" className="mt-0.5 size-5 shrink-0" />
+          {form.sendError}
+        </p>
+      )}
 
       <div>
         <button
