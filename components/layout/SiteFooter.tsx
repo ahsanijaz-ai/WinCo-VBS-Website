@@ -16,6 +16,23 @@ const linkClass =
 
 const headingClass = "text-primary mb-4 text-lg font-semibold";
 
+/**
+ * `text` with its `highlight` words in bold Teal (Teal on navy passes contrast, brand rule 4).
+ * Falls back to plain text if the words are not in the sentence.
+ */
+function HighlightedText({ text, highlight }: { text: string; highlight: string }) {
+  const start = highlight ? text.indexOf(highlight) : -1;
+  if (start === -1) return text;
+  const end = start + highlight.length;
+  return (
+    <>
+      {text.slice(0, start)}
+      <strong className="text-accent font-bold">{text.slice(start, end)}</strong>
+      {text.slice(end)}
+    </>
+  );
+}
+
 const labelOf = (href: string) => navItems.find((item) => item.href === href)?.label ?? "";
 
 /** A titled footer column: a `<nav>` for link lists, a `<section>` for contact details. */
@@ -94,7 +111,9 @@ export function SiteFooter() {
           <RevealFade as="div" className="lg:col-span-3">
             <Logo tone="dark" />
             <p className="mt-6 font-semibold">{site.tagline}</p>
-            <p className="text-primary/80 mt-2 max-w-[40ch]">{site.footerText}</p>
+            <p className="text-primary/80 mt-2 max-w-[40ch]">
+              <HighlightedText text={site.footerText} highlight={site.footerHighlight} />
+            </p>
             {socials.length > 0 && (
               <ul aria-label={site.footerHeadings.social} className="mt-6 flex flex-wrap gap-x-6">
                 {socials.map(({ name, href }) => (

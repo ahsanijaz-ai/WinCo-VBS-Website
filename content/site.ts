@@ -18,6 +18,7 @@ export const site: SiteSettings = {
   location: "Barbados | Caribbean | Serving Clients Around the World (Internationally)",
   footerText:
     "Business support, strategic guidance, and digital solutions for businesses all around the world",
+  footerHighlight: "all around the world",
   footerHeadings: {
     quickLinks: "Quick Links",
     social: "Social Media",
