@@ -92,6 +92,7 @@ export const contactPage: ContactPage = {
     ],
     // Same titles as the service groups, so the two lists can't drift apart.
     serviceOptions: [...servicesPage.groups.map((group) => group.title), "General Inquiry / Other"],
+    optionalLabel: "Optional",
     submitLabel: "Send Inquiry",
     successTitle: "Inquiry Sent Successfully",
     successMessage:

@@ -234,6 +234,8 @@ export type InquiryForm = {
   fields: InquiryField[];
   /** Options for the "Service Interested In" dropdown. */
   serviceOptions: string[];
+  /** Small tag after the label of every field that is not required. */
+  optionalLabel: string;
   submitLabel: string;
   /** Heading of the success panel. Drafted, not in the client copy. */
   successTitle: string;

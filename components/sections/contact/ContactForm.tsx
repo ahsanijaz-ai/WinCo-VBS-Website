@@ -153,6 +153,7 @@ export function ContactForm({ form }: { form: InquiryForm }) {
             defaultValue={
               values[field.name] ?? (field.name === "service" ? preselectedService : undefined)
             }
+            optionalLabel={form.optionalLabel}
             className={fullWidth.includes(field.name) ? "md:col-span-2" : undefined}
           />
         ))}

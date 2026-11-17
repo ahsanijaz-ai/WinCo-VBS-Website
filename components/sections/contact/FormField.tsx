@@ -23,6 +23,8 @@ type FormFieldProps = {
   icon: LucideIcon;
   error?: string;
   defaultValue?: string;
+  /** Tag shown after the label when the field is not required, e.g. "Optional". */
+  optionalLabel: string;
   className?: string;
 };
 
@@ -46,6 +48,7 @@ export function FormField({
   icon: Icon,
   error,
   defaultValue,
+  optionalLabel,
   className,
 }: FormFieldProps) {
   const id = `inquiry-${field.name}`;
@@ -77,11 +80,18 @@ export function FormField({
     <div className={className}>
       <label id={labelId} htmlFor={id} className="text-ink mb-2 block font-semibold">
         {field.label}
-        {field.required && (
+        {field.required ? (
           <span aria-hidden="true" className="text-secondary">
             {" "}
             *
           </span>
+        ) : (
+          <>
+            {" "}
+            <span className="bg-primary-alt border-border text-text ml-1 inline-block rounded-full border px-2 py-0.5 align-middle text-xs font-medium">
+              {optionalLabel}
+            </span>
+          </>
         )}
       </label>
 
